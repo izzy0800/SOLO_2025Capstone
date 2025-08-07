@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 498253721416304299}
   - component: {fileID: 498253721416304276}
   - component: {fileID: 498253721416304278}
-  - component: {fileID: 498253721416304279}
+  - component: {fileID: 8668498877643125294}
   m_Layer: 0
   m_Name: LittleGhost_LP (1)
   m_TagString: Untagged
@@ -375,7 +375,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &498253721416304279
+--- !u!136 &8668498877643125294
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -394,10 +394,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.145118
-  m_Height: 0.73960495
+  m_Radius: 0.5
+  m_Height: 1
   m_Direction: 1
-  m_Center: {x: -0.0075883865, y: 0.33836842, z: 0.00768137}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &498253721421649741
 GameObject:
   m_ObjectHideFlags: 0
