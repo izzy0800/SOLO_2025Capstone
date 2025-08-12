@@ -57,7 +57,7 @@ public class Block : MonoBehaviour
         return true;
     }
 
-    private List<Vector2Int> GetOccupiedCellsAt(Vector2Int pos)
+    private List<Vector2Int> GetOccupiedCells(Vector2Int pos)
     {
         List<Vector2Int> cells = new List<Vector2Int>();
         for (int x = 0; x < Size.x; x++)
