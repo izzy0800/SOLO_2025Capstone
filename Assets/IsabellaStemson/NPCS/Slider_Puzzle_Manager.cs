@@ -7,8 +7,23 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
     public static Slider_Puzzle_Manager Instance;
 
-    public Vector2 cellSize = new Vector2(100, 100);
-    public Vector2 gridOrigin = Vector2.zero;
+    public RectTransform puzzleBoardRect;
+
+    public Vector2 cellSize;
+    public Vector2 gridOrigin;
+
+    public GameObject puzzlePanel;
+    public int gridWidth = 6;
+    public int gridHeight = 6;
+
+    public Block[] blocks; //obsticals
+    public Block goalBlock; //player
+
+    public bool[,] grid;
+    public Canvas canvas;
+
+    //this is the Exit location of the grid (the goal of the mini game)
+    public Vector2Int exitCell;
 
     private void Awake()
     {
@@ -18,6 +33,31 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        if (canvas == null)
+            canvas = GetComponentInParent<Canvas>();
+
+    }
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        if (canvas == null)
+        {
+            Debug.LogError("Canvas not assigned or found in parent!");
+            return;
+        }
+
+        //grabbing canvas height and width
+        RectTransform boardRect = puzzleBoardRect; 
+        float boardWidth = boardRect.rect.width;
+        float boardHeight = boardRect.rect.height;
+
+        cellSize = new Vector2(boardWidth / gridWidth, boardHeight / gridHeight);
+        gridOrigin = new Vector2(-boardWidth / 2f, -boardHeight / 2f);
+
+        grid = new bool[gridWidth, gridHeight];
+        UpdateGrid();
     }
 
     public Vector2 GetNearestCellPosition(RectTransform block)
@@ -37,8 +77,10 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         //check for collisions with other blocks
         for (int checkY = nearestY; checkY < nearestY + heightCells; checkY++)
         {
+            
             for (int checkX = nearestX; checkX < nearestX + widthCells; checkX++)
             {
+                
                 if (grid[checkX, checkY])
                 {
                     return block.anchoredPosition;
@@ -53,24 +95,6 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
     }
 
-    public GameObject puzzlePanel;
-    public int gridWidth = 6;
-    public int gridHeight = 6;
-    public Block[] blocks; //obsticals
-    public Block goalBlock; //player
-
-    public bool[,] grid;
-
-    //this is the Exit location of the grid (the goal of the mini game)
-    public Vector2Int exitCell;
-
-    // Start is called before the first frame update
-    private void Start()
-    { 
-        grid = new bool[gridWidth, gridHeight];
-        UpdateGrid();
-    }
-
     // Update is called once per frame
     public void UpdateGrid()
     {
@@ -80,6 +104,12 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         {
             foreach (Vector2Int cell in b.GetOccupiedCells())
             {
+                if (cell.x < 0 || cell.x >= gridWidth || cell.y < 0 || cell.y >= gridHeight)
+                {
+                    Debug.LogError($"Block {b.name} has out-of-bounds cell: {cell}");
+                    continue;
+                }
+                
                 grid[cell.x, cell.y] = true;
             }
         }
@@ -112,6 +142,25 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void OnDrawGizmos()
+    {
+        if (gridWidth <= 0 || gridHeight <= 0 || puzzleBoardRect == null) return;
+        Gizmos.color = Color.green;
+
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridHeight; y++)
+            {
+                Vector3 pos = puzzleBoardRect.position + new Vector3(
+                    gridOrigin.x + x * cellSize.x + cellSize.x / 2f,
+                    gridOrigin.y + y * cellSize.y + cellSize.y / 2f, 0);
+
+                Vector3 size = new Vector3(cellSize.x, cellSize.y, 0);
+                Gizmos.DrawWireCube(pos, size);
+            }
+        }
     }
 
 }
