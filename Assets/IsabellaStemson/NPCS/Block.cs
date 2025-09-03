@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Block : MonoBehaviour
@@ -91,6 +92,16 @@ public class Block : MonoBehaviour
             int moveAmount = Mathf.RoundToInt(-dragDelta.y); // inverted Y
             TryMove(moveAmount);
         }
+    }
+
+    private void OnMouseUp()
+    {
+        //Let go
+        //Get the slot that we're over (mouse raycast to slot)
+
+        //IF NOT OCCUPIED
+        //Put block in slot
+        //puzzleSlot.PlaceBlock(this); :)
     }
 
     //private void OnMouseDrag()

@@ -9,6 +9,9 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
     public RectTransform puzzleBoardRect;
 
+    public GameObject puzzleBoardSlots;
+    public PuzzleSlot[] puzzleSlots;
+
     public Vector2 cellSize;
     public Vector2 gridOrigin;
 
@@ -36,6 +39,12 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
         if (canvas == null)
             canvas = GetComponentInParent<Canvas>();
+
+        puzzleSlots = puzzleBoardSlots.GetComponentsInChildren<PuzzleSlot>();
+        for (int i = 0; i < puzzleSlots.Length; i++)
+        {
+            puzzleSlots[i].id = i;
+        }
 
     }
 
@@ -154,8 +163,8 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             for (int y = 0; y < gridHeight; y++)
             {
                 Vector3 pos = puzzleBoardRect.position + new Vector3(
-                    gridOrigin.x + x * cellSize.x + cellSize.x / 2f,
-                    gridOrigin.y + y * cellSize.y + cellSize.y / 2f, 0);
+                    gridOrigin.x + x * cellSize.x / 2f,
+                    gridOrigin.y + y * cellSize.y / 2f, 0);
 
                 Vector3 size = new Vector3(cellSize.x, cellSize.y, 0);
                 Gizmos.DrawWireCube(pos, size);
