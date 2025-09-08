@@ -16,4 +16,5 @@ public class PuzzleSlot : MonoBehaviour
     {
         occupiedBlock = null;
     }
+
 }

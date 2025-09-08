@@ -8,6 +8,7 @@ public class PuzzleUIController : MonoBehaviour
     public GameObject puzzlePanel;
     private bool isOpen = false;
 
+
     // Update is called once per frame
     void Update()
     {

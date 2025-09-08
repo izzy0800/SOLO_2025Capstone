@@ -8,9 +8,9 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     private RectTransform rectTransform;
     private Canvas canvas;
-    private Vector2 originalPosition;
+    private Vector2 originalPos;
 
-    void Awake()
+    private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
@@ -18,8 +18,7 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //this to save the start position
-        originalPosition = rectTransform.anchoredPosition;
+        originalPos = rectTransform.anchoredPosition;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -29,7 +28,11 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition = Slider_Puzzle_Manager.Instance.GetNearestCellPosition(rectTransform);
+
+        Vector2 snapped = Slider_Puzzle_Manager.Instance.GetNearestCellPosition(rectTransform);
+        rectTransform.anchoredPosition = snapped;
+        Slider_Puzzle_Manager.Instance.UpdateGrid();
+        Slider_Puzzle_Manager.Instance.CheckWinCondition();
     }
 
 }
