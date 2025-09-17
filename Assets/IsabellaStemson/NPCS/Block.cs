@@ -9,8 +9,10 @@ public class Block : MonoBehaviour
     public Vector2Int Position;
     public Vector2Int Size = Vector2Int.one;
     public bool isGoal;
-
     private Slider_Puzzle_Manager manager;
+
+    public bool MovesHorizontally => Size.x > Size.y;
+    public bool MovesVertically => Size.y > Size.x;
 
     private void Start()
     {

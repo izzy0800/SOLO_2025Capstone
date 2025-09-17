@@ -64,10 +64,31 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         Vector2 totalCellSize = cellSize + spacing;
 
         Vector2 blockPos = block.anchoredPosition;
+        Vector2 gridOffset = new Vector2(-342.30f, 426.40f); //most important line in this whole shit lowkey
 
-        Vector2 gridOffset = new Vector2(-342.30f, 426.40f);
+        Block blockComponent = block.GetComponent<Block>();
+        Vector2Int blockSize = blockComponent != null ? blockComponent.Size : Vector2Int.one;
 
-        Vector2 relativePos = blockPos - gridOffset;
+        Vector2 adjustBlockPos = blockPos;
+        if (blockSize.x == 2)
+        {
+            adjustBlockPos.x -= totalCellSize.x * 0.5f;
+        }
+        else if (blockSize.x == 3)
+        {
+            //3 wide block r already perfect little angels
+        }
+
+        if (blockSize.y == 2)
+        {
+            adjustBlockPos.y += totalCellSize.y * 0.5f;
+        }
+        else if (blockSize.y == 3)
+        {
+            //again, block 3 high is perfect
+        }
+
+        Vector2 relativePos = adjustBlockPos - gridOffset;
 
         int nearestX = Mathf.RoundToInt(relativePos.x / totalCellSize.x);
         int nearestY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
@@ -82,19 +103,30 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
         Debug.Log($"=== DETAILED SNAP DEBUG ===");
         Debug.Log($"Block pos: {blockPos}");
+        Debug.Log($"Adjusted pos: {adjustBlockPos}");
         Debug.Log($"Total cell size: {totalCellSize}");
         Debug.Log($"Relative pos: {relativePos}");
         Debug.Log($"Raw X calc: {relativePos.x / totalCellSize.x}, Raw Y calc: {-relativePos.y / totalCellSize.y}");
         Debug.Log($"Nearest cell: ({nearestX}, {nearestY})");
         Debug.Log($"Snapped position: {snappedPos}");
 
-        Block blockComponent = block.GetComponent<Block>();
         if (blockComponent != null)
         {
             blockComponent.UpdateGridPosition(new Vector2Int(nearestX, nearestY));
+
+            if (blockSize.x > 1 || blockSize.y > 1)
+            {
+
+                //Debug.Log($"MULTI-CELL DEBUG: {block.name}");
+                //Debug.Log($"Block size: {blockSize}");
+                //Debug.Log($"Block anchor pos: {blockPos}");
+                //Debug.Log($"Calculated cell: ({nearestX}, {nearestY})");
+                //Debug.Log($"Snapped to: {snappedPos}");
+                //Debug.Log($"Should occupy cells: {string.Join(", ", blockComponent.GetOccupiedCells())}");
+            }
         }
 
-        Debug.Log($"Block pos: {blockPos}, Grid offset: {gridOffset}, cell: ({nearestX}, {nearestY}), Snapped: {snappedPos}");
+        //Debug.Log($"Block pos: {blockPos}, Grid offset: {gridOffset}, cell: ({nearestX}, {nearestY}), Snapped: {snappedPos}");
 
         return snappedPos;
 
@@ -122,24 +154,24 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         Vector2 spacing = slotGrid.spacing;
         RectOffset padding = slotGrid.padding;
 
-        Debug.Log($"=== GRID DEBUG INFO ===");
-        Debug.Log($"Cell Size: {cellSize}");
-        Debug.Log($"Spacing: {spacing}");
-        Debug.Log($"Padding: L:{padding.left} R:{padding.right} T:{padding.top} B:{padding.bottom}");
-        Debug.Log($"Grid Rect Position: {slotGrid.transform.position}");
-        Debug.Log($"Grid Local Position: {slotGrid.transform.localPosition}");
-        Debug.Log($"Grid Anchored Position: {slotGrid.GetComponent<RectTransform>().anchoredPosition}");
+        //Debug.Log($"=== GRID DEBUG INFO ===");
+        //Debug.Log($"Cell Size: {cellSize}");
+        //Debug.Log($"Spacing: {spacing}");
+        //Debug.Log($"Padding: L:{padding.left} R:{padding.right} T:{padding.top} B:{padding.bottom}");
+        //Debug.Log($"Grid Rect Position: {slotGrid.transform.position}");
+        //Debug.Log($"Grid Local Position: {slotGrid.transform.localPosition}");
+        //Debug.Log($"Grid Anchored Position: {slotGrid.GetComponent<RectTransform>().anchoredPosition}");
     }
 
     public void AnalyzeCorrectBlock(RectTransform correctBlock, int expectedX, int expectedY)
     {
-        Debug.Log($"=== ANALYZING CORRECT BLOCK ===");
-        Debug.Log($"Block anchored Position: {correctBlock.anchoredPosition}");
-        Debug.Log($"Expected grid cell: ({expectedX}, {expectedY})");
+        //Debug.Log($"=== ANALYZING CORRECT BLOCK ===");
+        //Debug.Log($"Block anchored Position: {correctBlock.anchoredPosition}");
+        //Debug.Log($"Expected grid cell: ({expectedX}, {expectedY})");
 
         Vector2 cellSize = slotGrid.cellSize;
         Vector2 spacing = slotGrid.spacing;
-        Debug.Log($"Cell Size: {cellSize}, Spacing: {spacing}");
+        //Debug.Log($"Cell Size: {cellSize}, Spacing: {spacing}");
 
         Vector2 totalCellSize = cellSize + spacing;
         Vector2 myCalculation = new Vector2(
@@ -147,9 +179,9 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             -expectedY * totalCellSize.y
             );
 
-        Debug.Log($"My math for cell ({expectedX}, {expectedY}): {myCalculation}");
-        Debug.Log($"Actual block position: {correctBlock.anchoredPosition}");
-        Debug.Log($"*** DIFFERENCE (This is my offset): {correctBlock.anchoredPosition - myCalculation} ***");
+        //Debug.Log($"My math for cell ({expectedX}, {expectedY}): {myCalculation}");
+        //Debug.Log($"Actual block position: {correctBlock.anchoredPosition}");
+        //Debug.Log($"*** DIFFERENCE (This is my offset): {correctBlock.anchoredPosition - myCalculation} ***");
     }
 
 }

@@ -24,7 +24,22 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        Block blockComponent = GetComponent<Block>();
+        Vector2 delta = eventData.delta / canvas.scaleFactor;
+
+        if (blockComponent != null)
+        {
+            if (blockComponent.MovesHorizontally)
+            {
+                delta.y = 0;
+            }
+            else if (blockComponent.MovesVertically)
+            {
+                delta.x = 0;
+            }
+        }
+
+        rectTransform.anchoredPosition += delta;
     }
 
     public void OnEndDrag(PointerEventData eventData)
