@@ -10,6 +10,7 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private Canvas canvas;
     private Vector2 originalPos;
 
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();

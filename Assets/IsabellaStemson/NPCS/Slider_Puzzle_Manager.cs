@@ -21,8 +21,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
     public Vector2Int exitCell;
 
     public void UpdateGrid() { }
-
-
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,29 +39,66 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             cellSize = slotGrid.cellSize;
         }
         grid = new bool[gridWidth, gridHeight];
+        DebugGridInfo();
+
+        GameObject topLeftBlockobj = GameObject.Find("G block");
+        if (topLeftBlockobj != null)
+        {
+            AnalyzeCorrectBlock(topLeftBlockobj.GetComponent<RectTransform>(), 0, 0);
+        }
+        else
+        {
+            Debug.LogWarning("could not find block with that name");
+        }
+
         UpdateGrid();
     }
-
+    
     public Vector2 GetNearestCellPosition(RectTransform block)
     {
+        //Debug.Log("GetNearestCellPosition called - waiting for analysis results");
+        //return block.anchoredPosition;
+
         Vector2 cellSize = slotGrid.cellSize;
         Vector2 spacing = slotGrid.spacing;
-        RectOffset pad = slotGrid.padding;
+        Vector2 totalCellSize = cellSize + spacing;
 
-        Vector2 slotSize = cellSize + spacing;
+        Vector2 blockPos = block.anchoredPosition;
 
-        Vector2 localPos = block.localPosition;
+        Vector2 gridOffset = new Vector2(-342.30f, 426.40f);
 
-        int nearestX = Mathf.RoundToInt((localPos.x - pad.left) /  cellSize.x);
-        int nearestY = Mathf.RoundToInt((localPos.y - pad.top) / cellSize.y);
+        Vector2 relativePos = blockPos - gridOffset;
 
-        nearestX = Mathf.Clamp(nearestX, 0, slotGrid.constraintCount - 1);
-        nearestY = Mathf.Clamp(nearestY, 0, (gridHeight - 1));
+        int nearestX = Mathf.RoundToInt(relativePos.x / totalCellSize.x);
+        int nearestY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
 
-        float snappedX = pad.left + nearestX * slotSize.x;
-        float snappedY = (pad.top + nearestY * slotSize.y);
+        nearestX = Mathf.Clamp(nearestX, 0, gridWidth - 1);
+        nearestY = Mathf.Clamp(nearestY, 0, gridHeight - 1);
 
-        return new Vector2(snappedX, snappedY);
+        Vector2 snappedPos = gridOffset + new Vector2(
+            nearestX * totalCellSize.x,
+            -nearestY * totalCellSize.y
+            );
+
+        Debug.Log($"=== DETAILED SNAP DEBUG ===");
+        Debug.Log($"Block pos: {blockPos}");
+        Debug.Log($"Total cell size: {totalCellSize}");
+        Debug.Log($"Relative pos: {relativePos}");
+        Debug.Log($"Raw X calc: {relativePos.x / totalCellSize.x}, Raw Y calc: {-relativePos.y / totalCellSize.y}");
+        Debug.Log($"Nearest cell: ({nearestX}, {nearestY})");
+        Debug.Log($"Snapped position: {snappedPos}");
+
+        Block blockComponent = block.GetComponent<Block>();
+        if (blockComponent != null)
+        {
+            blockComponent.UpdateGridPosition(new Vector2Int(nearestX, nearestY));
+        }
+
+        Debug.Log($"Block pos: {blockPos}, Grid offset: {gridOffset}, cell: ({nearestX}, {nearestY}), Snapped: {snappedPos}");
+
+        return snappedPos;
+
+       
     }
 
     public bool CheckWinCondition()
@@ -76,6 +112,44 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void DebugGridInfo()
+    {
+        if (slotGrid == null) return;
+
+        Vector2 cellSize = slotGrid.cellSize;
+        Vector2 spacing = slotGrid.spacing;
+        RectOffset padding = slotGrid.padding;
+
+        Debug.Log($"=== GRID DEBUG INFO ===");
+        Debug.Log($"Cell Size: {cellSize}");
+        Debug.Log($"Spacing: {spacing}");
+        Debug.Log($"Padding: L:{padding.left} R:{padding.right} T:{padding.top} B:{padding.bottom}");
+        Debug.Log($"Grid Rect Position: {slotGrid.transform.position}");
+        Debug.Log($"Grid Local Position: {slotGrid.transform.localPosition}");
+        Debug.Log($"Grid Anchored Position: {slotGrid.GetComponent<RectTransform>().anchoredPosition}");
+    }
+
+    public void AnalyzeCorrectBlock(RectTransform correctBlock, int expectedX, int expectedY)
+    {
+        Debug.Log($"=== ANALYZING CORRECT BLOCK ===");
+        Debug.Log($"Block anchored Position: {correctBlock.anchoredPosition}");
+        Debug.Log($"Expected grid cell: ({expectedX}, {expectedY})");
+
+        Vector2 cellSize = slotGrid.cellSize;
+        Vector2 spacing = slotGrid.spacing;
+        Debug.Log($"Cell Size: {cellSize}, Spacing: {spacing}");
+
+        Vector2 totalCellSize = cellSize + spacing;
+        Vector2 myCalculation = new Vector2(
+            expectedX * totalCellSize.x,
+            -expectedY * totalCellSize.y
+            );
+
+        Debug.Log($"My math for cell ({expectedX}, {expectedY}): {myCalculation}");
+        Debug.Log($"Actual block position: {correctBlock.anchoredPosition}");
+        Debug.Log($"*** DIFFERENCE (This is my offset): {correctBlock.anchoredPosition - myCalculation} ***");
     }
 
 }

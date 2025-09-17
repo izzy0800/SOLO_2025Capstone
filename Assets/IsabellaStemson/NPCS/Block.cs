@@ -17,6 +17,12 @@ public class Block : MonoBehaviour
         manager = Slider_Puzzle_Manager.Instance;
     }
 
+    public void UpdateGridPosition(Vector2Int newPosition)
+    {
+        Position = newPosition;
+        Debug.Log($"{gameObject.name} moved to grid position: {Position}");
+    }
+
     public List<Vector2Int> GetOccupiedCells(Vector2Int? overridePos = null)
     {
         Vector2Int basePos = overridePos ?? Position;
