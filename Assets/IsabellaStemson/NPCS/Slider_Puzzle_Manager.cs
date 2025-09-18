@@ -64,10 +64,20 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         Vector2 totalCellSize = cellSize + spacing;
 
         Vector2 blockPos = block.anchoredPosition;
-        Vector2 gridOffset = new Vector2(-342.30f, 426.40f); //most important line in this whole shit lowkey
+        Vector2 gridOffset = new Vector2(-342.30f, 426.40f); //most important line in this whole shit lowkey - DO NOT TOUCH!
 
         Block blockComponent = block.GetComponent<Block>();
         Vector2Int blockSize = blockComponent != null ? blockComponent.Size : Vector2Int.one;
+
+        Vector2 adjustedBlockPos = blockPos;
+        if (blockSize.x == 2)
+        {
+            adjustedBlockPos.x -= totalCellSize.x * 0.5f; 
+        }
+        if (blockSize.y == 2)
+        {
+            adjustedBlockPos.y += totalCellSize.y * 0.5f; 
+        }
 
         Vector2 relativePos = blockPos - gridOffset;
 
