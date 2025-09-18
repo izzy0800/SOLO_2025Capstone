@@ -69,26 +69,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         Block blockComponent = block.GetComponent<Block>();
         Vector2Int blockSize = blockComponent != null ? blockComponent.Size : Vector2Int.one;
 
-        Vector2 adjustBlockPos = blockPos;
-        if (blockSize.x == 2)
-        {
-            adjustBlockPos.x -= totalCellSize.x * 0.5f;
-        }
-        else if (blockSize.x == 3)
-        {
-            //3 wide block r already perfect little angels
-        }
-
-        if (blockSize.y == 2)
-        {
-            adjustBlockPos.y += totalCellSize.y * 0.5f;
-        }
-        else if (blockSize.y == 3)
-        {
-            //again, block 3 high is perfect
-        }
-
-        Vector2 relativePos = adjustBlockPos - gridOffset;
+        Vector2 relativePos = blockPos - gridOffset;
 
         int nearestX = Mathf.RoundToInt(relativePos.x / totalCellSize.x);
         int nearestY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
@@ -101,14 +82,23 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             -nearestY * totalCellSize.y
             );
 
-        Debug.Log($"=== DETAILED SNAP DEBUG ===");
-        Debug.Log($"Block pos: {blockPos}");
-        Debug.Log($"Adjusted pos: {adjustBlockPos}");
-        Debug.Log($"Total cell size: {totalCellSize}");
-        Debug.Log($"Relative pos: {relativePos}");
-        Debug.Log($"Raw X calc: {relativePos.x / totalCellSize.x}, Raw Y calc: {-relativePos.y / totalCellSize.y}");
-        Debug.Log($"Nearest cell: ({nearestX}, {nearestY})");
-        Debug.Log($"Snapped position: {snappedPos}");
+        if (blockSize.x == 2)
+        {
+            snappedPos.x += totalCellSize.x * 0.5f;
+        }
+        if (blockSize.y == 2)
+        {
+            snappedPos.y -= totalCellSize.y * 0.5f;
+        }
+
+        //Debug.Log($"=== DETAILED SNAP DEBUG ===");
+        //Debug.Log($"Block pos: {blockPos}");
+        //Debug.Log($"Adjusted pos: {adjustBlockPos}");
+        //Debug.Log($"Total cell size: {totalCellSize}");
+        //Debug.Log($"Relative pos: {relativePos}");
+        //Debug.Log($"Raw X calc: {relativePos.x / totalCellSize.x}, Raw Y calc: {-relativePos.y / totalCellSize.y}");
+        //Debug.Log($"Nearest cell: ({nearestX}, {nearestY})");
+        //Debug.Log($"Snapped position: {snappedPos}");
 
         if (blockComponent != null)
         {
@@ -126,7 +116,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             }
         }
 
-        //Debug.Log($"Block pos: {blockPos}, Grid offset: {gridOffset}, cell: ({nearestX}, {nearestY}), Snapped: {snappedPos}");
+        Debug.Log($"Block pos: {blockPos}, Grid offset: {gridOffset}, cell: ({nearestX}, {nearestY}), Snapped: {snappedPos}");
 
         return snappedPos;
 
