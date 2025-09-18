@@ -44,9 +44,48 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        //Vector2 originalAnchoredPos = originalPos;
+        bool isValidMove;
+        Vector2 snapped = Slider_Puzzle_Manager.Instance.GetNearestCellPositionWithCollision(rectTransform, out isValidMove);
 
-        Vector2 snapped = Slider_Puzzle_Manager.Instance.GetNearestCellPosition(rectTransform);
-        rectTransform.anchoredPosition = snapped;
+        if (isValidMove)
+        {
+            rectTransform.anchoredPosition = snapped;
+            Debug.Log("Valid move applied");
+        }
+        else
+        {
+            rectTransform.anchoredPosition = originalPos;
+            Debug.Log("Invalid move - returned to original position");
+        }
+
+        //Block blockComponent = GetComponent<Block>();
+        //if (blockComponent != null)
+        //{
+        //    Vector2 relativePos = snapped - new Vector2(-342.30f, 426.40f);
+        //    Vector2 totalCellSize = new Vector2(137.5f, 171.1f); //wrong maybe?
+
+        //    int targetX = Mathf.RoundToInt(relativePos.x / totalCellSize.x);
+        //    int targetY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
+        //    Vector2Int targetGridPos = new Vector2Int(targetX, targetY);
+
+        //    if (Slider_Puzzle_Manager.Instance.IsPositionValid(blockComponent, targetGridPos))
+        //    {
+        //        rectTransform.anchoredPosition = snapped;
+        //        blockComponent.UpdateGridPosition(targetGridPos);
+        //        Debug.Log($"{blockComponent.name} move to valid position {targetGridPos}");
+        //    }
+        //    else
+        //    {
+        //        rectTransform.anchoredPosition = originalPos;
+        //        Debug.Log($"{blockComponent.name} blocked by collision, staying at {blockComponent.Position}");
+        //    }
+        //}
+        //else
+        //{
+        //    rectTransform.anchoredPosition = snapped;
+        //}
+
         Slider_Puzzle_Manager.Instance.UpdateGrid();
         Slider_Puzzle_Manager.Instance.CheckWinCondition();
     }

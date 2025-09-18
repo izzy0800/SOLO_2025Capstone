@@ -54,7 +54,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         UpdateGrid();
     }
     
-    public Vector2 GetNearestCellPosition(RectTransform block)
+    public Vector2 GetNearestCellPositionWithCollision(RectTransform block, out bool isValidMove)
     {
         //Debug.Log("GetNearestCellPosition called - waiting for analysis results");
         //return block.anchoredPosition;
@@ -79,13 +79,13 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             adjustedBlockPos.y += totalCellSize.y * 0.5f; 
         }
 
-        Vector2 relativePos = blockPos - gridOffset;
+        Vector2 relativePos = adjustedBlockPos - gridOffset;
 
         int nearestX = Mathf.RoundToInt(relativePos.x / totalCellSize.x);
         int nearestY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
 
-        nearestX = Mathf.Clamp(nearestX, 0, gridWidth - 1);
-        nearestY = Mathf.Clamp(nearestY, 0, gridHeight - 1);
+        nearestX = Mathf.Clamp(nearestX, 0, gridWidth - blockSize.x);
+        nearestY = Mathf.Clamp(nearestY, 0, gridHeight - blockSize.y);
 
         Vector2 snappedPos = gridOffset + new Vector2(
             nearestX * totalCellSize.x,
@@ -110,9 +110,12 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         //Debug.Log($"Nearest cell: ({nearestX}, {nearestY})");
         //Debug.Log($"Snapped position: {snappedPos}");
 
-        if (blockComponent != null)
+        Vector2Int targetPos = new Vector2Int(nearestX, nearestY);
+        isValidMove = IsPositionValid(blockComponent, targetPos);
+
+        if (blockComponent != null && isValidMove)
         {
-            blockComponent.UpdateGridPosition(new Vector2Int(nearestX, nearestY));
+            blockComponent.UpdateGridPosition(targetPos);
 
             if (blockSize.x > 1 || blockSize.y > 1)
             {
@@ -126,7 +129,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             }
         }
 
-        Debug.Log($"Block pos: {blockPos}, Grid offset: {gridOffset}, cell: ({nearestX}, {nearestY}), Snapped: {snappedPos}");
+        Debug.Log($"Block: {block.name}, cell: ({nearestX}, {nearestY}), Valid: {isValidMove}");
 
         return snappedPos;
 
@@ -182,6 +185,38 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         //Debug.Log($"My math for cell ({expectedX}, {expectedY}): {myCalculation}");
         //Debug.Log($"Actual block position: {correctBlock.anchoredPosition}");
         //Debug.Log($"*** DIFFERENCE (This is my offset): {correctBlock.anchoredPosition - myCalculation} ***");
+    }
+
+    public bool IsPositionValid(Block movingBlock, Vector2Int targetPosition)
+    {
+        List<Vector2Int> targetCells = movingBlock.GetOccupiedCells(targetPosition);
+
+        foreach (Vector2Int cell in targetCells)
+        {
+            if (IsCellOccupiedByOtherBlock(cell, movingBlock))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private bool IsCellOccupiedByOtherBlock(Vector2Int cell, Block excludeBlock)
+    {
+        Block[] allBlocks = FindObjectsOfType<Block>();
+        
+        foreach (Block block in allBlocks)
+        {
+            if (block == excludeBlock) continue;
+
+            List<Vector2Int> occupiedCells = block.GetOccupiedCells();
+            if (occupiedCells.Contains(cell))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
