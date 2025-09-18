@@ -51,6 +51,8 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             Debug.LogWarning("could not find block with that name");
         }
 
+        InitializeBlockPositions();
+
         UpdateGrid();
     }
     
@@ -111,25 +113,23 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         //Debug.Log($"Snapped position: {snappedPos}");
 
         Vector2Int targetPos = new Vector2Int(nearestX, nearestY);
-        isValidMove = IsPositionValid(blockComponent, targetPos);
 
-        if (blockComponent != null && isValidMove)
+        if (blockComponent != null && targetPos == blockComponent.Position)
         {
-            blockComponent.UpdateGridPosition(targetPos);
-
-            if (blockSize.x > 1 || blockSize.y > 1)
-            {
-
-                //Debug.Log($"MULTI-CELL DEBUG: {block.name}");
-                //Debug.Log($"Block size: {blockSize}");
-                //Debug.Log($"Block anchor pos: {blockPos}");
-                //Debug.Log($"Calculated cell: ({nearestX}, {nearestY})");
-                //Debug.Log($"Snapped to: {snappedPos}");
-                //Debug.Log($"Should occupy cells: {string.Join(", ", blockComponent.GetOccupiedCells())}");
-            }
+            isValidMove = true;
+            Debug.Log($"Block {block.name}: No movement (staying at {targetPos})");
         }
+        else
+        {
+            isValidMove = IsPositionValid(blockComponent, targetPos);
+            if (blockComponent != null && isValidMove)
+            {
+                blockComponent.UpdateGridPosition(targetPos);
+            }
 
-        Debug.Log($"Block: {block.name}, cell: ({nearestX}, {nearestY}), Valid: {isValidMove}");
+            Debug.Log($"Block {block.name}: Moving from {blockComponent?.Position} to {targetPos}, Valid: {isValidMove}");
+
+        }
 
         return snappedPos;
 
@@ -217,6 +217,38 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         }
 
         return false;
+    }
+    
+    private void InitializeBlockPositions()
+    {
+        Block[] allBlocks = FindObjectsOfType<Block>();
+        
+        foreach (Block block in allBlocks)
+        {
+            RectTransform blockRect = block.GetComponent<RectTransform>();
+            Vector2 blockPos = blockRect.anchoredPosition;
+            Vector2 gridOffset = new Vector2(-342.30f, 426.40f);
+            Vector2 cellSize = slotGrid.cellSize;
+            Vector2 spacing = slotGrid.spacing;
+            Vector2 totalCellSize = cellSize + spacing;
+
+            Vector2 adjustedBlockPos = blockPos;
+            if (block.Size.x == 2)
+            {
+                adjustedBlockPos.x -= totalCellSize.x * 0.5f;
+            }
+            if (block.Size.y == 2)
+            {
+                adjustedBlockPos.y += totalCellSize.y * 0.5f;
+            }
+
+            Vector2 relativePos = adjustedBlockPos - gridOffset;
+            int gridX = Mathf.RoundToInt(relativePos.x / totalCellSize.x);
+            int gridY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
+
+            block.Position = new Vector2Int(gridX, gridY);
+            Debug.Log($"Initialized {block.name} at grid position {block.Position}");
+        }
     }
 
 }
