@@ -191,13 +191,37 @@ public class Slider_Puzzle_Manager : MonoBehaviour
     {
         List<Vector2Int> targetCells = movingBlock.GetOccupiedCells(targetPosition);
 
+        Debug.Log($"=== COLLISION DEBUG for {movingBlock.name} ===");
+        Debug.Log($"Target position: {targetPosition}");
+        Debug.Log($"Block size: {movingBlock.Size}");
+        Debug.Log($"Target cells: [{string.Join(", ", targetCells)}]");
+
         foreach (Vector2Int cell in targetCells)
         {
             if (IsCellOccupiedByOtherBlock(cell, movingBlock))
             {
+                Debug.Log($"COLLISION: Cell {cell} is occupied by another block");
+
+                // Let's find out which block is occupying this cell
+                Block[] allBlocks = FindObjectsOfType<Block>();
+                foreach (Block block in allBlocks)
+                {
+                    if (block == movingBlock) continue;
+                    if (block.GetOccupiedCells().Contains(cell))
+                    {
+                        Debug.Log($"Blocking block: {block.name} at position {block.Position} occupies cell {cell}");
+                    }
+                }
+
                 return false;
             }
+            else
+            {
+                Debug.Log($"Cell {cell} is free");
+            }
         }
+
+        Debug.Log("All cells are free - move is valid");
         return true;
     }
 
