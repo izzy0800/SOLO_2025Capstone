@@ -52,10 +52,66 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         }
 
         InitializeBlockPositions();
+        DebugSpecificBlock("C block");
+        VerifyGridCalculation(new Vector2(70.50f, -257.30f), "C block");
+
+        DebugAllBlockPositions();
 
         UpdateGrid();
     }
-    
+
+    private void DebugSpecificBlock(string blockName)
+    {
+        GameObject blockObj = GameObject.Find(blockName);
+        if (blockObj != null)
+        {
+            Block block = blockObj.GetComponent<Block>();
+            RectTransform rect = blockObj.GetComponent<RectTransform>();
+
+            Debug.Log($"=== DEBUG {blockName} ===");
+            Debug.Log($"Visual position: {rect.anchoredPosition}");
+            Debug.Log($"Logical position: {block.Position}");
+            Debug.Log($"Size: {block.Size}");
+            Debug.Log($"Occupied cells: [{string.Join(", ", block.GetOccupiedCells())}]");
+        }
+    }
+
+    private void VerifyGridCalculation(Vector2 visualPos, string blockName)
+    {
+        Vector2 gridOffset = new Vector2(-342.30f, 426.40f);
+        Vector2 cellSize = slotGrid.cellSize;
+        Vector2 spacing = slotGrid.spacing;
+        Vector2 totalCellSize = cellSize + spacing;
+
+        Vector2 relativePos = visualPos - gridOffset;
+        int calculatedX = Mathf.RoundToInt(relativePos.x / totalCellSize.x);
+        int calculatedY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
+
+        Debug.Log($"=== GRID CALCULATION VERIFICATION for {blockName} ===");
+        Debug.Log($"Visual pos: {visualPos}");
+        Debug.Log($"Grid offset: {gridOffset}");
+        Debug.Log($"Relative pos: {relativePos}");
+        Debug.Log($"Total cell size: {totalCellSize}");
+        Debug.Log($"Calculated grid pos: ({calculatedX}, {calculatedY})");
+    }
+
+    public void DebugAllBlockPositions()
+    {
+        Debug.Log("=== ALL BLOCK POSITIONS ===");
+        Block[] allBlocks = FindObjectsOfType<Block>();
+
+
+        foreach (Block block in allBlocks)
+        {
+            RectTransform rect = block.GetComponent<RectTransform>();
+            Vector2 visualPos = rect.anchoredPosition;
+
+            Debug.Log($"{block.name}: Visual({visualPos.x:F1}, {visualPos.y:F1}) " +
+                $"Logical{block.Position} Size{block.Size} " +
+                $"Occupies[{string.Join(",", block.GetOccupiedCells())}]");
+        }
+    }
+
     public Vector2 GetNearestCellPositionWithCollision(RectTransform block, out bool isValidMove)
     {
         //Debug.Log("GetNearestCellPosition called - waiting for analysis results");
@@ -114,21 +170,11 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
         Vector2Int targetPos = new Vector2Int(nearestX, nearestY);
 
-        if (blockComponent != null && targetPos == blockComponent.Position)
-        {
-            isValidMove = true;
-            Debug.Log($"Block {block.name}: No movement (staying at {targetPos})");
-        }
-        else
-        {
-            isValidMove = IsPositionValid(blockComponent, targetPos);
-            if (blockComponent != null && isValidMove)
-            {
-                blockComponent.UpdateGridPosition(targetPos);
-            }
+        isValidMove = IsPositionValid(blockComponent, targetPos);
 
-            Debug.Log($"Block {block.name}: Moving from {blockComponent?.Position} to {targetPos}, Valid: {isValidMove}");
-
+        if (blockComponent != null && isValidMove)
+        {
+            blockComponent.UpdateGridPosition(targetPos);
         }
 
         return snappedPos;
