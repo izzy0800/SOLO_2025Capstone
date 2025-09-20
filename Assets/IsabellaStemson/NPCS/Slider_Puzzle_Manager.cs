@@ -250,7 +250,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
                 }
                 else 
                 {
-                    threshold = 4000f; 
+                    threshold = 3500f; 
                 }
 
                 if (overlapArea > threshold)
