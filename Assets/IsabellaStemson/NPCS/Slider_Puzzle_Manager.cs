@@ -1,7 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using static Unity.Collections.AllocatorManager;
 
 public class Slider_Puzzle_Manager : MonoBehaviour
 {
@@ -52,12 +57,18 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         }
 
         InitializeBlockPositions();
+        FixColliderSizes();
         DebugSpecificBlock("C block");
         VerifyGridCalculation(new Vector2(70.50f, -257.30f), "C block");
 
         DebugAllBlockPositions();
 
         UpdateGrid();
+    }
+
+    void Update()
+    {
+        ValidateColliderSizes();
     }
 
     private void DebugSpecificBlock(string blockName)
@@ -114,15 +125,12 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
     public Vector2 GetNearestCellPositionWithCollision(RectTransform block, out bool isValidMove)
     {
-        //Debug.Log("GetNearestCellPosition called - waiting for analysis results");
-        //return block.anchoredPosition;
-
         Vector2 cellSize = slotGrid.cellSize;
         Vector2 spacing = slotGrid.spacing;
         Vector2 totalCellSize = cellSize + spacing;
 
         Vector2 blockPos = block.anchoredPosition;
-        Vector2 gridOffset = new Vector2(-342.30f, 426.40f); //most important line in this whole shit lowkey - DO NOT TOUCH!
+        Vector2 gridOffset = new Vector2(-342.30f, 426.40f);
 
         Block blockComponent = block.GetComponent<Block>();
         Vector2Int blockSize = blockComponent != null ? blockComponent.Size : Vector2Int.one;
@@ -130,11 +138,20 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         Vector2 adjustedBlockPos = blockPos;
         if (blockSize.x == 2)
         {
-            adjustedBlockPos.x -= totalCellSize.x * 0.5f; 
+            adjustedBlockPos.x -= totalCellSize.x * 0.5f;
         }
+        else if (blockSize.x == 3)
+        {
+            adjustedBlockPos.x -= totalCellSize.x * 1.0f; 
+        }
+
         if (blockSize.y == 2)
         {
-            adjustedBlockPos.y += totalCellSize.y * 0.5f; 
+            adjustedBlockPos.y += totalCellSize.y * 0.5f;
+        }
+        else if (blockSize.y == 3)
+        {
+            adjustedBlockPos.y += totalCellSize.y * 1.0f; 
         }
 
         Vector2 relativePos = adjustedBlockPos - gridOffset;
@@ -145,41 +162,168 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         nearestX = Mathf.Clamp(nearestX, 0, gridWidth - blockSize.x);
         nearestY = Mathf.Clamp(nearestY, 0, gridHeight - blockSize.y);
 
+        if (nearestX < 0 || nearestX > gridWidth - blockSize.x ||
+    nearestY < 0 || nearestY > gridHeight - blockSize.y)
+        {
+            Debug.LogError($"BOUNDS ERROR: {block.name} trying to go to ({nearestX}, {nearestY}) but grid limits are ({gridWidth - blockSize.x}, {gridHeight - blockSize.y})");
+            isValidMove = false;
+            return blockPos; 
+        }
+
         Vector2 snappedPos = gridOffset + new Vector2(
             nearestX * totalCellSize.x,
             -nearestY * totalCellSize.y
-            );
+        );
 
         if (blockSize.x == 2)
         {
             snappedPos.x += totalCellSize.x * 0.5f;
         }
+        else if (blockSize.x == 3)
+        {
+            snappedPos.x += totalCellSize.x * 1.0f;
+        }
+
         if (blockSize.y == 2)
         {
             snappedPos.y -= totalCellSize.y * 0.5f;
         }
+        else if (blockSize.y == 3)
+        {
+            snappedPos.y -= totalCellSize.y * 1.0f;
+        }
 
-        //Debug.Log($"=== DETAILED SNAP DEBUG ===");
-        //Debug.Log($"Block pos: {blockPos}");
-        //Debug.Log($"Adjusted pos: {adjustBlockPos}");
-        //Debug.Log($"Total cell size: {totalCellSize}");
-        //Debug.Log($"Relative pos: {relativePos}");
-        //Debug.Log($"Raw X calc: {relativePos.x / totalCellSize.x}, Raw Y calc: {-relativePos.y / totalCellSize.y}");
-        //Debug.Log($"Nearest cell: ({nearestX}, {nearestY})");
-        //Debug.Log($"Snapped position: {snappedPos}");
+        bool withinBounds = (nearestX >= 0 && nearestX <= gridWidth - blockSize.x &&
+                            nearestY >= 0 && nearestY <= gridHeight - blockSize.y);
 
-        Vector2Int targetPos = new Vector2Int(nearestX, nearestY);
+        Debug.Log($"BOUNDS DEBUG {block.name}: nearestX={nearestX}, nearestY={nearestY}, " +
+                  $"blockSize={blockSize}, gridWidth={gridWidth}, gridHeight={gridHeight}");
+        Debug.Log($"X bounds: {nearestX} >= 0 && {nearestX} <= {gridWidth - blockSize.x} = {nearestX >= 0 && nearestX <= gridWidth - blockSize.x}");
+        Debug.Log($"Y bounds: {nearestY} >= 0 && {nearestY} <= {gridHeight - blockSize.y} = {nearestY >= 0 && nearestY <= gridHeight - blockSize.y}");
 
-        isValidMove = IsPositionValid(blockComponent, targetPos);
+        Canvas canvas = GetComponentInParent<Canvas>();
+        Vector3 worldPos = canvas.transform.TransformPoint(snappedPos);
+
+        bool noPhysicsCollision = IsPositionValidPhysics(blockComponent, worldPos);
+
+        isValidMove = withinBounds && noPhysicsCollision;
 
         if (blockComponent != null && isValidMove)
         {
-            blockComponent.UpdateGridPosition(targetPos);
+            blockComponent.UpdateGridPosition(new Vector2Int(nearestX, nearestY));
         }
 
-        return snappedPos;
+        Debug.Log($"Block {block.name}: Bounds OK: {withinBounds}, Physics OK: {noPhysicsCollision}, Final: {isValidMove}");
 
-       
+        return snappedPos;
+    }
+
+    public bool IsPositionValidPhysics(Block movingBlock, Vector2 targetWorldPosition)
+    {
+        BoxCollider2D blockCollider = movingBlock.GetComponent<BoxCollider2D>();
+        if (blockCollider == null)
+        {
+            Debug.Log($"No collider found on {movingBlock.name} - assuming valid move");
+            return true;
+        }
+
+        blockCollider.enabled = false;
+        Vector2 colliderSize = blockCollider.size;
+
+        Collider2D[] overlapping = Physics2D.OverlapBoxAll(targetWorldPosition, colliderSize, 0f);
+        blockCollider.enabled = true;
+
+        foreach (Collider2D other in overlapping)
+        {
+            Block otherBlock = other.GetComponent<Block>();
+            if (otherBlock != null)
+            {
+                float overlapArea = CalculateOverlapArea(targetWorldPosition, colliderSize, other.transform.position, other.bounds.size);
+
+                float threshold;
+                Vector2Int blockSize = movingBlock.GetBlockSize();
+                int totalCells = blockSize.x * blockSize.y;
+
+                if (totalCells >= 3) 
+                {
+                    threshold = 6000f; 
+                }
+                else 
+                {
+                    threshold = 4000f; 
+                }
+
+                if (overlapArea > threshold)
+                {
+                    Debug.Log($"PHYSICS COLLISION: {movingBlock.name} would overlap with {otherBlock.name} (area: {overlapArea} > {threshold})");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private float CalculateOverlapArea(Vector2 pos1, Vector2 size1, Vector2 pos2, Vector2 size2)
+    {
+        float left1 = pos1.x - size1.x / 2f;
+        float right1 = pos1.x + size1.x / 2f;
+        float bottom1 = pos1.y - size1.y / 2f;
+        float top1 = pos1.y + size1.y / 2f;
+
+        float left2 = pos2.x - size2.x / 2f;
+        float right2 = pos2.x + size2.x / 2f;
+        float bottom2 = pos2.y - size2.y / 2f;
+        float top2 = pos2.y + size2.y / 2f;
+
+        float overlapWidth = Mathf.Max(0, Mathf.Min(right1, right2) - Mathf.Max(left1, left2));
+        float overlapHeight = Mathf.Max(0, Mathf.Min(top1, top2) - Mathf.Max(bottom1, bottom2));
+
+        return overlapWidth * overlapHeight;
+    }
+
+    public void FixColliderSizes()
+    {
+        Block[] allBlocks = FindObjectsOfType<Block>();
+
+        foreach (Block block in allBlocks)
+        {
+            RectTransform rectTransform = block.GetComponent<RectTransform>();
+            BoxCollider2D collider = block.GetComponent<BoxCollider2D>();
+
+            if (collider != null && rectTransform != null)
+            {
+                collider.size = rectTransform.sizeDelta;
+
+                Debug.Log($"Fixed {block.name} collider size to: {collider.size} (RectTransform size: {rectTransform.sizeDelta})");
+            }
+            else
+            {
+                Debug.LogError($"Missing components on {block.name}: Collider={collider != null}, RectTransform={rectTransform != null}");
+            }
+        }
+    }
+
+    public void ValidateColliderSizes()
+    {
+        Block[] allBlocks = FindObjectsOfType<Block>();
+
+        foreach (Block block in allBlocks)
+        {
+            RectTransform rectTransform = block.GetComponent<RectTransform>();
+            BoxCollider2D collider = block.GetComponent<BoxCollider2D>();
+
+            if (collider != null && rectTransform != null)
+            {
+                Vector2 expectedSize = rectTransform.sizeDelta;
+                Vector2 currentSize = collider.size;
+
+                if (Vector2.Distance(expectedSize, currentSize) > 0.1f)
+                {
+                    Debug.LogWarning($"Collider size mismatch on {block.name}: Expected {expectedSize}, Got {currentSize}. Fixing...");
+                    collider.size = expectedSize;
+                }
+            }
+        }
     }
 
     public bool CheckWinCondition()
@@ -231,62 +375,6 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         //Debug.Log($"My math for cell ({expectedX}, {expectedY}): {myCalculation}");
         //Debug.Log($"Actual block position: {correctBlock.anchoredPosition}");
         //Debug.Log($"*** DIFFERENCE (This is my offset): {correctBlock.anchoredPosition - myCalculation} ***");
-    }
-
-    public bool IsPositionValid(Block movingBlock, Vector2Int targetPosition)
-    {
-        List<Vector2Int> targetCells = movingBlock.GetOccupiedCells(targetPosition);
-
-        Debug.Log($"=== COLLISION DEBUG for {movingBlock.name} ===");
-        Debug.Log($"Target position: {targetPosition}");
-        Debug.Log($"Block size: {movingBlock.Size}");
-        Debug.Log($"Target cells: [{string.Join(", ", targetCells)}]");
-
-        foreach (Vector2Int cell in targetCells)
-        {
-            if (IsCellOccupiedByOtherBlock(cell, movingBlock))
-            {
-                Debug.Log($"COLLISION: Cell {cell} is occupied by another block");
-
-                // Let's find out which block is occupying this cell
-                Block[] allBlocks = FindObjectsOfType<Block>();
-                foreach (Block block in allBlocks)
-                {
-                    if (block == movingBlock) continue;
-                    if (block.GetOccupiedCells().Contains(cell))
-                    {
-                        Debug.Log($"Blocking block: {block.name} at position {block.Position} occupies cell {cell}");
-                    }
-                }
-
-                return false;
-            }
-            else
-            {
-                Debug.Log($"Cell {cell} is free");
-            }
-        }
-
-        Debug.Log("All cells are free - move is valid");
-        return true;
-    }
-
-    private bool IsCellOccupiedByOtherBlock(Vector2Int cell, Block excludeBlock)
-    {
-        Block[] allBlocks = FindObjectsOfType<Block>();
-        
-        foreach (Block block in allBlocks)
-        {
-            if (block == excludeBlock) continue;
-
-            List<Vector2Int> occupiedCells = block.GetOccupiedCells();
-            if (occupiedCells.Contains(cell))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
     
     private void InitializeBlockPositions()

@@ -14,6 +14,11 @@ public class Block : MonoBehaviour
     public bool MovesHorizontally => Size.x > Size.y;
     public bool MovesVertically => Size.y > Size.x;
 
+    public Vector2Int GetBlockSize()
+    {
+        return Size;
+    }
+
     private void Start()
     {
         manager = Slider_Puzzle_Manager.Instance;
