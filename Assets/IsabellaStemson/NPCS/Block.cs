@@ -27,7 +27,7 @@ public class Block : MonoBehaviour
     public void UpdateGridPosition(Vector2Int newPosition)
     {
         Position = newPosition;
-        Debug.Log($"{gameObject.name} moved to grid position: {Position}");
+        //Debug.Log($"{gameObject.name} moved to grid position: {Position}");
     }
 
     public List<Vector2Int> GetOccupiedCells(Vector2Int? overridePos = null)

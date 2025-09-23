@@ -6,9 +6,9 @@ public class NPCscript : CryptidUtils
 {
     [HideInInspector] public Collider col;
     public CharacterSwitch characterSwitch;
-    //Nadine will do the actual mini game coding for this
+
     public bool hasCompletedMinigame;
-    public GameObject miniGameUI;
+    public GameObject miniGameUI; //updated this to be the slider puzzle
     public GameObject level;
 
     public SpriteRenderer visualSprite;
@@ -34,12 +34,7 @@ public class NPCscript : CryptidUtils
             {
                 if (!hasCompletedMinigame)
                 {
-                    miniGameUI.SetActive(true);
-                    miniGameUI.GetComponentInChildren<PlayerControl>().associatedNPC = this.gameObject;
-                    level.SetActive(false);
-
-                    //If you would rather you have to WIN, move this to the Player Control script
-                    hasCompletedMinigame = true;
+                    OpenSliderPuzzle();
                     return;
                 }
                 else
@@ -48,6 +43,46 @@ public class NPCscript : CryptidUtils
                 }      
             }
         }
+    }
+
+    private void OpenSliderPuzzle()
+    {
+        miniGameUI.SetActive(true);
+
+        if (level != null)
+            level.SetActive(false);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if(player != null)
+        {
+            var playerMovement = player.GetComponent<MonoBehaviour>();
+            if (playerMovement != null)
+                playerMovement.enabled = false;
+        }
+        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        hasCompletedMinigame = true;
+    }
+
+    public void OnPuzzleCompleted()
+    {
+        miniGameUI.SetActive(false);
+
+        if (level != null)
+            level.SetActive(true);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            var playerMovement = player.GetComponent<MonoBehaviour>();
+            if (playerMovement != null)
+                playerMovement.enabled = true;
+        }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnTriggerEnter(Collider other)

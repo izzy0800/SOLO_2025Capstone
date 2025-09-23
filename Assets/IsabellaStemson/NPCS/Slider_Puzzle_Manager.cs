@@ -79,11 +79,11 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             Block block = blockObj.GetComponent<Block>();
             RectTransform rect = blockObj.GetComponent<RectTransform>();
 
-            Debug.Log($"=== DEBUG {blockName} ===");
-            Debug.Log($"Visual position: {rect.anchoredPosition}");
-            Debug.Log($"Logical position: {block.Position}");
-            Debug.Log($"Size: {block.Size}");
-            Debug.Log($"Occupied cells: [{string.Join(", ", block.GetOccupiedCells())}]");
+            //Debug.Log($"=== DEBUG {blockName} ===");
+            //Debug.Log($"Visual position: {rect.anchoredPosition}");
+            //Debug.Log($"Logical position: {block.Position}");
+            //Debug.Log($"Size: {block.Size}");
+            //Debug.Log($"Occupied cells: [{string.Join(", ", block.GetOccupiedCells())}]");
         }
     }
 
@@ -98,17 +98,17 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         int calculatedX = Mathf.RoundToInt(relativePos.x / totalCellSize.x);
         int calculatedY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
 
-        Debug.Log($"=== GRID CALCULATION VERIFICATION for {blockName} ===");
-        Debug.Log($"Visual pos: {visualPos}");
-        Debug.Log($"Grid offset: {gridOffset}");
-        Debug.Log($"Relative pos: {relativePos}");
-        Debug.Log($"Total cell size: {totalCellSize}");
-        Debug.Log($"Calculated grid pos: ({calculatedX}, {calculatedY})");
+        //Debug.Log($"=== GRID CALCULATION VERIFICATION for {blockName} ===");
+        //Debug.Log($"Visual pos: {visualPos}");
+        //Debug.Log($"Grid offset: {gridOffset}");
+        //Debug.Log($"Relative pos: {relativePos}");
+        //Debug.Log($"Total cell size: {totalCellSize}");
+        //Debug.Log($"Calculated grid pos: ({calculatedX}, {calculatedY})");
     }
 
     public void DebugAllBlockPositions()
     {
-        Debug.Log("=== ALL BLOCK POSITIONS ===");
+        //Debug.Log("=== ALL BLOCK POSITIONS ===");
         Block[] allBlocks = FindObjectsOfType<Block>();
 
 
@@ -117,9 +117,9 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             RectTransform rect = block.GetComponent<RectTransform>();
             Vector2 visualPos = rect.anchoredPosition;
 
-            Debug.Log($"{block.name}: Visual({visualPos.x:F1}, {visualPos.y:F1}) " +
-                $"Logical{block.Position} Size{block.Size} " +
-                $"Occupies[{string.Join(",", block.GetOccupiedCells())}]");
+            //Debug.Log($"{block.name}: Visual({visualPos.x:F1}, {visualPos.y:F1}) " +
+            //    $"Logical{block.Position} Size{block.Size} " +
+            //    $"Occupies[{string.Join(",", block.GetOccupiedCells())}]");
         }
     }
 
@@ -165,7 +165,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         if (nearestX < 0 || nearestX > gridWidth - blockSize.x ||
     nearestY < 0 || nearestY > gridHeight - blockSize.y)
         {
-            Debug.LogError($"BOUNDS ERROR: {block.name} trying to go to ({nearestX}, {nearestY}) but grid limits are ({gridWidth - blockSize.x}, {gridHeight - blockSize.y})");
+            //Debug.LogError($"BOUNDS ERROR: {block.name} trying to go to ({nearestX}, {nearestY}) but grid limits are ({gridWidth - blockSize.x}, {gridHeight - blockSize.y})");
             isValidMove = false;
             return blockPos; 
         }
@@ -196,10 +196,10 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         bool withinBounds = (nearestX >= 0 && nearestX <= gridWidth - blockSize.x &&
                             nearestY >= 0 && nearestY <= gridHeight - blockSize.y);
 
-        Debug.Log($"BOUNDS DEBUG {block.name}: nearestX={nearestX}, nearestY={nearestY}, " +
-                  $"blockSize={blockSize}, gridWidth={gridWidth}, gridHeight={gridHeight}");
-        Debug.Log($"X bounds: {nearestX} >= 0 && {nearestX} <= {gridWidth - blockSize.x} = {nearestX >= 0 && nearestX <= gridWidth - blockSize.x}");
-        Debug.Log($"Y bounds: {nearestY} >= 0 && {nearestY} <= {gridHeight - blockSize.y} = {nearestY >= 0 && nearestY <= gridHeight - blockSize.y}");
+        //Debug.Log($"BOUNDS DEBUG {block.name}: nearestX={nearestX}, nearestY={nearestY}, " +
+        //          $"blockSize={blockSize}, gridWidth={gridWidth}, gridHeight={gridHeight}");
+        //Debug.Log($"X bounds: {nearestX} >= 0 && {nearestX} <= {gridWidth - blockSize.x} = {nearestX >= 0 && nearestX <= gridWidth - blockSize.x}");
+        //Debug.Log($"Y bounds: {nearestY} >= 0 && {nearestY} <= {gridHeight - blockSize.y} = {nearestY >= 0 && nearestY <= gridHeight - blockSize.y}");
 
         Canvas canvas = GetComponentInParent<Canvas>();
         Vector3 worldPos = canvas.transform.TransformPoint(snappedPos);
@@ -213,7 +213,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             blockComponent.UpdateGridPosition(new Vector2Int(nearestX, nearestY));
         }
 
-        Debug.Log($"Block {block.name}: Bounds OK: {withinBounds}, Physics OK: {noPhysicsCollision}, Final: {isValidMove}");
+        //Debug.Log($"Block {block.name}: Bounds OK: {withinBounds}, Physics OK: {noPhysicsCollision}, Final: {isValidMove}");
 
         return snappedPos;
     }
@@ -238,6 +238,10 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             Block otherBlock = other.GetComponent<Block>();
             if (otherBlock != null)
             {
+
+                if (otherBlock.gameObject.name == "Exit")
+                    continue;
+
                 float overlapArea = CalculateOverlapArea(targetWorldPosition, colliderSize, other.transform.position, other.bounds.size);
 
                 float threshold;
@@ -333,6 +337,13 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             if (cell == exitCell)
             {
                 Debug.Log("Puzzle Solved");
+
+                MiniGameController controller = FindObjectOfType<MiniGameController>();
+                if(controller != null)
+                {
+                    controller.OnMiniGamerWin();
+                }
+
                 return true;
             }
         }
@@ -405,7 +416,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             int gridY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
 
             block.Position = new Vector2Int(gridX, gridY);
-            Debug.Log($"Initialized {block.name} at grid position {block.Position}");
+            //Debug.Log($"Initialized {block.name} at grid position {block.Position}");
         }
     }
 

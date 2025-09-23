@@ -5,29 +5,37 @@ using UnityEngine;
 public class MiniGameController : MonoBehaviour
 {
     public GameObject miniGameUI;
+    private NPCscript associatedNPC;
+
+    private void Start()
+    {
+        NPCscript[] npcs = FindObjectsOfType<NPCscript>();
+        foreach(NPCscript npc in npcs)
+        {
+            if(npc.miniGameUI == miniGameUI)
+            {
+                associatedNPC = npc;
+                break;
+            }
+        }
+    }
 
     public void OnWinButtonClick()
     {
-        //will close mini game
-        miniGameUI.SetActive(false);
-        Time.timeScale = 1f;
-
-        //switch control to NPC
-        //FindObjectOfType<CharacterSwitch>().SwitchToNPC();
+        if (associatedNPC != null)
+            associatedNPC.OnPuzzleCompleted();
     }
 
     public void OnMiniGamerWin()
     {
-        miniGameUI.SetActive(false);
-        Time.timeScale = 1f;
-
-        //FindObjectOfType<CharacterSwitch>().SwitchToNPC();
+        if (associatedNPC != null)
+            associatedNPC.OnPuzzleCompleted();
     }
 
     public void CloseMiniGame()
     {
-        miniGameUI.SetActive(false);
-        Time.timeScale = 1f;
+        if (associatedNPC != null)
+            associatedNPC.OnPuzzleCompleted();
     }
 
 }
