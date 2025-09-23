@@ -163,7 +163,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         nearestY = Mathf.Clamp(nearestY, 0, gridHeight - blockSize.y);
 
         if (nearestX < 0 || nearestX > gridWidth - blockSize.x ||
-    nearestY < 0 || nearestY > gridHeight - blockSize.y)
+            nearestY < 0 || nearestY > gridHeight - blockSize.y)
         {
             //Debug.LogError($"BOUNDS ERROR: {block.name} trying to go to ({nearestX}, {nearestY}) but grid limits are ({gridWidth - blockSize.x}, {gridHeight - blockSize.y})");
             isValidMove = false;

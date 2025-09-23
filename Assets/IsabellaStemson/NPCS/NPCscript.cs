@@ -63,11 +63,12 @@ public class NPCscript : CryptidUtils
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        hasCompletedMinigame = true;
     }
 
     public void OnPuzzleCompleted()
     {
+        hasCompletedMinigame = true;
+
         miniGameUI.SetActive(false);
 
         if (level != null)
@@ -83,6 +84,16 @@ public class NPCscript : CryptidUtils
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (characterSwitch != null)
+        {
+            characterSwitch.SwitchToNPC(this.gameObject);
+        }
+        else
+        {
+            Debug.LogError("CharacterSwitch not found! cannot switch camera to NPC.");
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
