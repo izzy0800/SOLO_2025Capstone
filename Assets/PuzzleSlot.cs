@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PuzzleSlot : MonoBehaviour
 {
-    public int id;
+    public Vector2Int id;
     public Block occupiedBlock;
 
     public void PlaceBlock(Block b)
