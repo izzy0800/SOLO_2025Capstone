@@ -131,7 +131,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         Vector2 totalCellSize = cellSize + spacing;
 
         Vector2 blockPos = block.anchoredPosition;
-        Vector2 gridOffset = new Vector2(-342.30f, 426.40f);
+        Vector2 gridOffset = new Vector2(-342.30f, 426.40f);  //DONT FUCKING TOUCH
 
         Block blockComponent = block.GetComponent<Block>();
         Vector2Int blockSize = blockComponent != null ? blockComponent.Size : Vector2Int.one;
