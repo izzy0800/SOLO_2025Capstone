@@ -24,7 +24,7 @@ public class PuzzleUIController : MonoBehaviour
         puzzlePanel.SetActive(isOpen);
 
         //pauses player movement
-        Time.timeScale = isOpen ? 0f : 1f;
+        //Time.timeScale = isOpen ? 0f : 1f;
 
         // allows cursor to appear
         if (isOpen)

@@ -7,6 +7,8 @@ public class NPCscript : CryptidUtils
     [HideInInspector] public Collider col;
     public CharacterSwitch characterSwitch;
 
+    public int height;
+
     public bool hasCompletedMinigame;
     public GameObject miniGameUI; //updated this to be the slider puzzle
     public GameObject level;
@@ -14,6 +16,7 @@ public class NPCscript : CryptidUtils
     public SpriteRenderer visualSprite;
 
     public bool playerInRange;
+    PlayerMovement pm;
 
     private void Start()
     {
@@ -34,6 +37,7 @@ public class NPCscript : CryptidUtils
             {
                 if (!hasCompletedMinigame)
                 {
+                    //characterSwitch.npc = this.gameObject;
                     OpenSliderPuzzle();
                     return;
                 }
@@ -49,20 +53,19 @@ public class NPCscript : CryptidUtils
     {
         miniGameUI.SetActive(true);
 
+        MiniGameController m = miniGameUI.GetComponent<MiniGameController>();
+        m.associatedNPC = this;
+
         if (level != null)
             level.SetActive(false);
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if(player != null)
+        if(pm != null)
         {
-            var playerMovement = player.GetComponent<MonoBehaviour>();
-            if (playerMovement != null)
-                playerMovement.enabled = false;
+            pm.enabled = false;
         }
         
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
     }
 
     public void OnPuzzleCompleted()
@@ -74,12 +77,9 @@ public class NPCscript : CryptidUtils
         if (level != null)
             level.SetActive(true);
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
+        if (pm != null)
         {
-            var playerMovement = player.GetComponent<MonoBehaviour>();
-            if (playerMovement != null)
-                playerMovement.enabled = true;
+            pm.enabled = true;
         }
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -101,6 +101,7 @@ public class NPCscript : CryptidUtils
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            pm = other.GetComponent<PlayerMovement>();
             //Show a prompt
         }
     }

@@ -15,8 +15,7 @@ public class FirstPersonCamera : MonoBehaviour
     [SerializeField]
     private Transform _target;
 
-    [SerializeField]
-    private Vector3 targetOffset;
+    public Vector3 targetOffset;
 
     private Vector3 _currentRotation;
     private Vector3 _smoothVelocity = Vector3.zero;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
 {
 
     private RectTransform rectTransform;
@@ -16,6 +16,8 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
     }
+
+    
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -40,6 +42,8 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         }
 
         rectTransform.anchoredPosition += delta;
+
+        Slider_Puzzle_Manager.Instance.goalBlock.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -52,6 +56,8 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             rectTransform.anchoredPosition = snapped;
             Debug.Log("Valid move applied");
+
+            Slider_Puzzle_Manager.Instance.goalBlock.GetComponent<BoxCollider2D>().enabled = true;
         }
         else
         {
@@ -87,7 +93,12 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         //}
 
         Slider_Puzzle_Manager.Instance.UpdateGrid();
-        Slider_Puzzle_Manager.Instance.CheckWinCondition();
+
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //Debug.Log("IM A BLOCK");
+        //MAKE SURE THAT THE CANVAS 'BLOCKS RAYCASTS' IS TICKED FOR SOME REASON
+    }
 }

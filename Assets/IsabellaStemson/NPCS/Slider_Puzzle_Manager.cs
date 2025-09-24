@@ -64,6 +64,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         DebugAllBlockPositions();
 
         UpdateGrid();
+        Debug.Log("Puzzle init");
     }
 
     void Update()
@@ -250,11 +251,11 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
                 if (totalCells >= 3) 
                 {
-                    threshold = 6000f; 
+                    threshold = 7000f; 
                 }
                 else 
                 {
-                    threshold = 3500f; 
+                    threshold = 4500f; //keep working, might need to add a threshold for just the y axis
                 }
 
                 if (overlapArea > threshold)
@@ -298,11 +299,11 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             {
                 collider.size = rectTransform.sizeDelta;
 
-                Debug.Log($"Fixed {block.name} collider size to: {collider.size} (RectTransform size: {rectTransform.sizeDelta})");
+                //Debug.Log($"Fixed {block.name} collider size to: {collider.size} (RectTransform size: {rectTransform.sizeDelta})");
             }
             else
             {
-                Debug.LogError($"Missing components on {block.name}: Collider={collider != null}, RectTransform={rectTransform != null}");
+                //Debug.LogError($"Missing components on {block.name}: Collider={collider != null}, RectTransform={rectTransform != null}");
             }
         }
     }
@@ -332,6 +333,8 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
     public bool CheckWinCondition()
     {
+        
+
         foreach (Vector2Int cell in goalBlock.GetOccupiedCells())
         {
             if (cell == exitCell)

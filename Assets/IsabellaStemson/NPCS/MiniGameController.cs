@@ -5,20 +5,7 @@ using UnityEngine;
 public class MiniGameController : MonoBehaviour
 {
     public GameObject miniGameUI;
-    private NPCscript associatedNPC;
-
-    private void Start()
-    {
-        NPCscript[] npcs = FindObjectsOfType<NPCscript>();
-        foreach(NPCscript npc in npcs)
-        {
-            if(npc.miniGameUI == miniGameUI)
-            {
-                associatedNPC = npc;
-                break;
-            }
-        }
-    }
+    public NPCscript associatedNPC;
 
     public void OnWinButtonClick()
     {

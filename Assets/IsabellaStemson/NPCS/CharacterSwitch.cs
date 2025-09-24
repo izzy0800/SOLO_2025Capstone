@@ -49,7 +49,26 @@ public class CharacterSwitch : CryptidUtils
     {
         bool isNPC = type == TargetType.npc;
         isControllingNPC = isNPC;
-        
+
+       
+        if (npc != null)
+        {
+            var npcMovement = npc.GetComponent<PlayerMovement>();
+            if (npcMovement != null)
+            {
+                npcMovement.allowVerticalMovement = false;
+            }
+
+            //to toggle sprite visblility
+            var npcScript = npc.GetComponent<NPCscript>();
+            if (npcScript != null)
+            {
+                npcScript.SetSpriteVisible(!isNPC);
+                firstPerson.targetOffset = new Vector3(0, npcScript.height, 0);
+            }
+
+        }
+
         EnableControl(player, !isNPC);
         if (npc != null)
             EnableControl(npc, isNPC);
@@ -63,22 +82,7 @@ public class CharacterSwitch : CryptidUtils
         playerMovement.allowVerticalMovement = !isNPC;
         playerParticles.gameObject.SetActive(!isNPC);
 
-        if (npc != null)
-        {
-            var npcMovement = npc.GetComponent<PlayerMovement>();
-            if (npcMovement != null)
-            {
-                npcMovement.allowVerticalMovement = false; 
-            }
-
-            //to toggle sprite visblility
-            var npcScript = npc.GetComponent<NPCscript>();
-            if (npcScript != null)
-            {
-                npcScript.SetSpriteVisible(!isNPC);
-            }
-
-        }
+      
 
     }
 
