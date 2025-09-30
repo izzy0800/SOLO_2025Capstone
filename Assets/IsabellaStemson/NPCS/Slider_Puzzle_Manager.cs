@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,7 +10,6 @@ using static Unity.Collections.AllocatorManager;
 
 public class Slider_Puzzle_Manager : MonoBehaviour
 {
-
     public static Slider_Puzzle_Manager Instance;
 
     public RectTransform puzzleBoardRect;
@@ -26,7 +25,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
     public Vector2Int exitCell;
 
     public void UpdateGrid() { }
-    
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -112,7 +111,6 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         //Debug.Log("=== ALL BLOCK POSITIONS ===");
         Block[] allBlocks = FindObjectsOfType<Block>();
 
-
         foreach (Block block in allBlocks)
         {
             RectTransform rect = block.GetComponent<RectTransform>();
@@ -143,7 +141,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         }
         else if (blockSize.x == 3)
         {
-            adjustedBlockPos.x -= totalCellSize.x * 1.0f; 
+            adjustedBlockPos.x -= totalCellSize.x * 1.0f;
         }
 
         if (blockSize.y == 2)
@@ -152,7 +150,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         }
         else if (blockSize.y == 3)
         {
-            adjustedBlockPos.y += totalCellSize.y * 1.0f; 
+            adjustedBlockPos.y += totalCellSize.y * 1.0f;
         }
 
         Vector2 relativePos = adjustedBlockPos - gridOffset;
@@ -163,12 +161,13 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         nearestX = Mathf.Clamp(nearestX, 0, gridWidth - blockSize.x);
         nearestY = Mathf.Clamp(nearestY, 0, gridHeight - blockSize.y);
 
-        if (nearestX < 0 || nearestX > gridWidth - blockSize.x ||
-            nearestY < 0 || nearestY > gridHeight - blockSize.y)
+        bool withinBounds = (nearestX >= 0 && nearestX <= gridWidth - blockSize.x &&
+                            nearestY >= 0 && nearestY <= gridHeight - blockSize.y);
+
+        if (!withinBounds)
         {
-            //Debug.LogError($"BOUNDS ERROR: {block.name} trying to go to ({nearestX}, {nearestY}) but grid limits are ({gridWidth - blockSize.x}, {gridHeight - blockSize.y})");
             isValidMove = false;
-            return blockPos; 
+            return blockPos;
         }
 
         Vector2 snappedPos = gridOffset + new Vector2(
@@ -194,29 +193,32 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             snappedPos.y -= totalCellSize.y * 1.0f;
         }
 
-        bool withinBounds = (nearestX >= 0 && nearestX <= gridWidth - blockSize.x &&
-                            nearestY >= 0 && nearestY <= gridHeight - blockSize.y);
-
-        //Debug.Log($"BOUNDS DEBUG {block.name}: nearestX={nearestX}, nearestY={nearestY}, " +
-        //          $"blockSize={blockSize}, gridWidth={gridWidth}, gridHeight={gridHeight}");
-        //Debug.Log($"X bounds: {nearestX} >= 0 && {nearestX} <= {gridWidth - blockSize.x} = {nearestX >= 0 && nearestX <= gridWidth - blockSize.x}");
-        //Debug.Log($"Y bounds: {nearestY} >= 0 && {nearestY} <= {gridHeight - blockSize.y} = {nearestY >= 0 && nearestY <= gridHeight - blockSize.y}");
+        Vector2Int targetGridPos = new Vector2Int(nearestX, nearestY);
+        bool gridValid = IsPositionValidGrid(blockComponent, targetGridPos);
 
         Canvas canvas = GetComponentInParent<Canvas>();
         Vector3 worldPos = canvas.transform.TransformPoint(snappedPos);
+        bool physicsValid = true; 
 
-        bool noPhysicsCollision = IsPositionValidPhysics(blockComponent, worldPos);
+        // physicsValid = IsPositionValidPhysics(blockComponent, worldPos);
 
-        isValidMove = withinBounds && noPhysicsCollision;
+        isValidMove = withinBounds && gridValid;
+
+        if (isValidMove)
+        {
+            Debug.Log($"{block.name} - Grid: {gridValid}, Final: Valid");
+        }
+        else
+        {
+            Debug.Log($"{block.name} - Grid: {gridValid}, Final: Invalid");
+        }
 
         if (blockComponent != null && isValidMove)
         {
-            blockComponent.UpdateGridPosition(new Vector2Int(nearestX, nearestY));
+            blockComponent.UpdateGridPosition(targetGridPos);
         }
 
-        //Debug.Log($"Block {block.name}: Bounds OK: {withinBounds}, Physics OK: {noPhysicsCollision}, Final: {isValidMove}");
-
-        return snappedPos;
+        return isValidMove ? snappedPos : blockPos;
     }
 
     public bool IsPositionValidPhysics(Block movingBlock, Vector2 targetWorldPosition)
@@ -231,7 +233,9 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         blockCollider.enabled = false;
         Vector2 colliderSize = blockCollider.size;
 
-        Collider2D[] overlapping = Physics2D.OverlapBoxAll(targetWorldPosition, colliderSize, 0f);
+        Vector2 checkSize = colliderSize * 0.9f;
+
+        Collider2D[] overlapping = Physics2D.OverlapBoxAll(targetWorldPosition, checkSize, 0f);
         blockCollider.enabled = true;
 
         foreach (Collider2D other in overlapping)
@@ -239,28 +243,57 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             Block otherBlock = other.GetComponent<Block>();
             if (otherBlock != null)
             {
-
                 if (otherBlock.gameObject.name == "Exit")
                     continue;
 
-                float overlapArea = CalculateOverlapArea(targetWorldPosition, colliderSize, other.transform.position, other.bounds.size);
+                Vector2 distance = new Vector2(
+                    Mathf.Abs(targetWorldPosition.x - other.transform.position.x),
+                    Mathf.Abs(targetWorldPosition.y - other.transform.position.y)
+                );
 
-                float threshold;
-                Vector2Int blockSize = movingBlock.GetBlockSize();
-                int totalCells = blockSize.x * blockSize.y;
+                Vector2 minDistance = new Vector2(
+                    (colliderSize.x + other.bounds.size.x) / 2f - slotGrid.spacing.x * 0.5f,
+                    (colliderSize.y + other.bounds.size.y) / 2f - slotGrid.spacing.y * 0.5f
+                );
 
-                if (totalCells >= 3) 
+                bool isHorizontalMover = movingBlock.MovesHorizontally;
+                bool isVerticalMover = movingBlock.MovesVertically;
+
+                bool collision = false;
+
+                if (isHorizontalMover)
                 {
-                    threshold = 7000f; 
+                    if (distance.x < minDistance.x && distance.y < minDistance.y + slotGrid.spacing.y)
+                    {
+                        collision = true;
+                        Debug.Log($"H-COLLISION: {movingBlock.name} → {otherBlock.name}");
+                        Debug.Log($"  X-distance: {distance.x:F1} < {minDistance.x:F1}");
+                        Debug.Log($"  Y-distance: {distance.y:F1} < {minDistance.y + slotGrid.spacing.y:F1}");
+                    }
                 }
-                else 
+                else if (isVerticalMover)
                 {
-                    threshold = 4500f; //keep working, might need to add a threshold for just the y axis
+                    if (distance.y < minDistance.y && distance.x < minDistance.x + slotGrid.spacing.x)
+                    {
+                        collision = true;
+                        Debug.Log($"V-COLLISION: {movingBlock.name} → {otherBlock.name}");
+                        Debug.Log($"  X-distance: {distance.x:F1} < {minDistance.x + slotGrid.spacing.x:F1}");
+                        Debug.Log($"  Y-distance: {distance.y:F1} < {minDistance.y:F1}");
+                    }
+                }
+                else
+                {
+                    if (distance.x < minDistance.x && distance.y < minDistance.y)
+                    {
+                        collision = true;
+                        Debug.Log($"S-COLLISION: {movingBlock.name} → {otherBlock.name}");
+                        Debug.Log($"  X-distance: {distance.x:F1} < {minDistance.x:F1}");
+                        Debug.Log($"  Y-distance: {distance.y:F1} < {minDistance.y:F1}");
+                    }
                 }
 
-                if (overlapArea > threshold)
+                if (collision)
                 {
-                    Debug.Log($"PHYSICS COLLISION: {movingBlock.name} would overlap with {otherBlock.name} (area: {overlapArea} > {threshold})");
                     return false;
                 }
             }
@@ -268,22 +301,42 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         return true;
     }
 
-    private float CalculateOverlapArea(Vector2 pos1, Vector2 size1, Vector2 pos2, Vector2 size2)
+    private float CalculateAxisOverlap(float pos1, float size1, float pos2, float size2)
     {
-        float left1 = pos1.x - size1.x / 2f;
-        float right1 = pos1.x + size1.x / 2f;
-        float bottom1 = pos1.y - size1.y / 2f;
-        float top1 = pos1.y + size1.y / 2f;
+        float min1 = pos1 - size1 / 2f;
+        float max1 = pos1 + size1 / 2f;
+        float min2 = pos2 - size2 / 2f;
+        float max2 = pos2 + size2 / 2f;
 
-        float left2 = pos2.x - size2.x / 2f;
-        float right2 = pos2.x + size2.x / 2f;
-        float bottom2 = pos2.y - size2.y / 2f;
-        float top2 = pos2.y + size2.y / 2f;
+        float overlapStart = Mathf.Max(min1, min2);
+        float overlapEnd = Mathf.Min(max1, max2);
 
-        float overlapWidth = Mathf.Max(0, Mathf.Min(right1, right2) - Mathf.Max(left1, left2));
-        float overlapHeight = Mathf.Max(0, Mathf.Min(top1, top2) - Mathf.Max(bottom1, bottom2));
+        return Mathf.Max(0, overlapEnd - overlapStart);
+    }
 
-        return overlapWidth * overlapHeight;
+    public bool IsPositionValidGrid(Block movingBlock, Vector2Int targetGridPos)
+    {
+        List<Vector2Int> targetCells = movingBlock.GetOccupiedCells(targetGridPos);
+
+        Block[] allBlocks = FindObjectsOfType<Block>();
+        foreach (Block otherBlock in allBlocks)
+        {
+            if (otherBlock == movingBlock || otherBlock.gameObject.name == "Exit")
+                continue;
+
+            List<Vector2Int> otherCells = otherBlock.GetOccupiedCells();
+
+            foreach (Vector2Int targetCell in targetCells)
+            {
+                if (otherCells.Contains(targetCell))
+                {
+                    Debug.Log($"GRID COLLISION: {movingBlock.name} cell {targetCell} occupied by {otherBlock.name}");
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public void FixColliderSizes()
@@ -333,8 +386,6 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
     public bool CheckWinCondition()
     {
-        
-
         foreach (Vector2Int cell in goalBlock.GetOccupiedCells())
         {
             if (cell == exitCell)
@@ -342,7 +393,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
                 Debug.Log("Puzzle Solved");
 
                 MiniGameController controller = FindObjectOfType<MiniGameController>();
-                if(controller != null)
+                if (controller != null)
                 {
                     controller.OnMiniGamerWin();
                 }
@@ -384,17 +435,17 @@ public class Slider_Puzzle_Manager : MonoBehaviour
         Vector2 myCalculation = new Vector2(
             expectedX * totalCellSize.x,
             -expectedY * totalCellSize.y
-            );
+        );
 
         //Debug.Log($"My math for cell ({expectedX}, {expectedY}): {myCalculation}");
         //Debug.Log($"Actual block position: {correctBlock.anchoredPosition}");
         //Debug.Log($"*** DIFFERENCE (This is my offset): {correctBlock.anchoredPosition - myCalculation} ***");
     }
-    
+
     private void InitializeBlockPositions()
     {
         Block[] allBlocks = FindObjectsOfType<Block>();
-        
+
         foreach (Block block in allBlocks)
         {
             RectTransform blockRect = block.GetComponent<RectTransform>();
@@ -422,5 +473,4 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             //Debug.Log($"Initialized {block.name} at grid position {block.Position}");
         }
     }
-
 }
