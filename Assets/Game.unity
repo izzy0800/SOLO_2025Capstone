@@ -46532,7 +46532,7 @@ MonoBehaviour:
   m_VerticalAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 300
+    m_MaxSpeed: 200
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
@@ -46556,7 +46556,7 @@ MonoBehaviour:
   m_HorizontalAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 300
+    m_MaxSpeed: 250
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -46599,21 +46599,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1547280820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 36d1163fa822e8b418a0a603ec078d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 0.5, y: -0.4, z: 0}
-  VerticalArmLength: 0.4
-  CameraSide: 1
-  CameraDistance: 2
-  CameraCollisionFilter:
-    serializedVersion: 2
-    m_Bits: 0
-  IgnoreTag: 
-  CameraRadius: 0.2
-  DampingIntoCollision: 0
-  DampingFromCollision: 2
+  m_Damping: 0
 --- !u!1001 &1549252834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60435,7 +60424,6 @@ GameObject:
   - component: {fileID: 1891423218}
   - component: {fileID: 1891423217}
   - component: {fileID: 1891423222}
-  - component: {fileID: 1891423221}
   - component: {fileID: 1891423220}
   - component: {fileID: 1891423223}
   m_Layer: 0
@@ -60537,33 +60525,6 @@ MonoBehaviour:
   targetOffset: {x: 0, y: 0, z: 0}
   _smoothTime: 0.2
   _rotationXMinMax: {x: -40, y: 40}
---- !u!114 &1891423221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891423216}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5602da2f0ae3f3a4ab0e81db1a90f856, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1955883948}
-  cam: {fileID: 1891423216}
-  offset: {x: 0, y: 0, z: 0}
-  smoothSpeed: 5
-  _mouseSensitivity: 5
-  _target: {fileID: 976619351}
-  _distanceFromTarget: 2.96
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  _smoothTime: 0.2
-  _rotationXMinMax: {x: 0, y: 40}
-  zoomSpeed: 5
-  miniDistance: 2
-  maxDistance: 7.4
 --- !u!114 &1891423222
 MonoBehaviour:
   m_ObjectHideFlags: 0
