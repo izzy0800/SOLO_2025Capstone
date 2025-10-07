@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CryptidUtils : MonoBehaviour
 {
+
     protected const float pi = Mathf.PI; // just in case i need it lmao
     protected void LogWarning(string warnText) { Debug.LogWarning(this.GetType().ToString() + ": " + warnText); }
     protected void LogWarning(char warnChar) { Log(warnChar + ""); }
@@ -16,6 +17,7 @@ public class CryptidUtils : MonoBehaviour
     protected void Log(string logText) { Debug.Log(this.GetType().ToString() + ": " + logText);  }
     protected void Log(char logChar) { Log(logChar + ""); }
     protected void Log(int logInt) { Log(logInt + "");  }
+
 
     // I don't think I'll need these uwu
     protected Transform RelativeRotation(GameObject obj, Vector3 rot) 

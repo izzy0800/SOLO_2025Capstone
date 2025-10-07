@@ -38,8 +38,13 @@ public class NPCscript : CryptidUtils
     private float transitionStartTime;
     private Transform spriteTransform;
 
+    [Header("Dialog System")]
+    private NPCDialogHandler dialogHandler;
+
+
     private void Start()
     {
+        dialogHandler = GetComponent<NPCDialogHandler>();
         col = GetComponent<Collider>();
 
         if (characterSwitch == null)
@@ -84,7 +89,12 @@ public class NPCscript : CryptidUtils
                 else
                 {
                     characterSwitch.SwitchToNPC(this.gameObject);
-                }      
+                }
+                //dialog can only happen when possessed
+                if (characterSwitch.IsPossessing && characterSwitch.npc == this.gameObject)
+                {
+                    //dialog handling is done by NPCDialogHandler component
+                }
             }
         }
     }
