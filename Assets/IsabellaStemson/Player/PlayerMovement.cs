@@ -19,6 +19,8 @@ public class PlayerMovement : CryptidUtils
 
     public bool allowVerticalMovement = true; //SET TO FALSE DURING POSSESSION
 
+    public Component rbc;
+
     // Start is called before the first frame update
     void Start()
     { 
@@ -26,6 +28,8 @@ public class PlayerMovement : CryptidUtils
         followCamera = Camera.main.gameObject;
         rb.useGravity = false;
         rb.drag = 2f;
+
+        rbc = rb.GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -89,6 +93,8 @@ public class PlayerMovement : CryptidUtils
         }
     }
 
+    
+
     private void FixedUpdate()
     {
         //Horizontal movement
@@ -124,7 +130,5 @@ public class PlayerMovement : CryptidUtils
         Vector3 clampedPos = transform.position;
         clampedPos.y = Mathf.Clamp(clampedPos.y, minFloatHeight, maxHoverHeight);
         transform.position = clampedPos;
-
     }
-
 }
