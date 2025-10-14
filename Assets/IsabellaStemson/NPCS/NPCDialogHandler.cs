@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine;
+
 public class NPCDialogHandler : CryptidUtils
 {
     [Header("Dialog Settings")]
     public string npcName = "NPC";
-    public Dialog defaultDialog;
+    [TextArea(3, 5)]
+    public string[] dialogLines; // Simple array of dialog lines
     public bool canBeDialoguedWith = true;
 
     [Header("Dialog Detection")]
@@ -16,7 +19,6 @@ public class NPCDialogHandler : CryptidUtils
 
     private CharacterSwitch characterSwitch;
     private NPCscript myNPCScript;
-    private bool playerInDialogRange = false;
     private GameObject nearbyDialogableNPC;
 
     void Start()
@@ -40,9 +42,14 @@ public class NPCDialogHandler : CryptidUtils
         // Handle dialog input
         if (Input.GetKeyDown(dialogKey) && nearbyDialogableNPC != null)
         {
-            if (!DialogManager.Instance.IsDialogActive)
+            // Check if SimpleDialogManager exists and is not active
+            if (DialogManager.Instance != null && !DialogManager.Instance.IsDialogActive)
             {
                 InitiateDialog();
+            }
+            else if (DialogManager.Instance == null)
+            {
+                Debug.LogError("SimpleDialogManager not found! Add it to your Canvas!");
             }
         }
     }
@@ -93,15 +100,15 @@ public class NPCDialogHandler : CryptidUtils
         if (nearbyDialogableNPC == null) return;
 
         NPCDialogHandler targetNPC = nearbyDialogableNPC.GetComponent<NPCDialogHandler>();
-        if (targetNPC == null || targetNPC.defaultDialog == null) return;
+        if (targetNPC == null || targetNPC.dialogLines == null || targetNPC.dialogLines.Length == 0) return;
 
-        // Get the name of the possessed NPC
+        // Get the name of the possessed NPC (who is speaking)
         string possessedNPCName = this.npcName;
 
-        // Start the dialog
+        // Start the dialog with the target NPC's lines
         DialogManager.Instance.StartDialog(
-            targetNPC.defaultDialog,
-            possessedNPCName,
+            targetNPC.dialogLines,
+            targetNPC.npcName, // The NPC you're talking TO speaks
             () => {
                 Debug.Log($"Dialog between {possessedNPCName} and {targetNPC.npcName} completed!");
             }

@@ -10,16 +10,14 @@ public class DialogManager : MonoBehaviour
     [SerializeField] private GameObject dialogPanel;
     [SerializeField] private TextMeshProUGUI speakerNameText;
     [SerializeField] private TextMeshProUGUI dialogText;
-    [SerializeField] private Button continueButton;
-    [SerializeField] private GameObject choicesContainer;
-    [SerializeField] private GameObject choiceButtonPrefab;
 
     [Header("Settings")]
     [SerializeField] private float textSpeed = 0.05f;
 
-    private Queue<DialogLine> currentDialog;
+    private string[] currentLines;
+    private string currentSpeakerName;
+    private int currentLineIndex;
     private bool isTyping = false;
-    private string currentSentence;
     private Coroutine typingCoroutine;
     private System.Action onDialogComplete;
 
@@ -42,20 +40,36 @@ public class DialogManager : MonoBehaviour
 
         if (dialogPanel != null)
             dialogPanel.SetActive(false);
-        currentDialog = new Queue<DialogLine>();
     }
 
     private void Start()
     {
         characterSwitch = FindObjectOfType<CharacterSwitch>();
-
-        if (continueButton != null)
-            continueButton.onClick.AddListener(DisplayNextSentence);
     }
 
-    public void StartDialog(Dialog dialog, string npcSpeakerName, System.Action onComplete = null)
+    private void Update()
     {
-        // Only allowed dialog if possessing
+        if (!IsDialogActive) return;
+
+        // Click or press Space to continue dialog
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isTyping)
+            {
+                // Complete current line immediately
+                CompleteTyping();
+            }
+            else
+            {
+                // Move to next line
+                NextLine();
+            }
+        }
+    }
+
+    public void StartDialog(string[] lines, string speakerName, System.Action onComplete = null)
+    {
+        // Only allow dialog if possessing
         if (characterSwitch == null || !characterSwitch.IsPossessing)
         {
             Debug.LogWarning("Cannot start dialog - not possessing an NPC!");
@@ -64,7 +78,7 @@ public class DialogManager : MonoBehaviour
 
         if (dialogPanel.activeSelf) return;
 
-        // Disabled player movement during dialog
+        // Disable player movement during dialog
         currentPlayerMovement = characterSwitch.npc?.GetComponent<PlayerMovement>();
         if (currentPlayerMovement != null)
             currentPlayerMovement.enabled = false;
@@ -74,68 +88,40 @@ public class DialogManager : MonoBehaviour
         Cursor.visible = true;
 
         onDialogComplete = onComplete;
+        currentLines = lines;
+        currentSpeakerName = speakerName;
+        currentLineIndex = 0;
+
         dialogPanel.SetActive(true);
-        currentDialog.Clear();
 
-        foreach (DialogLine line in dialog.lines)
-        {
-            // Replace speaker name if it's the possessed NPC speaking
-            if (line.speakerName == "[POSSESSED_NPC]")
-            {
-                DialogLine modifiedLine = new DialogLine();
-                modifiedLine.speakerName = npcSpeakerName;
-                modifiedLine.text = line.text;
-                modifiedLine.choices = line.choices;
-                currentDialog.Enqueue(modifiedLine);
-            }
-            else
-            {
-                currentDialog.Enqueue(line);
-            }
-        }
+        if (speakerNameText != null)
+            speakerNameText.text = speakerName;
 
-        DisplayNextSentence();
+        DisplayLine();
     }
 
-    public void DisplayNextSentence()
+    private void DisplayLine()
     {
-        if (isTyping)
-        {
-            CompleteTyping();
-            return;
-        }
-
-        if (currentDialog.Count == 0)
+        if (currentLineIndex >= currentLines.Length)
         {
             EndDialog();
             return;
         }
 
-        DialogLine line = currentDialog.Dequeue();
-        speakerNameText.text = line.speakerName;
+        if (typingCoroutine != null)
+            StopCoroutine(typingCoroutine);
 
-        if (line.choices != null && line.choices.Length > 0)
-        {
-            DisplayChoices(line.choices);
-        }
-        else
-        {
-            ClearChoices();
-            if (typingCoroutine != null)
-                StopCoroutine(typingCoroutine);
-            typingCoroutine = StartCoroutine(TypeSentence(line.text));
-        }
+        typingCoroutine = StartCoroutine(TypeLine(currentLines[currentLineIndex]));
     }
 
-    private IEnumerator TypeSentence(string sentence)
+    private IEnumerator TypeLine(string line)
     {
         isTyping = true;
-        currentSentence = sentence;
         dialogText.text = "";
 
-        foreach (char letter in sentence.ToCharArray())
+        foreach (char c in line.ToCharArray())
         {
-            dialogText.text += letter;
+            dialogText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
 
@@ -145,52 +131,17 @@ public class DialogManager : MonoBehaviour
     private void CompleteTyping()
     {
         if (typingCoroutine != null)
+        {
             StopCoroutine(typingCoroutine);
-
-        dialogText.text = currentSentence;
-        isTyping = false;
-    }
-
-    private void DisplayChoices(DialogChoice[] choices)
-    {
-        ClearChoices();
-        continueButton.gameObject.SetActive(false);
-
-        foreach (DialogChoice choice in choices)
-        {
-            GameObject choiceButton = Instantiate(choiceButtonPrefab, choicesContainer.transform);
-            choiceButton.GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
-            Button btn = choiceButton.GetComponent<Button>();
-
-            btn.onClick.AddListener(() => {
-                OnChoiceSelected(choice);
-            });
+            dialogText.text = currentLines[currentLineIndex];
+            isTyping = false;
         }
     }
 
-    private void OnChoiceSelected(DialogChoice choice)
+    private void NextLine()
     {
-        ClearChoices();
-        continueButton.gameObject.SetActive(true);
-
-        if (choice.response != null)
-        {
-            currentDialog.Clear();
-            foreach (DialogLine line in choice.response.lines)
-            {
-                currentDialog.Enqueue(line);
-            }
-        }
-
-        DisplayNextSentence();
-    }
-
-    private void ClearChoices()
-    {
-        foreach (Transform child in choicesContainer.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        currentLineIndex++;
+        DisplayLine();
     }
 
     private void EndDialog()
