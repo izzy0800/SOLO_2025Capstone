@@ -2150,7 +2150,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.5
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -2167,10 +2167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -2192,8 +2192,8 @@ MonoBehaviour:
   dialogLines:
   - that guard is really mean...
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!1001 &64661367
 PrefabInstance:
@@ -9654,7 +9654,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.5
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -9671,10 +9671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -9697,8 +9697,8 @@ MonoBehaviour:
   - I don't want to talk to you.
   - GET LOST!!
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!1 &326362400
 GameObject:
@@ -11969,7 +11969,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.5
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -11986,10 +11986,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -12012,10 +12012,11 @@ MonoBehaviour:
   - '*mumbling* frogs frogs frogs'
   - OH! hello
   - I'm Frogo and I quite like frogs
+  - ...
   - What do you mean you could tell?
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!4 &425227483 stripped
 Transform:
@@ -17691,7 +17692,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.32
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -17708,10 +17709,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -17733,8 +17734,8 @@ MonoBehaviour:
   dialogLines:
   - hello...
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!1 &597838750
 GameObject:
@@ -17798,15 +17799,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5818915266947956612, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.498
+      value: 0.869
       objectReference: {fileID: 0}
     - target: {fileID: 5818915266947956612, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.5359998
+      value: -2.54
       objectReference: {fileID: 0}
     - target: {fileID: 5818915266947956612, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.895
+      value: -2.149
       objectReference: {fileID: 0}
     - target: {fileID: 5818915266947956612, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20076,7 +20077,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.5
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -20093,10 +20094,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -20120,8 +20121,8 @@ MonoBehaviour:
   - ...
   - s-sorry
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!1001 &665603589
 PrefabInstance:
@@ -20863,8 +20864,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -449.99988}
-  m_SizeDelta: {x: -200, y: -1100.0002}
+  m_AnchoredPosition: {x: 0, y: -755}
+  m_SizeDelta: {x: -200, y: -1670.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &687999040
 MonoBehaviour:
@@ -34163,7 +34164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2776764947489341197, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.022
+      value: 6.186434
       objectReference: {fileID: 0}
     - target: {fileID: 2776764947489341197, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -34171,11 +34172,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2776764947489341197, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.307
+      value: 6.810541
       objectReference: {fileID: 0}
     - target: {fileID: 2776764947489341197, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8309102
+      value: 0.59913313
       objectReference: {fileID: 0}
     - target: {fileID: 2776764947489341197, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_LocalRotation.x
@@ -34183,7 +34184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2776764947489341197, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5564066
+      value: -0.80064946
       objectReference: {fileID: 0}
     - target: {fileID: 2776764947489341197, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_LocalRotation.z
@@ -34195,7 +34196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2776764947489341197, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -67.615
+      value: -106.384
       objectReference: {fileID: 0}
     - target: {fileID: 2776764947489341197, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -34604,7 +34605,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0b013727fb3c1fb499aebfcd9051158a, type: 2}
     - target: {fileID: 283510476743196846, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.97
+      value: 8.66
       objectReference: {fileID: 0}
     - target: {fileID: 283510476743196846, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -34612,7 +34613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 283510476743196846, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.05
+      value: -0.45
       objectReference: {fileID: 0}
     - target: {fileID: 283510476743196846, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -35369,7 +35370,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.5
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -35386,10 +35387,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -35414,8 +35415,8 @@ MonoBehaviour:
   - I have medicine for all kinds of things...
   - '*whispers* good and bad things...'
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!4 &1098385195 stripped
 Transform:
@@ -36241,7 +36242,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.5
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -36258,10 +36259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -36283,8 +36284,8 @@ MonoBehaviour:
   dialogLines:
   - HEY THERE!
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!1001 &1124396608
 PrefabInstance:
@@ -40069,8 +40070,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -91.00006}
-  m_SizeDelta: {x: 3392.8, y: 734.6}
+  m_AnchoredPosition: {x: 0, y: 1}
+  m_SizeDelta: {x: 3392.8, y: 370.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1224949685
 MonoBehaviour:
@@ -40126,8 +40127,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 35
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -40678,19 +40679,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731229249860759912, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.6090755
+      value: 0.5417423
       objectReference: {fileID: 0}
     - target: {fileID: 4731229249860759912, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.5359998
+      value: 1.4799998
       objectReference: {fileID: 0}
     - target: {fileID: 4731229249860759912, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.9163332
+      value: -4.346966
       objectReference: {fileID: 0}
     - target: {fileID: 4731229249860759912, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.86493856
+      value: 0.8751145
       objectReference: {fileID: 0}
     - target: {fileID: 4731229249860759912, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_LocalRotation.x
@@ -40698,7 +40699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731229249860759912, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5018779
+      value: 0.48391587
       objectReference: {fileID: 0}
     - target: {fileID: 4731229249860759912, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_LocalRotation.z
@@ -40710,7 +40711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731229249860759912, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -60.249
+      value: 57.883
       objectReference: {fileID: 0}
     - target: {fileID: 4731229249860759912, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -44522,7 +44523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.42
+      value: 6.858
       objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalPosition.y
@@ -44530,11 +44531,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.838
+      value: -3.136
       objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7298904
       objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalRotation.x
@@ -44542,7 +44543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.6835642
       objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalRotation.z
@@ -44554,7 +44555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -86.246
       objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -46993,7 +46994,7 @@ Transform:
   m_GameObject: {fileID: 1436470255}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.701, y: 1.383, z: 23.198}
+  m_LocalPosition: {x: -19.701, y: 0.53, z: 23.198}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -50218,7 +50219,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.5
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -50235,10 +50236,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -50257,10 +50258,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcName: 4 Eyes
-  dialogLines: []
+  dialogLines:
+  - I see everything that goes on in this prison
+  - there's a lot of weird stuff under the surface
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!1001 &1538877320
 PrefabInstance:
@@ -50615,8 +50618,8 @@ MonoBehaviour:
       m_LegacyVelocityFilterStrength: -1
   m_VerticalRecentering:
     m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
+    m_WaitTime: 0
+    m_RecenteringTime: 0
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_HorizontalAxis:
@@ -50639,8 +50642,8 @@ MonoBehaviour:
       m_LegacyVelocityFilterStrength: -1
   m_HorizontalRecentering:
     m_enabled: 0
-    m_WaitTime: 1
-    m_RecenteringTime: 2
+    m_WaitTime: 0
+    m_RecenteringTime: 0
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_ApplyBeforeBody: 0
@@ -55734,7 +55737,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.5
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -55751,10 +55754,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -55778,8 +55781,8 @@ MonoBehaviour:
   - I'm Pumpkin
   - A fitting name if I do say so myself
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!1001 &1693973163
 PrefabInstance:
@@ -55880,7 +55883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1187, y: 604}
+  m_AnchoredPosition: {x: -1149, y: 354}
   m_SizeDelta: {x: 1310, y: 154.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1694811026
@@ -55913,7 +55916,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 3858759680
-  m_fontColor: {r: 0, g: 0, b: 0, a: 0.9019608}
+  m_fontColor: {r: 0, g: 1, b: 0.86242104, a: 0.9019608}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -55930,13 +55933,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 135.5
-  m_fontSizeBase: 135.5
+  m_fontSize: 98.4
+  m_fontSizeBase: 98.4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 19
+  m_fontStyle: 21
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -59399,7 +59402,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4167907526572972601, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.92
+      value: -0.32069588
       objectReference: {fileID: 0}
     - target: {fileID: 4167907526572972601, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -59407,11 +59410,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4167907526572972601, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.081
+      value: 2.8396225
       objectReference: {fileID: 0}
     - target: {fileID: 4167907526572972601, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9050528
+      value: 0.8554128
       objectReference: {fileID: 0}
     - target: {fileID: 4167907526572972601, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_LocalRotation.x
@@ -59419,7 +59422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4167907526572972601, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.42529935
+      value: 0.51794696
       objectReference: {fileID: 0}
     - target: {fileID: 4167907526572972601, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_LocalRotation.z
@@ -59431,7 +59434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4167907526572972601, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 50.339
+      value: 62.389
       objectReference: {fileID: 0}
     - target: {fileID: 4167907526572972601, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -59981,7 +59984,7 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 0.5
+  rotationSmoothTime: 2
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
@@ -59998,10 +60001,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 2.4
   hoverSpeed: 3
-  maxHoverHeight: 5
-  minFloatHeight: 0.5
+  maxHoverHeight: 0
+  minFloatHeight: 0
   rb: {fileID: 0}
   moveInput: {x: 0, y: 0, z: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
@@ -60023,8 +60026,8 @@ MonoBehaviour:
   dialogLines:
   - Can't be seen talking to you! Keep moving.
   canBeDialoguedWith: 1
-  dialogRange: 2
-  dialogKey: 102
+  dialogRange: 1.7
+  dialogKey: 116
   dialogPrompt: {fileID: 0}
 --- !u!1001 &1794510324
 PrefabInstance:
@@ -62245,7 +62248,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.7633266
+      value: 1.1599483
       objectReference: {fileID: 0}
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -62253,11 +62256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.1505136
+      value: -13.618143
       objectReference: {fileID: 0}
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9889298
+      value: 0.84183264
       objectReference: {fileID: 0}
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -62265,7 +62268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.14838427
+      value: 0.5397387
       objectReference: {fileID: 0}
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalRotation.z
@@ -62277,7 +62280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 17.067
+      value: 65.332
       objectReference: {fileID: 0}
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -64893,7 +64896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  _mouseSensitivity: 2.25
+  _mouseSensitivity: 0.99
   _target: {fileID: 976619351}
   targetOffset: {x: 0, y: 0, z: 0}
   _smoothTime: 0.2

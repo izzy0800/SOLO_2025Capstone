@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 public class PlayerMovement : CryptidUtils
 {
     public float movespeed = 1f;
-    public float hoverSpeed = 3f; //ADJUST THIS FOR HOW FAST PLAYER RISES/FALLS
+    public float hoverSpeed = 2f; //ADJUST THIS FOR HOW FAST PLAYER RISES/FALLS
     public float maxHoverHeight = 10f;
     public float minFloatHeight = 0.5f;
 
@@ -21,7 +21,7 @@ public class PlayerMovement : CryptidUtils
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         rb = GetComponent<Rigidbody>();
         followCamera = Camera.main.gameObject;
         rb.useGravity = false;

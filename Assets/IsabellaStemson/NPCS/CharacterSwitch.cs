@@ -67,6 +67,8 @@ public class CharacterSwitch : CryptidUtils
             {
                 npcScript.SetSpriteVisible(!isNPC);
 
+                SetRenderersVisible(npc, !isNPC);
+
                 if (isNPC && firstPersonCam != null)
                 {
                     Transform cameraMount = npc.transform.Find("CameraMount");
@@ -87,7 +89,7 @@ public class CharacterSwitch : CryptidUtils
                         lookTarget = new GameObject("FirstPersonLookTarget");
                     }
                     lookTarget.transform.SetParent(cameraMount);
-                    lookTarget.transform.localPosition = new Vector3(0, 0, 5f); 
+                    lookTarget.transform.localPosition = new Vector3(0, 0, 5f);
                     lookTarget.transform.localRotation = Quaternion.identity;
 
                     firstPersonCam.LookAt = lookTarget.transform;
@@ -103,6 +105,16 @@ public class CharacterSwitch : CryptidUtils
 
         if (!isNPC)
         {
+            if (npc != null)
+            {
+                var npcScript = npc.GetComponent<NPCscript>();
+                if (npcScript != null)
+                {
+                    npcScript.SetSpriteVisible(true);
+                    SetRenderersVisible(npc, true);
+                }
+            }
+
             if (firstPersonCam != null)
             {
                 firstPersonCam.Priority = 0;
@@ -126,6 +138,23 @@ public class CharacterSwitch : CryptidUtils
         playerMovement.allowVerticalMovement = !isNPC;
         playerParticles.gameObject.SetActive(!isNPC);
     }
+
+    private void SetRenderersVisible(GameObject target, bool visible)
+    {
+        Renderer[] renderers = target.GetComponentsInChildren<Renderer>();
+        foreach (Renderer r in renderers)
+        {
+            r.enabled = visible;
+        }
+
+        SpriteRenderer[] sprites = target.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sr in sprites)
+        {
+            sr.enabled = visible;
+        }
+    }
+
+
 
     private void Update()
     {

@@ -255,26 +255,40 @@ public class NPCscript : CryptidUtils
     //toggling npc sprite RAHH RAHHH RAHHH
     public void SetSpriteVisible(bool visible)
     {
+        Debug.Log($"Setting {gameObject.name} sprite visible: {visible}");
+
         if (visualSprite != null)
         {
             visualSprite.enabled = visible;
+        }
 
-            if (!visible)
+        SpriteRenderer[] allSprites = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sr in allSprites)
+        {
+            sr.enabled = visible;
+        }
+
+        MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer mr in meshRenderers)
+        {
+            mr.enabled = visible;
+        }
+
+        if (!visible)
+        {
+            enableBillboard = false;
+        }
+        else
+        {
+            enableBillboard = true;
+            if (spriteTransform != null && targetCamera != null)
             {
-                enableBillboard = false;
-            }
-            else
-            {
-                enableBillboard = true;
-                if (spriteTransform != null && targetCamera != null)
+                Vector3 lookDirection = targetCamera.transform.position - spriteTransform.position;
+                if (lockYAxis) lookDirection.y = 0;
+                if (lookDirection != Vector3.zero)
                 {
-                    Vector3 lookDirection = targetCamera.transform.position - spriteTransform.position;
-                    if (lockYAxis) lookDirection.y = 0;
-                    if (lookDirection != Vector3.zero)
-                    {
-                        spriteTransform.rotation = Quaternion.LookRotation(lookDirection);
-                        currentRotation = spriteTransform.rotation;
-                    }
+                    spriteTransform.rotation = Quaternion.LookRotation(lookDirection);
+                    currentRotation = spriteTransform.rotation;
                 }
             }
         }
