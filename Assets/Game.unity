@@ -1803,7 +1803,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.756075, y: 1.3120825, z: 0.6983487}
@@ -1830,7 +1830,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -1857,11 +1857,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &61843402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1874,8 +1875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -2435,6 +2436,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2934320039049691340, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905049006035822053, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7253056108389615722, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
@@ -9454,7 +9459,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.77204025, y: 1.2239685, z: 0.68560505}
@@ -9481,7 +9486,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -9508,11 +9513,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &325955572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9525,8 +9531,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -11990,7 +11996,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.8376523, y: 1.2785329, z: 0.83702433}
@@ -12017,7 +12023,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -12044,11 +12050,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &424142180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12061,8 +12068,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -17927,7 +17934,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -17954,11 +17961,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &595103599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17971,8 +17979,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -18016,7 +18024,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.78639525, y: 1.350816, z: 0.78039396}
@@ -18146,6 +18154,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6218692536665012062, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880835239561283590, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8075833459712701428, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
@@ -20170,7 +20182,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.7764047, y: 1.1661929, z: 0.63718015}
@@ -20197,7 +20209,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -20224,11 +20236,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &665503664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20241,8 +20254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -20921,19 +20934,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687999038}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2882199, y: 0.2882199, z: 0.2882199}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1224949684}
   - {fileID: 1694811025}
-  m_Father: {fileID: 693663013}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -755}
-  m_SizeDelta: {x: -200, y: -1670.45}
+  m_AnchoredPosition: {x: 1910.0001, y: 2231.9348}
+  m_SizeDelta: {x: 3620, y: 574.3638}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &687999040
 MonoBehaviour:
@@ -21159,8 +21172,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 687999039}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -34097,7 +34109,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: fac54571ff27f2b46b28cd6d82cd3c4c, type: 2}
     - target: {fileID: 4817372959387248194, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34646,6 +34658,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0b013727fb3c1fb499aebfcd9051158a, type: 2}
+    - target: {fileID: 2342261883346611588, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3082620562652645067, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
       propertyPath: m_Name
       value: Character 1
@@ -35177,7 +35193,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.74074256, y: 1.4369848, z: 0.74972165}
@@ -35204,7 +35220,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -35231,11 +35247,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &1095403102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35248,8 +35265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -36147,7 +36164,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.77254355, y: 1.2873043, z: 0.68674576}
@@ -36174,7 +36191,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -36201,11 +36218,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &1124026335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36218,8 +36236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -40370,6 +40388,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1798795075}
     m_Modifications:
+    - target: {fileID: 3479070167937999623, guid: 61c91465f8bc26247a688043106a2021, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3992613016091607175, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -43872,6 +43894,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0b013727fb3c1fb499aebfcd9051158a, type: 2}
+    - target: {fileID: 4850240530653288382, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5918353950433684754, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -44122,6 +44148,10 @@ PrefabInstance:
     - target: {fileID: 8839333091284740680, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_Name
       value: Guard
+      objectReference: {fileID: 0}
+    - target: {fileID: 9091728557298534612, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -49134,7 +49164,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.70694214, y: 1.6526643, z: 0.76153296}
@@ -49161,7 +49191,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -49188,11 +49218,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &1528768287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49205,8 +49236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -54010,7 +54041,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.75941205, y: 1.3613259, z: 0.7267236}
@@ -54037,7 +54068,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -54064,11 +54095,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &1693213655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54081,8 +54113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -57599,6 +57631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prisoner 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1911223598345201208, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2319787933168268132, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -58135,7 +58171,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.7765007, y: 1.3647764, z: 0.757184}
@@ -58162,7 +58198,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
@@ -58189,11 +58225,12 @@ MonoBehaviour:
   playerInRange: 0
   enableBillboard: 1
   lockYAxis: 1
-  rotationSmoothTime: 2
+  rotationSmoothTime: 3.13
   maintainScale: 0
   baseDistance: 5
   minScale: 0.5
   maxScale: 2
+  inGame: 0
 --- !u!114 &1793071376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58206,8 +58243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 2.5
-  hoverSpeed: 3
+  movespeed: 0.19
+  hoverSpeed: 0
   maxHoverHeight: 0
   minFloatHeight: 0
   rb: {fileID: 0}
@@ -60227,6 +60264,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4722260064144981240, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5839776465821021486, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -60593,6 +60634,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1798795075}
     m_Modifications:
+    - target: {fileID: 1375183803950489875, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2506147471423936844, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.1599483
@@ -77393,3 +77438,4 @@ SceneRoots:
   - {fileID: 1223437374}
   - {fileID: 1436470257}
   - {fileID: 693663013}
+  - {fileID: 687999039}

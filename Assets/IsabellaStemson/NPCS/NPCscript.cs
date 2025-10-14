@@ -42,6 +42,8 @@ public class NPCscript : CryptidUtils
     private NPCDialogHandler dialogHandler;
 
 
+    public bool inGame;
+
     private void Start()
     {
         dialogHandler = GetComponent<NPCDialogHandler>();
@@ -83,8 +85,18 @@ public class NPCscript : CryptidUtils
                 if (!hasCompletedMinigame)
                 {
                     //characterSwitch.npc = this.gameObject;
-                    OpenSliderPuzzle();
-                    return;
+                    if (!inGame)
+                    {
+                        OpenSliderPuzzle();
+                        inGame = true;
+                        return;
+                        
+                    }
+                    else
+                    {
+
+                    }
+                   
                 }
                 else
                 {
@@ -185,9 +197,10 @@ public class NPCscript : CryptidUtils
         spriteTransform.localScale = originalScale * scaleFactor;
     }
 
-
+   
     private void OpenSliderPuzzle()
     {
+        Debug.Log("OPENDED");
         miniGameUI.SetActive(true);
 
         MiniGameController m = miniGameUI.GetComponent<MiniGameController>();
@@ -209,7 +222,7 @@ public class NPCscript : CryptidUtils
     public void OnPuzzleCompleted()
     {
         hasCompletedMinigame = true;
-
+        inGame = false;
         miniGameUI.SetActive(false);
 
         if (level != null)
@@ -238,6 +251,7 @@ public class NPCscript : CryptidUtils
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("fOUND");
             playerInRange = true;
             pm = other.GetComponent<PlayerMovement>();
             //Show a prompt
