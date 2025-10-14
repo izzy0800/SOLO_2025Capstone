@@ -10,7 +10,7 @@ using static Unity.Collections.AllocatorManager;
 
 public class Slider_Puzzle_Manager : MonoBehaviour
 {
-    public static Slider_Puzzle_Manager Instance;
+    //public static Slider_Puzzle_Manager Instance;
 
     public RectTransform puzzleBoardRect;
     public GridLayoutGroup slotGrid;
@@ -26,17 +26,22 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
     public void UpdateGrid() { }
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-    }
+    //private void Awake()
+    //{
+    //    if (Instance != null && Instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+    //    Instance = this;
+    //}
 
     private void Start()
+    {
+        SetPuzzle();
+    }
+
+    public void SetPuzzle()
     {
         if (slotGrid != null)
         {
@@ -470,7 +475,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
             int gridY = Mathf.RoundToInt(-relativePos.y / totalCellSize.y);
 
             block.Position = new Vector2Int(gridX, gridY);
-            //Debug.Log($"Initialized {block.name} at grid position {block.Position}");
+            Debug.Log($"Initialized {block.name} at grid position {block.Position}");
         }
     }
 }

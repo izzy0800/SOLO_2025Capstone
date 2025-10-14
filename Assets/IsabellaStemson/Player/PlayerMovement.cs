@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 
 public class PlayerMovement : CryptidUtils
@@ -83,7 +84,9 @@ public class PlayerMovement : CryptidUtils
 
         //comb horizontal and vertical
         Vector3 fullmove = moveVelocity + new Vector3(0f, verticalVelocity, 0f);
-        rb.MovePosition(rb.position + fullmove * Time.deltaTime);
+        //rb.MovePosition(rb.position + fullmove * Time.deltaTime);
+        rb.AddForce(moveVelocity * 10f, ForceMode.Force);
+
 
         //rotation BODY TEA
         if (moveInput != Vector3.zero)
@@ -98,8 +101,8 @@ public class PlayerMovement : CryptidUtils
     private void FixedUpdate()
     {
         //Horizontal movement
-        Vector3 horizontalMove = moveVelocity * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + horizontalMove);
+        //Vector3 horizontalMove = moveVelocity * Time.fixedDeltaTime;
+        //rb.MovePosition(rb.position + horizontalMove);
 
         if (allowVerticalMovement)
         {

@@ -21,7 +21,7 @@ public class Block : MonoBehaviour
 
     private void Start()
     {
-        manager = Slider_Puzzle_Manager.Instance;
+        manager = GetComponentInParent<Slider_Puzzle_Manager>();
     }
 
     public void UpdateGridPosition(Vector2Int newPosition)

@@ -192,6 +192,7 @@ public class NPCscript : CryptidUtils
 
         MiniGameController m = miniGameUI.GetComponent<MiniGameController>();
         m.associatedNPC = this;
+        m.CreatePuzzle();
 
         if (level != null)
             level.SetActive(false);

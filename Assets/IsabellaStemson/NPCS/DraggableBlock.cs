@@ -10,11 +10,15 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private Canvas canvas;
     private Vector2 originalPos;
 
+    private Slider_Puzzle_Manager manager;
+
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
+
+        manager = GetComponentInParent<Slider_Puzzle_Manager>();
     }
 
     
@@ -43,21 +47,21 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
         rectTransform.anchoredPosition += delta;
 
-        Slider_Puzzle_Manager.Instance.goalBlock.GetComponent<BoxCollider2D>().enabled = false;
+        manager.goalBlock.GetComponent<BoxCollider2D>().enabled = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         //Vector2 originalAnchoredPos = originalPos;
         bool isValidMove;
-        Vector2 snapped = Slider_Puzzle_Manager.Instance.GetNearestCellPositionWithCollision(rectTransform, out isValidMove);
+        Vector2 snapped = manager.GetNearestCellPositionWithCollision(rectTransform, out isValidMove);
 
         if (isValidMove)
         {
             rectTransform.anchoredPosition = snapped;
             Debug.Log("Valid move applied");
 
-            Slider_Puzzle_Manager.Instance.goalBlock.GetComponent<BoxCollider2D>().enabled = true;
+            manager.goalBlock.GetComponent<BoxCollider2D>().enabled = true;
         }
         else
         {
@@ -92,7 +96,7 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         //    rectTransform.anchoredPosition = snapped;
         //}
 
-        Slider_Puzzle_Manager.Instance.UpdateGrid();
+        manager.UpdateGrid();
 
     }
 
