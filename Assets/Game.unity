@@ -1830,8 +1830,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -1923,10 +1923,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.605652
+  m_Radius: 0.27207285
+  m_Height: 1.2481372
   m_Direction: 1
-  m_Center: {x: 0, y: 0.66933435, z: 0}
+  m_Center: {x: -0.014945269, y: 0.6843567, z: -0.015128791}
 --- !u!1001 &64661367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9486,8 +9486,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -9580,10 +9580,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.3838073
+  m_Radius: 0.22719178
+  m_Height: 1.1430892
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5711357, z: 0}
+  m_Center: {x: 0.00041663667, y: 0.6195237, z: 0.012772948}
 --- !u!1 &326362400
 GameObject:
   m_ObjectHideFlags: 3
@@ -11999,8 +11999,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8376523, y: 1.2785329, z: 0.83702433}
-  m_Center: {x: -0.015351741, y: 0.6376055, z: 0.009061903}
+  m_Size: {x: 0.9148802, y: 1.2785329, z: 0.92914426}
+  m_Center: {x: -0.030354053, y: 0.6376055, z: 0.0213501}
 --- !u!54 &424142177
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12023,8 +12023,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -12120,8 +12120,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.5147239
+  m_Radius: 0.29
+  m_Height: 1.26
   m_Direction: 1
   m_Center: {x: -0, y: 0.63614434, z: 0}
 --- !u!4 &425227483 stripped
@@ -17934,8 +17934,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -18048,10 +18048,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.27
-  m_Height: 1.38
+  m_Radius: 0.21617368
+  m_Height: 1.2504896
   m_Direction: 1
-  m_Center: {x: 0, y: 0.68, z: 0}
+  m_Center: {x: 0.0067356513, y: 0.69284457, z: -0.02913517}
 --- !u!1 &597838750
 GameObject:
   m_ObjectHideFlags: 3
@@ -20209,8 +20209,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -20304,10 +20304,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.4886472
+  m_Radius: 0.24298207
+  m_Height: 1.0897897
   m_Direction: 1
-  m_Center: {x: -0, y: 0.6548641, z: 0}
+  m_Center: {x: -0.008681074, y: 0.5819419, z: 0.028064087}
 --- !u!1001 &665603589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20936,17 +20936,17 @@ RectTransform:
   m_GameObject: {fileID: 687999038}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2882199, y: 0.2882199, z: 0.2882199}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1224949684}
   - {fileID: 1694811025}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 693663013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1910.0001, y: 2231.9348}
-  m_SizeDelta: {x: 3620, y: 574.3638}
+  m_AnchoredPosition: {x: -0, y: -755}
+  m_SizeDelta: {x: -200, y: -1670.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &687999040
 MonoBehaviour:
@@ -20955,7 +20955,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687999038}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2609ae41e57129c43abe886f58108f7e, type: 3}
   m_Name: 
@@ -21172,7 +21172,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 687999039}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -35220,8 +35221,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -35316,10 +35317,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.5931995
+  m_Radius: 0.21617757
+  m_Height: 1.3019936
   m_Direction: 1
-  m_Center: {x: 0, y: 0.62459123, z: -0}
+  m_Center: {x: -0.012894183, y: 0.6636183, z: -0.017759383}
 --- !u!4 &1098385195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 459d6d1f27538074fb27271fea27718a, type: 3}
@@ -36191,8 +36192,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -36284,10 +36285,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.5366778
+  m_Radius: 0.26077825
+  m_Height: 1.1921071
   m_Direction: 1
-  m_Center: {x: 0, y: 0.65689373, z: 0}
+  m_Center: {x: -0.024919212, y: 0.61235327, z: -0.018523207}
 --- !u!1001 &1124396608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49167,8 +49168,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.70694214, y: 1.6526643, z: 0.76153296}
-  m_Center: {x: -0.0082692215, y: 0.8169189, z: -0.014580652}
+  m_Size: {x: 0.8590205, y: 1.6526643, z: 0.864984}
+  m_Center: {x: -0.020288559, y: 0.8169189, z: 0.03714398}
 --- !u!54 &1528768284
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -49191,8 +49192,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -49285,10 +49286,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.9085042
+  m_Radius: 0.25691962
+  m_Height: 1.5217268
   m_Direction: 1
-  m_Center: {x: -0, y: 0.804428, z: 0}
+  m_Center: {x: -0.014493436, y: 0.8199611, z: 0.003981173}
 --- !u!1001 &1538877320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54068,8 +54069,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -54163,10 +54164,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.4968365
+  m_Radius: 0.2434657
+  m_Height: 1.2371063
   m_Direction: 1
-  m_Center: {x: 0, y: 0.6731387, z: 0}
+  m_Center: {x: -0.0013449194, y: 0.66693044, z: -0.0053613335}
 --- !u!1001 &1693973163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58198,8 +58199,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -58291,10 +58292,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.669843
+  m_Radius: 0.23803823
+  m_Height: 1.1267838
   m_Direction: 1
-  m_Center: {x: 0, y: 0.59427965, z: 0}
+  m_Center: {x: 0.008922547, y: 0.6771388, z: 0.022949038}
 --- !u!1001 &1794510324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77438,4 +77439,3 @@ SceneRoots:
   - {fileID: 1223437374}
   - {fileID: 1436470257}
   - {fileID: 693663013}
-  - {fileID: 687999039}

@@ -41,11 +41,15 @@ public class NPCscript : CryptidUtils
     [Header("Dialog System")]
     private NPCDialogHandler dialogHandler;
 
+    private Rigidbody rb;
 
     public bool inGame;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+
         dialogHandler = GetComponent<NPCDialogHandler>();
         col = GetComponent<Collider>();
 
@@ -100,7 +104,10 @@ public class NPCscript : CryptidUtils
                 }
                 else
                 {
+                    rb.isKinematic = false;
                     characterSwitch.SwitchToNPC(this.gameObject);
+                    //HEREEEEEEEEEEEEEE
+                    
                 }
                 //dialog can only happen when possessed
                 if (characterSwitch.IsPossessing && characterSwitch.npc == this.gameObject)
@@ -238,6 +245,7 @@ public class NPCscript : CryptidUtils
 
         if (characterSwitch != null)
         {
+            rb.isKinematic = false;
             characterSwitch.SwitchToNPC(this.gameObject);
         }
         else

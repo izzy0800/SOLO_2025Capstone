@@ -18,6 +18,8 @@ public class CharacterSwitch : CryptidUtils
     public bool IsPossessing => isControllingNPC;
     PlayerMovement playerMovement;
 
+    //private Rigidbody rb;
+
     private enum TargetType
     {
         player,
@@ -26,6 +28,9 @@ public class CharacterSwitch : CryptidUtils
    
     void Start()
     {
+        //rb = GetComponent<Rigidbody>();
+        //rb.isKinematic = true;
+
         playerMovement = player.GetComponent<PlayerMovement>();
         playerParticles = player.GetComponentInChildren<ParticleSystem>();
         if (firstPersonCam != null)
@@ -56,6 +61,10 @@ public class CharacterSwitch : CryptidUtils
 
         if (npc != null)
         {
+
+            //rb.isKinematic = false;
+
+
             var npcMovement = npc.GetComponent<PlayerMovement>();
             if (npcMovement != null)
             {
@@ -107,11 +116,14 @@ public class CharacterSwitch : CryptidUtils
         {
             if (npc != null)
             {
+               // rb.isKinematic = true;
+
                 var npcScript = npc.GetComponent<NPCscript>();
                 if (npcScript != null)
                 {
                     npcScript.SetSpriteVisible(true);
                     SetRenderersVisible(npc, true);
+                    npc.GetComponent<Rigidbody>().isKinematic = true;
                 }
             }
 
