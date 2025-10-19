@@ -1863,28 +1863,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &61843402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61843391}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &61843408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2473,6 +2451,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7983853431610365384, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983853431610365384, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983853431610365384, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983853431610365384, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
+      propertyPath: m_RotateSpeed
+      value: 206
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2483,9 +2477,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7253056108389615722, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
       insertIndex: -1
       addedObject: {fileID: 424142177}
-    - targetCorrespondingSourceObject: {fileID: 7253056108389615722, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 424142180}
     - targetCorrespondingSourceObject: {fileID: 7253056108389615722, guid: 00ef7373ac2c19042880fd237c47eb47, type: 3}
       insertIndex: -1
       addedObject: {fileID: 424142179}
@@ -9545,28 +9536,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &325955572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 325955561}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &325955578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12101,28 +12070,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &424142180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424142169}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &424142186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18031,28 +17978,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &595103599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595103588}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &595103605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18191,6 +18116,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1940071541767846971, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1940071541767846971, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1940071541767846971, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1940071541767846971, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
+      propertyPath: m_RotateSpeed
+      value: 206
+      objectReference: {fileID: 0}
     - target: {fileID: 2694864809673923266, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
       propertyPath: m_Name
       value: Prisoner 7
@@ -18285,9 +18226,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2694864809673923266, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 61843399}
-    - targetCorrespondingSourceObject: {fileID: 2694864809673923266, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 61843402}
     - targetCorrespondingSourceObject: {fileID: 2694864809673923266, guid: 58e29f27975634548bf42223c10fcf6e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 61843401}
@@ -20332,28 +20270,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &665503664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665503653}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &665503670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34158,8 +34074,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1155020479772719583, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155020479772719583, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155020479772719583, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155020479772719583, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_RotateSpeed
-      value: 26
+      value: 206
       objectReference: {fileID: 0}
     - target: {fileID: 2374122305362113840, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       propertyPath: m_Camera
@@ -34232,9 +34160,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 461473258756678269, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 595103596}
-    - targetCorrespondingSourceObject: {fileID: 461473258756678269, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 595103599}
     - targetCorrespondingSourceObject: {fileID: 461473258756678269, guid: 1620b173ba60f964e914bfac41c26db5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 595103598}
@@ -34891,6 +34816,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8629764693248869722, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629764693248869722, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629764693248869722, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629764693248869722, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
+      propertyPath: m_RotateSpeed
+      value: 206
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34901,9 +34842,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6347282529222888131, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 325955569}
-    - targetCorrespondingSourceObject: {fileID: 6347282529222888131, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 325955572}
     - targetCorrespondingSourceObject: {fileID: 6347282529222888131, guid: 5cf500073a7709b42ae9a469f9f132a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 325955571}
@@ -35377,28 +35315,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &1095403102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095403091}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &1095403108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36367,28 +36283,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &1124026335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124026324}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &1124026341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40614,6 +40508,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8445843454075201699, guid: 61c91465f8bc26247a688043106a2021, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445843454075201699, guid: 61c91465f8bc26247a688043106a2021, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445843454075201699, guid: 61c91465f8bc26247a688043106a2021, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8445843454075201699, guid: 61c91465f8bc26247a688043106a2021, type: 3}
+      propertyPath: m_RotateSpeed
+      value: 206
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -40624,9 +40534,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4085193444302278748, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1528768284}
-    - targetCorrespondingSourceObject: {fileID: 4085193444302278748, guid: 61c91465f8bc26247a688043106a2021, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1528768287}
     - targetCorrespondingSourceObject: {fileID: 4085193444302278748, guid: 61c91465f8bc26247a688043106a2021, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1528768286}
@@ -44099,6 +44006,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7438307432029106968, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438307432029106968, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438307432029106968, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438307432029106968, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
+      propertyPath: m_RotateSpeed
+      value: 206
+      objectReference: {fileID: 0}
     - target: {fileID: 7602366314873776630, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -44154,9 +44077,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1689255505933610426, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1095403099}
-    - targetCorrespondingSourceObject: {fileID: 1689255505933610426, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1095403102}
     - targetCorrespondingSourceObject: {fileID: 1689255505933610426, guid: 96c68f9ec377aa8479a65fbec226d990, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1095403101}
@@ -44273,6 +44193,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4749844772594746410, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4749844772594746410, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4749844772594746410, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4749844772594746410, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
+      propertyPath: m_RotateSpeed
+      value: 206
+      objectReference: {fileID: 0}
     - target: {fileID: 5784624131552410642, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.858
@@ -44343,9 +44279,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8839333091284740680, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1793071373}
-    - targetCorrespondingSourceObject: {fileID: 8839333091284740680, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1793071376}
     - targetCorrespondingSourceObject: {fileID: 8839333091284740680, guid: ff24baa694afc0a4098805d4310d4528, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1793071375}
@@ -49407,28 +49340,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &1528768287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1528768276}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &1528768293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54303,28 +54214,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &1693213655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1693213644}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &1693213661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57848,6 +57737,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5434174709257147, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434174709257147, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434174709257147, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434174709257147, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
+      propertyPath: m_RotateSpeed
+      value: 206
+      objectReference: {fileID: 0}
     - target: {fileID: 1797797529584036558, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       propertyPath: m_Name
       value: Prisoner 3
@@ -57918,9 +57823,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1797797529584036558, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1693213652}
-    - targetCorrespondingSourceObject: {fileID: 1797797529584036558, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1693213655}
     - targetCorrespondingSourceObject: {fileID: 1797797529584036558, guid: c585ce97e0655934f861e4fe0a8460f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1693213654}
@@ -58459,28 +58361,6 @@ MonoBehaviour:
   minScale: 0.5
   maxScale: 2
   inGame: 0
---- !u!114 &1793071376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1793071365}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movespeed: 0.05
-  hoverSpeed: 0
-  maxHoverHeight: 0
-  minFloatHeight: 0
-  rb: {fileID: 0}
-  moveInput: {x: 0, y: 0, z: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  followCamera: {fileID: 0}
-  allowVerticalMovement: 1
-  rbc: {fileID: 0}
 --- !u!114 &1793071382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60523,6 +60403,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5839776465821021486, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839776465821021486, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839776465821021486, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839776465821021486, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
+      propertyPath: m_RotateSpeed
+      value: 206
+      objectReference: {fileID: 0}
     - target: {fileID: 5859299394185642432, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.956
@@ -60581,9 +60477,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8277484315867910339, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
       insertIndex: -1
       addedObject: {fileID: 665503661}
-    - targetCorrespondingSourceObject: {fileID: 8277484315867910339, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 665503664}
     - targetCorrespondingSourceObject: {fileID: 8277484315867910339, guid: 5ec4eb9b4608afd48aa17467c6c13f26, type: 3}
       insertIndex: -1
       addedObject: {fileID: 665503663}
@@ -60944,6 +60837,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5914846365843032225, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
+      propertyPath: m_RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914846365843032225, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
+      propertyPath: m_WalkSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914846365843032225, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
+      propertyPath: m_JumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914846365843032225, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
+      propertyPath: m_RotateSpeed
+      value: 206
+      objectReference: {fileID: 0}
     - target: {fileID: 7819486166495960741, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       propertyPath: m_Name
       value: Prisoner 6
@@ -60962,9 +60871,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7819486166495960741, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1124026332}
-    - targetCorrespondingSourceObject: {fileID: 7819486166495960741, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1124026335}
     - targetCorrespondingSourceObject: {fileID: 7819486166495960741, guid: e76d8c2783a21da4999d3e06c99eb26c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1124026334}
@@ -63285,7 +63191,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 74.9
+  field of view: 73.2
   orthographic: 0
   orthographic size: 10
   m_Depth: 0.01
@@ -63311,8 +63217,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891423216}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3503852, y: 0.18521783, z: -0.05571665, w: 0.9164171}
-  m_LocalPosition: {x: -20.672062, y: 3.5410023, z: 15.860378}
+  m_LocalRotation: {x: 0.2772437, y: -0.4169399, z: 0.13290663, w: 0.85535544}
+  m_LocalPosition: {x: -14.040361, y: 6.403402, z: 15.821578}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
