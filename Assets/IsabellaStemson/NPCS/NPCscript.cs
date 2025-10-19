@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Controller;
 using UnityEngine;
 
 public class NPCscript : CryptidUtils
@@ -17,7 +18,9 @@ public class NPCscript : CryptidUtils
     public SpriteRenderer visualSprite;
 
     public bool playerInRange;
-    PlayerMovement pm;
+
+    private MovePlayerInput moveInput;
+    private PlayerMovement playerMovement;
 
     [Header("Billboard Settings")]
     [SerializeField] private bool enableBillboard = true;
@@ -42,13 +45,35 @@ public class NPCscript : CryptidUtils
     private NPCDialogHandler dialogHandler;
 
     private Rigidbody rb;
+    private CharacterController characterController;
 
     public bool inGame;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
+        if (rb != null) rb.isKinematic = true;
+
+        characterController = GetComponent<CharacterController>();
+
+        moveInput = GetComponent<MovePlayerInput>();
+        playerMovement = GetComponent<PlayerMovement>();
+
+        if (moveInput != null)
+        {
+            moveInput.enabled = false;
+        }
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = false;
+        }
+
+        var charMover = GetComponent<CharacterMover>();
+        if (charMover != null)
+        {
+            charMover.enabled = false;
+        }
+        
 
         dialogHandler = GetComponent<NPCDialogHandler>();
         col = GetComponent<Collider>();
@@ -88,7 +113,6 @@ public class NPCscript : CryptidUtils
             {
                 if (!hasCompletedMinigame)
                 {
-                    //characterSwitch.npc = this.gameObject;
                     if (!inGame)
                     {
                         OpenSliderPuzzle();
@@ -104,10 +128,8 @@ public class NPCscript : CryptidUtils
                 }
                 else
                 {
-                    rb.isKinematic = false;
+                    if (rb != null) rb.isKinematic = false;
                     characterSwitch.SwitchToNPC(this.gameObject);
-                    //HEREEEEEEEEEEEEEE
-                    
                 }
                 //dialog can only happen when possessed
                 if (characterSwitch.IsPossessing && characterSwitch.npc == this.gameObject)
@@ -217,9 +239,13 @@ public class NPCscript : CryptidUtils
         if (level != null)
             level.SetActive(false);
 
-        if(pm != null)
+        if (moveInput != null)
         {
-            pm.enabled = false;
+            moveInput.enabled = false;
+        }
+        else if (playerMovement != null)
+        {
+            playerMovement.enabled = false;
         }
         
         Cursor.lockState = CursorLockMode.None;
@@ -235,9 +261,13 @@ public class NPCscript : CryptidUtils
         if (level != null)
             level.SetActive(true);
 
-        if (pm != null)
+        if (moveInput != null)
         {
-            pm.enabled = true;
+            moveInput.enabled = true;
+        }
+        else if (playerMovement != null)
+        {
+            playerMovement.enabled = true;
         }
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -245,7 +275,7 @@ public class NPCscript : CryptidUtils
 
         if (characterSwitch != null)
         {
-            rb.isKinematic = false;
+            if (rb != null) rb.isKinematic = false;
             characterSwitch.SwitchToNPC(this.gameObject);
         }
         else
@@ -261,8 +291,6 @@ public class NPCscript : CryptidUtils
         {
             Debug.Log("fOUND");
             playerInRange = true;
-            pm = other.GetComponent<PlayerMovement>();
-            //Show a prompt
         }
     }
     private void OnTriggerExit(Collider other)
@@ -270,7 +298,6 @@ public class NPCscript : CryptidUtils
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            //Show a prompt
         }
     }
 
