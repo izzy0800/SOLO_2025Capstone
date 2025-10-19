@@ -5,6 +5,8 @@ using Controller;
 
 public class DummyPlayerCamera : PlayerCamera
 {
+    private Camera mainCamera;
+
     protected override void Awake()
     {
         base.Awake();
@@ -13,6 +15,9 @@ public class DummyPlayerCamera : PlayerCamera
         {
             m_Player = transform;
         }
+
+        mainCamera = Camera.main;
+
         if (m_Target != null)
         {
             m_Target.position = transform.position + transform.forward * 5f;
@@ -22,6 +27,10 @@ public class DummyPlayerCamera : PlayerCamera
     {
         if (m_Target != null && m_Player != null)
         {
+            Vector3 cameraForward = mainCamera.transform.forward;
+            cameraForward.y = 0;
+            cameraForward.Normalize();
+
             m_Target.position = m_Player.position + m_Player.forward * TargetDistance;
         }
     }

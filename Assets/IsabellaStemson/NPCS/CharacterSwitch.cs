@@ -77,7 +77,18 @@ public class CharacterSwitch : CryptidUtils
                 SetRenderersVisible(previousNPC, true);
 
                 var rb = previousNPC.GetComponent<Rigidbody>();
-                if (rb != null) rb.isKinematic = true;
+                if (rb != null)
+                {
+                    rb.isKinematic = true;
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
+
+                var charMover = previousNPC.GetComponent<CharacterMover>();
+                if (charMover != null)
+                {
+                    charMover.enabled = false;
+                }
             }
         }
 
@@ -164,13 +175,32 @@ public class CharacterSwitch : CryptidUtils
             {
                 moveInput.enabled = isEnabled;
                 charMover.enabled = isEnabled;
+                if (!isEnabled)
+                {
+                    charMover.SetInput(Vector2.zero, character.transform.position + character.transform.forward, false, false);
+                }
             }
             else
             {
                 var playerMove = character.GetComponent<PlayerMovement>();
                 if (playerMove) playerMove.enabled = isEnabled;
             }
+            var rb = character.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                if (!isEnabled)
+                {
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    rb.isKinematic = true;
+                }
+                else
+                {
+                    rb.isKinematic = false;
+                }
+            }
         }
+
         var npcScript = character.GetComponent<NPCscript>();
         if (npcScript && npcScript.col != null)
         {
@@ -257,6 +287,14 @@ public class CharacterSwitch : CryptidUtils
                 if (moveInput) moveInput.enabled = false;
                 if (charMover) charMover.enabled = false;
                 if (playerMove) playerMove.enabled = false;
+
+                var rb = npcScript.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    rb.isKinematic = true;
+                }
             }
         }
     }
