@@ -263,11 +263,15 @@ public class NPCscript : CryptidUtils
 
         if (moveInput != null)
         {
-            moveInput.enabled = true;
-        }
-        else if (playerMovement != null)
-        {
-            playerMovement.enabled = true;
+            moveInput = gameObject.AddComponent<MovePlayerInput>();
+
+            var cameraTarget = GetComponent<NPCCameraTarget>();
+            if (cameraTarget == null)
+            {
+                cameraTarget = gameObject.AddComponent<NPCCameraTarget>();
+            }
+            moveInput.BindCamera(cameraTarget);
+            moveInput.enabled = false;
         }
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -278,11 +282,6 @@ public class NPCscript : CryptidUtils
             if (rb != null) rb.isKinematic = false;
             characterSwitch.SwitchToNPC(this.gameObject);
         }
-        else
-        {
-            Debug.LogError("CharacterSwitch not found! cannot switch camera to NPC.");
-        }
-
     }
 
     private void OnTriggerEnter(Collider other)

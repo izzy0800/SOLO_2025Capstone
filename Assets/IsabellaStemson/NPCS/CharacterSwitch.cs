@@ -49,6 +49,20 @@ public class CharacterSwitch : CryptidUtils
         npc = newNPC;
 
         currentNPCInput = npc.GetComponent<MovePlayerInput>();
+        if (currentNPCInput == null)
+        {
+            currentNPCInput = npc.AddComponent<MovePlayerInput>();
+
+            var cameraTarget = npc.GetComponent<NPCCameraTarget>();
+            if (cameraTarget == null)
+            {
+                cameraTarget = npc.AddComponent<NPCCameraTarget>();
+            }
+
+            currentNPCInput.BindCamera(cameraTarget);
+
+        }
+
         currentNPCMover = npc.GetComponent<CharacterMover>();
 
         Switch(TargetType.npc);
@@ -68,6 +82,20 @@ public class CharacterSwitch : CryptidUtils
 
         if (!isNPC && previousNPC != null)
         {
+            var prevMoveInput = previousNPC.GetComponent<MovePlayerInput>();
+            var prevCharMover = previousNPC.GetComponent<CharacterMover>();
+
+            if (prevMoveInput)
+            {
+                prevMoveInput.enabled = false;
+                Destroy(prevMoveInput);
+            }
+            if (prevCharMover)
+            {
+                prevCharMover.SetInput(Vector2.zero, previousNPC.transform.position, false, false);
+                prevCharMover.enabled = true;
+            }
+
             EnableControl(previousNPC, false);
 
             var npcScript = previousNPC.GetComponent<NPCscript>();
