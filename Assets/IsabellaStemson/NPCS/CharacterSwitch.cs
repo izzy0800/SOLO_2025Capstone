@@ -93,7 +93,7 @@ public class CharacterSwitch : CryptidUtils
             if (prevCharMover)
             {
                 prevCharMover.SetInput(Vector2.zero, previousNPC.transform.position, false, false);
-                prevCharMover.enabled = true;
+                prevCharMover.enabled = false;
             }
 
             EnableControl(previousNPC, false);
@@ -156,7 +156,7 @@ public class CharacterSwitch : CryptidUtils
                     DisableAllZoneCameras();
                     firstPersonCam.Priority = 20;
 
-                    Debug.Log($"First-person camera following: {cameraMount.name} at position {cameraMount.position}");
+                    //Debug.Log($"First-person camera following: {cameraMount.name} at position {cameraMount.position}");
                 }
             }
 
@@ -266,10 +266,10 @@ public class CharacterSwitch : CryptidUtils
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            Debug.Log($"Is Possessing: {IsPossessing}");
-            Debug.Log($"FirstPersonCam Priority: {firstPersonCam.Priority}");
-            Debug.Log($"FirstPersonCam Follow: {firstPersonCam.Follow}");
-            Debug.Log($"FirstPersonCam Position: {firstPersonCam.transform.position}");
+            //Debug.Log($"Is Possessing: {IsPossessing}");
+            //Debug.Log($"FirstPersonCam Priority: {firstPersonCam.Priority}");
+            //Debug.Log($"FirstPersonCam Follow: {firstPersonCam.Follow}");
+            //Debug.Log($"FirstPersonCam Position: {firstPersonCam.transform.position}");
         }
     }
 
@@ -283,7 +283,7 @@ public class CharacterSwitch : CryptidUtils
                 switcher.assignedCamera.Priority = 0;
             }
         }
-        Debug.Log("Disabled all zone cameras for possession");
+        //Debug.Log("Disabled all zone cameras for possession");
     }
 
     private void ReactivateZoneCameraForPlayer()
@@ -295,7 +295,7 @@ public class CharacterSwitch : CryptidUtils
             if (zoneCollider != null && zoneCollider.bounds.Contains(player.transform.position))
             {
                 switcher.assignedCamera.Priority = 10;
-                Debug.Log($"Reactivated camera for zone: {switcher.gameObject.name}");
+                //Debug.Log($"Reactivated camera for zone: {switcher.gameObject.name}");
                 break;
             }
         }
@@ -319,11 +319,51 @@ public class CharacterSwitch : CryptidUtils
                 var rb = npcScript.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    rb.velocity = Vector3.zero;
-                    rb.angularVelocity = Vector3.zero;
+                    if (!rb.isKinematic)
+                    {
+                        rb.velocity = Vector3.zero;
+                        rb.angularVelocity = Vector3.zero;
+                    }
                     rb.isKinematic = true;
                 }
             }
         }
     }
+
+    private void ForceStopNPC(GameObject npcObject)
+    {
+        if (npcObject == null) return;
+
+        var moveInput = npcObject.GetComponent<MovePlayerInput>();
+        if (moveInput)
+        {
+            moveInput.enabled = false;
+            Destroy(moveInput);
+        }
+
+        var charMover = npcObject.GetComponent<CharacterMover>();
+        if (charMover)
+        {
+            charMover.SetInput(Vector2.zero, npcObject.transform.position, false, false);
+            charMover.enabled = false;
+        }
+
+        var charController = npcObject.GetComponent<CharacterController>();
+        if (charController)
+        {
+            charController.enabled = false;
+        }
+
+        var rb = npcObject.GetComponent<Rigidbody>();
+        if (rb)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
+
+        var camTarget = npcObject.GetComponent<NPCCameraTarget>();
+        if (camTarget) Destroy(camTarget);
+    }
+
 }

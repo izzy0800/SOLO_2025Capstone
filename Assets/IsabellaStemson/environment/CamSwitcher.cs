@@ -24,21 +24,21 @@ public class CamSwitcher : MonoBehaviour
             Debug.LogError($"CamSwitcher on {gameObject.name} needs a trigger collider!");
         }
 
-        Debug.Log($"CamSwitcher initialized on {gameObject.name} with camera {assignedCamera.name}");
+        //Debug.Log($"CamSwitcher initialized on {gameObject.name} with camera {assignedCamera.name}");
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"=== CAMERA ZONE TRIGGERED ===");
-            Debug.Log($"Player entered zone: {gameObject.name}");
-            Debug.Log($"Assigned camera: {assignedCamera.name}");
+            //Debug.Log($"=== CAMERA ZONE TRIGGERED ===");
+            //Debug.Log($"Player entered zone: {gameObject.name}");
+            //Debug.Log($"Assigned camera: {assignedCamera.name}");
 
             CharacterSwitch charSwitch = FindObjectOfType<CharacterSwitch>();
             if (charSwitch != null && charSwitch.IsPossessing)
             {
-                Debug.Log("BLOCKED: Currently possessing NPC - not switching cameras");
+                //Debug.Log("BLOCKED: Currently possessing NPC - not switching cameras");
                 return;
             }
 
@@ -48,7 +48,7 @@ public class CamSwitcher : MonoBehaviour
                 if (cam != assignedCamera && cam != charSwitch?.firstPersonCam)
                 {
                     cam.Priority = 0;
-                    Debug.Log($"Deactivated camera: {cam.name} (Priority set to 0)");
+                    //Debug.Log($"Deactivated camera: {cam.name} (Priority set to 0)");
                 }
             }
 
@@ -57,9 +57,9 @@ public class CamSwitcher : MonoBehaviour
 
             StartCoroutine(ForceCinemachineUpdate());
 
-            Debug.Log($"ACTIVATED camera: {assignedCamera.name} (Priority set to 10)");
-            Debug.Log($"Camera position: {assignedCamera.transform.position}");
-            Debug.Log($"=== END CAMERA SWITCH ===");
+            //Debug.Log($"ACTIVATED camera: {assignedCamera.name} (Priority set to 10)");
+            //Debug.Log($"Camera position: {assignedCamera.transform.position}");
+            //Debug.Log($"=== END CAMERA SWITCH ===");
         }
     }
 
@@ -67,7 +67,7 @@ public class CamSwitcher : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"Player exited zone: {gameObject.name}");
+            //Debug.Log($"Player exited zone: {gameObject.name}");
 
             CharacterSwitch charSwitch = FindObjectOfType<CharacterSwitch>();
             if (charSwitch != null && charSwitch.IsPossessing)
@@ -77,7 +77,7 @@ public class CamSwitcher : MonoBehaviour
 
             if (currentActiveCamera == assignedCamera)
             {
-                Debug.Log($"Player left active zone {gameObject.name}");
+                //Debug.Log($"Player left active zone {gameObject.name}");
             }
         }
     }
@@ -92,17 +92,17 @@ public class CamSwitcher : MonoBehaviour
             var activeVcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
             if (activeVcam != null)
             {
-                Debug.Log($"Cinemachine Brain is now using: {activeVcam.name}");
+                //Debug.Log($"Cinemachine Brain is now using: {activeVcam.name}");
                 if (activeVcam != assignedCamera)
                 {
-                    Debug.LogWarning($"WARNING: Brain didn't switch to our camera! Expected {assignedCamera.name}, got {activeVcam.name}");
-                    Debug.LogWarning($"Check if another camera has higher priority or if there's a Live Timeline overriding");
+                    //Debug.LogWarning($"WARNING: Brain didn't switch to our camera! Expected {assignedCamera.name}, got {activeVcam.name}");
+                    //Debug.LogWarning($"Check if another camera has higher priority or if there's a Live Timeline overriding");
                 }
             }
         }
         else
         {
-            Debug.LogError("No CinemachineBrain found on Main Camera!");
+            //Debug.LogError("No CinemachineBrain found on Main Camera!");
         }
     }
 
@@ -119,7 +119,7 @@ public class CamSwitcher : MonoBehaviour
 
         assignedCamera.Priority = 10;
         currentActiveCamera = assignedCamera;
-        Debug.Log($"Force activated camera: {assignedCamera.name}");
+        //Debug.Log($"Force activated camera: {assignedCamera.name}");
     }
 
     private void OnDrawGizmos()

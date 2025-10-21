@@ -109,7 +109,7 @@ public class NPCscript : CryptidUtils
     {
         if (playerInRange)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && !characterSwitch.IsPossessing)
             {
                 if (!hasCompletedMinigame)
                 {
@@ -118,25 +118,18 @@ public class NPCscript : CryptidUtils
                         OpenSliderPuzzle();
                         inGame = true;
                         return;
-                        
                     }
-                    else
-                    {
-
-                    }
-                   
                 }
                 else
                 {
                     if (rb != null) rb.isKinematic = false;
                     characterSwitch.SwitchToNPC(this.gameObject);
                 }
-                //dialog can only happen when possessed
-                if (characterSwitch.IsPossessing && characterSwitch.npc == this.gameObject)
-                {
-                    //dialog handling is done by NPCDialogHandler component
-                }
             }
+        }
+        if (characterSwitch.IsPossessing && characterSwitch.npc == this.gameObject)
+        {
+
         }
     }
 

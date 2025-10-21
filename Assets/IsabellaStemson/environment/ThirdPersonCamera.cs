@@ -90,7 +90,7 @@ public class ThirdPersonCamera : CryptidUtils
             cam.transform.position = transform.position;
             cam.transform.rotation = transform.rotation;
 
-            Debug.DrawLine(transform.position, target.transform.position, Color.green);
+            //Debug.DrawLine(transform.position, target.transform.position, Color.green);
         }
         else
         {

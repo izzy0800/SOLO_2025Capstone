@@ -7,89 +7,87 @@ public class PickUpSystem : MonoBehaviour
     public CharacterSwitch characterSwitch;
 
     public Transform holdPoint;
-    public float pickupRange = 3f;
+    public float pickupRange = 4f;
 
     private GameObject heldObject;
     private bool canPickUp = false;
     private GameObject objectToPickUp;
     
-    
-    private PlayerMovement playerMovment;
-
-    // Start is called before the first frame update
     void Start()
     {
-
-      //Debug.Log("PickUpSystem script initialised on: " + gameObject.name);
-        playerMovment = GetComponent<PlayerMovement>();
-
         if (holdPoint == null)
         {
             Debug.LogError("Holdpoint is NOT assigned in the inspector: " + gameObject.name);
         }
 
-        if (playerMovment == null)
+        if (characterSwitch == null)
         {
-            Debug.LogError("PlayerMovement component is missing on: " + gameObject);
+            characterSwitch = FindObjectOfType<CharacterSwitch>();
+            if (characterSwitch == null)
+            {
+                Debug.LogError("CharacterSwitch not found in scene!");
+            }
         }
 
     }
 
-    // Update is called once per frame 
     void Update()
     {
-      //Debug.Log("PickUpSystem update is running");
-               
-        // This only allows pickup if the player is possessing
-        if (playerMovment != null && playerMovment.allowVerticalMovement) 
-            return;
+        bool isThisNPCPossessed = (characterSwitch != null &&
+                                     characterSwitch.IsPossessing &&
+                                     characterSwitch.npc == this.gameObject);
 
+        bool isPlayer = (characterSwitch != null &&
+                        !characterSwitch.IsPossessing &&
+                        characterSwitch.player == this.gameObject);
+
+        if (!isThisNPCPossessed && !isPlayer)
+        {
+            return; 
+        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-
-          //Debug.Log("E key Pressed");
-
-           
-
-            if (heldObject == null && canPickUp)
+            if (heldObject == null && canPickUp && objectToPickUp != null)
             {
+                Debug.Log($"{gameObject.name} trying to pickup {objectToPickUp.name}");
                 Pickup();
             }
             else if (heldObject != null)
             {
+                Debug.Log($"{gameObject.name} dropping {heldObject.name}");
                 Drop();
+            }
+            else if (!canPickUp)
+            {
+                Debug.Log($"{gameObject.name}: No object in range to pick up");
             }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Pickup"))
+        if (other.CompareTag("Pickup") && heldObject == null)
         {
-          //Debug.Log("Enter trigger with Pickup Object: " + other.name);
             canPickUp = true;
             objectToPickUp = other.gameObject;
+            Debug.Log($"{gameObject.name} can pick up {other.gameObject.name}");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Pickup"))
+        if (other.CompareTag("Pickup") && other.gameObject == objectToPickUp)
         {
-          //Debug.Log("Exited trigger with Pickup object: " + other.name);
             canPickUp = false;
             objectToPickUp = null;
+            Debug.Log($"{gameObject.name} moved away from {other.gameObject.name}");
         }
     }
 
 
     void Pickup()
     {
-      //Debug.Log("Picking up object: " + objectToPickUp.name);
-      //Debug.Log("Has Rigidbody: " + (objectToPickUp.GetComponent<Rigidbody>() != null));
-      //Debug.Log("Has Rigidbody in child: " + (objectToPickUp.GetComponentInChildren<Rigidbody>() != null));
-
         if (objectToPickUp == null)
         {
             Debug.LogError("objectToPickUp is null when trying to pick up.");
@@ -102,7 +100,7 @@ public class PickUpSystem : MonoBehaviour
         }
 
         heldObject = objectToPickUp;
-      //Debug.Log("picking Up: " + heldObject.name); 
+
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
 
         if (rb != null)
@@ -111,12 +109,23 @@ public class PickUpSystem : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Rigidbody missing from pickup object: " + heldObject.name);
-            return;
+            Debug.LogWarning($"No Rigidbody on {heldObject.name}, continuing anyway");
         }
 
         heldObject.transform.SetParent(holdPoint);
         heldObject.transform.localPosition = Vector3.zero;
+        heldObject.transform.localRotation = Quaternion.identity;
+
+        Collider[] colliders = heldObject.GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders)
+        {
+            col.enabled = false;
+        }
+
+        objectToPickUp = null;
+        canPickUp = false;
+
+        Debug.Log("Successfully picked up: " + heldObject.name);
 
     }
 
@@ -129,6 +138,12 @@ public class PickUpSystem : MonoBehaviour
             return;
         }
 
+        Collider[] colliders = heldObject.GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders)
+        {
+            col.enabled = true;
+        }
+
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -136,6 +151,7 @@ public class PickUpSystem : MonoBehaviour
         }
 
         heldObject.transform.SetParent(null);
+        Debug.Log($"{gameObject.name} dropped {heldObject.name}");
         heldObject = null;
     }
 }
