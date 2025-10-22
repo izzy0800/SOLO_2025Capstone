@@ -13,14 +13,12 @@ public class CharacterSwitch : CryptidUtils
     public GameObject npc;
     ParticleSystem playerParticles;
 
-    public CinemachineVirtualCamera firstPersonCam;
+    public CameraFollower firstPersonCam;
 
-    private bool isControllingNPC = false;
-    public bool IsPossessing => isControllingNPC;
+    public bool IsPossessing;
     PlayerMovement playerMovement;
 
-    private MovePlayerInput currentNPCInput;
-    private CharacterMover currentNPCMover;
+    private Move currentNPCInput;
 
     private enum TargetType
     {
@@ -32,160 +30,174 @@ public class CharacterSwitch : CryptidUtils
     {
         playerMovement = player.GetComponent<PlayerMovement>();
         playerParticles = player.GetComponentInChildren<ParticleSystem>();
-        if (firstPersonCam != null)
-        {
-            firstPersonCam.Priority = 0;
-            firstPersonCam.Follow = null;
-            firstPersonCam.LookAt = null;
-        }
 
         SwitchToPlayer();
     }
 
     public void SwitchToNPC(GameObject newNPC)
     {
-        DisableAllNPCMovement();
-
+        //DisableAllNPCMovement();
         npc = newNPC;
+        currentNPCInput = npc.GetComponent<Move>();
+        currentNPCInput.canMove = true;
 
-        currentNPCInput = npc.GetComponent<MovePlayerInput>();
-        if (currentNPCInput == null)
-        {
-            currentNPCInput = npc.AddComponent<MovePlayerInput>();
-
-            var cameraTarget = npc.GetComponent<NPCCameraTarget>();
-            if (cameraTarget == null)
-            {
-                cameraTarget = npc.AddComponent<NPCCameraTarget>();
-            }
-
-            currentNPCInput.BindCamera(cameraTarget);
-
-        }
-
-        currentNPCMover = npc.GetComponent<CharacterMover>();
-
-        Switch(TargetType.npc);
+        Swap(false);
     }
 
     public void SwitchToPlayer()
     {
-        Switch(TargetType.player);
+        Swap(true);
     }
 
-    private void Switch(TargetType type)
+    public void Swap(bool isPlayer)
     {
-        bool isNPC = type == TargetType.npc;
-        isControllingNPC = isNPC;
-
-        GameObject previousNPC = npc;
-
-        if (!isNPC && previousNPC != null)
+        if (isPlayer)
         {
-            var prevMoveInput = previousNPC.GetComponent<MovePlayerInput>();
-            var prevCharMover = previousNPC.GetComponent<CharacterMover>();
+            if (currentNPCInput != null)
+            {
+                currentNPCInput.canMove = false;
+                firstPersonCam.canLook = false;
+                currentNPCInput.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                SetRenderersVisible(currentNPCInput.gameObject, true);
+                firstPersonCam.gameObject.GetComponent<CinemachineBrain>().enabled = true;
 
-            if (prevMoveInput)
-            {
-                prevMoveInput.enabled = false;
-                Destroy(prevMoveInput);
-            }
-            if (prevCharMover)
-            {
-                prevCharMover.SetInput(Vector2.zero, previousNPC.transform.position, false, false);
-                prevCharMover.enabled = false;
+                IsPossessing = false;
             }
 
-            EnableControl(previousNPC, false);
+            player.SetActive(true);
+            playerMovement.enabled = true;
 
-            var npcScript = previousNPC.GetComponent<NPCscript>();
-            if (npcScript != null)
-            {
-                npcScript.SetSpriteVisible(true);
-                SetRenderersVisible(previousNPC, true);
-
-                var rb = previousNPC.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    rb.isKinematic = true;
-                    rb.velocity = Vector3.zero;
-                    rb.angularVelocity = Vector3.zero;
-                }
-
-                var charMover = previousNPC.GetComponent<CharacterMover>();
-                if (charMover != null)
-                {
-                    charMover.enabled = false;
-                }
-            }
         }
-
-        if (isNPC && npc != null)
+        else
         {
-            var npcScript = npc.GetComponent<NPCscript>();
-            if (npcScript != null)
-            {
-                npcScript.SetSpriteVisible(false);
-                SetRenderersVisible(npc, false);
+            firstPersonCam.orientation = currentNPCInput.orientation;
+            firstPersonCam.canLook = true;
 
-                if (firstPersonCam != null)
-                {
-                    Transform cameraMount = npc.transform.Find("CameraMount");
-                    if (cameraMount == null)
-                    {
-                        GameObject mountObj = new GameObject("CameraMount");
-                        mountObj.transform.SetParent(npc.transform);
-                        mountObj.transform.localPosition = new Vector3(0, npcScript.height, 0.2f);
-                        mountObj.transform.localRotation = Quaternion.identity;
-                        cameraMount = mountObj.transform;
-                    }
+            SetRenderersVisible(currentNPCInput.gameObject, false);
+            IsPossessing = true;
 
-                    firstPersonCam.Follow = cameraMount;
+            currentNPCInput.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            firstPersonCam.gameObject.GetComponent<CinemachineBrain>().enabled = false;
+            //currentNPCInput.gameObject
 
-                    GameObject lookTarget = GameObject.Find("FirstPersonLookTarget");
-                    if (lookTarget == null)
-                    {
-                        lookTarget = new GameObject("FirstPersonLookTarget");
-                    }
-                    lookTarget.transform.SetParent(cameraMount);
-                    lookTarget.transform.localPosition = new Vector3(0, 0, 5f);
-                    lookTarget.transform.localRotation = Quaternion.identity;
-
-                    firstPersonCam.LookAt = lookTarget.transform;
-
-                    DisableAllZoneCameras();
-                    firstPersonCam.Priority = 20;
-
-                    //Debug.Log($"First-person camera following: {cameraMount.name} at position {cameraMount.position}");
-                }
-            }
-
-            EnableControl(npc, true);
+            playerMovement.enabled = false;
+            player.SetActive(false);
         }
-
-        if (!isNPC)
-        {
-            if (firstPersonCam != null)
-            {
-                firstPersonCam.Priority = 0;
-                firstPersonCam.Follow = null;
-                firstPersonCam.LookAt = null;
-
-                GameObject lookTarget = GameObject.Find("FirstPersonLookTarget");
-                if (lookTarget != null)
-                {
-                    Destroy(lookTarget);
-                }
-            }
-
-            ReactivateZoneCameraForPlayer();
-        }
-
-        EnableControl(player, !isNPC);
-
-        playerMovement.allowVerticalMovement = !isNPC;
-        playerParticles.gameObject.SetActive(!isNPC);
     }
+
+    //private void Switch(TargetType type)
+    //{
+    //    bool isNPC = type == TargetType.npc;
+    //    isControllingNPC = isNPC;
+
+    //    GameObject previousNPC = npc;
+
+    //    if (!isNPC && previousNPC != null)
+    //    {
+    //        var prevMoveInput = previousNPC.GetComponent<MovePlayerInput>();
+    //        var prevCharMover = previousNPC.GetComponent<CharacterMover>();
+
+    //        if (prevMoveInput)
+    //        {
+    //            prevMoveInput.enabled = false;
+    //            Destroy(prevMoveInput);
+    //        }
+    //        if (prevCharMover)
+    //        {
+    //            prevCharMover.SetInput(Vector2.zero, previousNPC.transform.position, false, false);
+    //            prevCharMover.enabled = false;
+    //        }
+
+    //        EnableControl(previousNPC, false);
+
+    //        var npcScript = previousNPC.GetComponent<NPCscript>();
+    //        if (npcScript != null)
+    //        {
+    //            npcScript.SetSpriteVisible(true);
+    //            SetRenderersVisible(previousNPC, true);
+
+    //            var rb = previousNPC.GetComponent<Rigidbody>();
+    //            if (rb != null)
+    //            {
+    //                rb.isKinematic = true;
+    //                rb.velocity = Vector3.zero;
+    //                rb.angularVelocity = Vector3.zero;
+    //            }
+
+    //            var charMover = previousNPC.GetComponent<CharacterMover>();
+    //            if (charMover != null)
+    //            {
+    //                charMover.enabled = false;
+    //            }
+    //        }
+    //    }
+
+    //    if (isNPC && npc != null)
+    //    {
+    //        var npcScript = npc.GetComponent<NPCscript>();
+    //        if (npcScript != null)
+    //        {
+    //            npcScript.SetSpriteVisible(false);
+    //            SetRenderersVisible(npc, false);
+
+    //            if (firstPersonCam != null)
+    //            {
+    //                Transform cameraMount = npc.transform.Find("CameraMount");
+    //                if (cameraMount == null)
+    //                {
+    //                    GameObject mountObj = new GameObject("CameraMount");
+    //                    mountObj.transform.SetParent(npc.transform);
+    //                    mountObj.transform.localPosition = new Vector3(0, npcScript.height, 0.2f);
+    //                    mountObj.transform.localRotation = Quaternion.identity;
+    //                    cameraMount = mountObj.transform;
+    //                }
+
+    //                firstPersonCam.Follow = cameraMount;
+
+    //                GameObject lookTarget = GameObject.Find("FirstPersonLookTarget");
+    //                if (lookTarget == null)
+    //                {
+    //                    lookTarget = new GameObject("FirstPersonLookTarget");
+    //                }
+    //                lookTarget.transform.SetParent(cameraMount);
+    //                lookTarget.transform.localPosition = new Vector3(0, 0, 5f);
+    //                lookTarget.transform.localRotation = Quaternion.identity;
+
+    //                firstPersonCam.LookAt = lookTarget.transform;
+
+    //                DisableAllZoneCameras();
+    //                firstPersonCam.Priority = 20;
+
+    //                //Debug.Log($"First-person camera following: {cameraMount.name} at position {cameraMount.position}");
+    //            }
+    //        }
+
+    //        EnableControl(npc, true);
+    //    }
+
+    //    if (!isNPC)
+    //    {
+    //        if (firstPersonCam != null)
+    //        {
+    //            firstPersonCam.Priority = 0;
+    //            firstPersonCam.Follow = null;
+    //            firstPersonCam.LookAt = null;
+
+    //            GameObject lookTarget = GameObject.Find("FirstPersonLookTarget");
+    //            if (lookTarget != null)
+    //            {
+    //                Destroy(lookTarget);
+    //            }
+    //        }
+
+    //        ReactivateZoneCameraForPlayer();
+    //    }
+
+    //    EnableControl(player, !isNPC);
+
+    //    playerMovement.allowVerticalMovement = !isNPC;
+    //    playerParticles.gameObject.SetActive(!isNPC);
+    //}
 
     private void EnableControl(GameObject character, bool isEnabled)
     {
@@ -259,9 +271,10 @@ public class CharacterSwitch : CryptidUtils
     private void Update()
     {
         //Pressing 'Tab' will toggle back to the player
-        if (isControllingNPC && Input.GetKeyDown(KeyCode.Tab))
+        if (IsPossessing && Input.GetKeyDown(KeyCode.Tab))
         {
-            Switch(TargetType.player);
+            //Switch(TargetType.player);
+            Swap(true);
         }
 
         if (Input.GetKeyDown(KeyCode.F1))

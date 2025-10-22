@@ -115,6 +115,7 @@ public class NPCscript : CryptidUtils
                 {
                     if (!inGame)
                     {
+                        playerInRange = false;
                         OpenSliderPuzzle();
                         inGame = true;
                         return;
@@ -122,7 +123,10 @@ public class NPCscript : CryptidUtils
                 }
                 else
                 {
-                    if (rb != null) rb.isKinematic = false;
+                    if (rb != null) 
+                        rb.isKinematic = false;
+
+                    playerInRange = false;
                     characterSwitch.SwitchToNPC(this.gameObject);
                 }
             }
@@ -131,6 +135,12 @@ public class NPCscript : CryptidUtils
         {
 
         }
+    }
+
+    [ContextMenu("Hacks")]
+    void Hacks()
+    {
+        characterSwitch.SwitchToNPC(this.gameObject);
     }
 
     private void LateUpdate()

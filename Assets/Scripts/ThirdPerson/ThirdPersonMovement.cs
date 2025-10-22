@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
-    BasePlayerInput playerInput;
-
     [HideInInspector] public Animator anim;
 
     public Transform orientation;
@@ -33,7 +31,6 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void Start()
     {
-        playerInput = GetComponent<BasePlayerInput>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
 
@@ -43,11 +40,13 @@ public class ThirdPersonMovement : MonoBehaviour
     private void Update()
     {
         //Ground Check!
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f); //Can add a layermask.
-        if (isGrounded)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
+        //isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f); //Can add a layermask.
+        //if (isGrounded)
+        //    rb.drag = groundDrag;
+        //else
+        //    rb.drag = 0;
+
+
     }
 
     private void FixedUpdate()
@@ -63,8 +62,11 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void HandleMovement()
     {
-        moveDirection = orientation.forward * playerInput.movementVector.y + orientation.right * playerInput.movementVector.x;
-        moveAmount = Mathf.Clamp01(Mathf.Abs(playerInput.movementVector.x) + Mathf.Abs(playerInput.movementVector.y));
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
+
+        moveDirection = orientation.forward * moveZ + orientation.right * moveX;
+        moveAmount = Mathf.Clamp01(Mathf.Abs(moveX) + Mathf.Abs(moveZ));
 
         if (isGrounded)
         {

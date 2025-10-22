@@ -1,3 +1,4 @@
+using Benjathemaker;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,17 +53,24 @@ public class PickUpSystem : MonoBehaviour
             {
                 Debug.Log($"{gameObject.name} trying to pickup {objectToPickUp.name}");
                 Pickup();
+                return;
             }
             else if (heldObject != null)
             {
                 Debug.Log($"{gameObject.name} dropping {heldObject.name}");
                 Drop();
+                return;
             }
             else if (!canPickUp)
             {
                 Debug.Log($"{gameObject.name}: No object in range to pick up");
             }
         }
+
+        //if (isThisNPCPossessed)
+        //{
+        //    holdPoint.rotation = characterSwitch.firstPersonCam.transform.rotation;
+        //}
     }
 
     void OnTriggerEnter(Collider other)
@@ -100,27 +108,16 @@ public class PickUpSystem : MonoBehaviour
         }
 
         heldObject = objectToPickUp;
+        heldObject.GetComponent<SimpleGemsAnim>().enabled = false;
 
-        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-        }
-        else
-        {
-            Debug.LogWarning($"No Rigidbody on {heldObject.name}, continuing anyway");
-        }
-
-        heldObject.transform.SetParent(holdPoint);
+        heldObject.transform.parent = holdPoint;
         heldObject.transform.localPosition = Vector3.zero;
         heldObject.transform.localRotation = Quaternion.identity;
 
-        Collider[] colliders = heldObject.GetComponentsInChildren<Collider>();
-        foreach (Collider col in colliders)
-        {
-            col.enabled = false;
-        }
+        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+
+        heldObject.GetComponent<Collider>().enabled = false;
 
         objectToPickUp = null;
         canPickUp = false;
@@ -138,18 +135,12 @@ public class PickUpSystem : MonoBehaviour
             return;
         }
 
-        Collider[] colliders = heldObject.GetComponentsInChildren<Collider>();
-        foreach (Collider col in colliders)
-        {
-            col.enabled = true;
-        }
-
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-        }
+        rb.isKinematic = false;
 
+        heldObject.GetComponent<Collider>().enabled = true;
+
+        //heldObject.GetComponent<SimpleGemsAnim>().enabled = true;
         heldObject.transform.SetParent(null);
         Debug.Log($"{gameObject.name} dropped {heldObject.name}");
         heldObject = null;
