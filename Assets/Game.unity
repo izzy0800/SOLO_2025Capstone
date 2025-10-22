@@ -1953,7 +1953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 2
+  moveSpeed: 1
   orientation: {fileID: 606303508}
 --- !u!1001 &64661367
 PrefabInstance:
@@ -9814,7 +9814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 2
+  moveSpeed: 1
   orientation: {fileID: 1437817271}
 --- !u!1 &326362400
 GameObject:
@@ -12521,7 +12521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 2
+  moveSpeed: 1
   orientation: {fileID: 625092201}
 --- !u!4 &425227483 stripped
 Transform:
@@ -20962,7 +20962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 2
+  moveSpeed: 1
   orientation: {fileID: 981583958}
 --- !u!1001 &665603589
 PrefabInstance:
@@ -21592,7 +21592,7 @@ RectTransform:
   m_GameObject: {fileID: 687999038}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.3412, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1224949684}
@@ -21601,7 +21601,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0, y: -755}
+  m_AnchoredPosition: {x: -0, y: -684}
   m_SizeDelta: {x: -200, y: -1670.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &687999040
@@ -21632,15 +21632,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9957455, b: 0.8915094, a: 0.6}
+  m_Color: {r: 0, g: 1, b: 0.9148698, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 33bb2aa07acf47948a5e3fb299eaabd7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -37327,7 +37327,7 @@ MonoBehaviour:
   npcName: Nurse
   dialogLines:
   - 'Hello! I''m the nurse at this prison. '
-  - Come to me if you have an injuries...
+  - Come to me if you have any injuries...
   - I have medicine for all kinds of things...
   - '*whispers* good and bad things...'
   canBeDialoguedWith: 1
@@ -37385,7 +37385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 2
+  moveSpeed: 1
   orientation: {fileID: 1635140623}
 --- !u!4 &1098385195 stripped
 Transform:
@@ -38361,7 +38361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 2
+  moveSpeed: 1
   orientation: {fileID: 952660020}
 --- !u!1001 &1124396608
 PrefabInstance:
@@ -42060,7 +42060,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 81.26172, y: 16.229904, z: 86.36182, w: 22.009521}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -51924,7 +51924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 2
+  moveSpeed: 1
   orientation: {fileID: 1631909548}
 --- !u!1001 &1538877320
 PrefabInstance:
@@ -56971,7 +56971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 2
+  moveSpeed: 1
   orientation: {fileID: 443962431}
 --- !u!1001 &1693973163
 PrefabInstance:
@@ -57072,7 +57072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10247.142, y: -913.8889}
+  m_AnchoredPosition: {x: -1154, y: 328}
   m_SizeDelta: {x: 1310, y: 154.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1694811026
@@ -57105,7 +57105,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 3858759680
-  m_fontColor: {r: 0, g: 1, b: 0.86242104, a: 0.9019608}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0.8352941}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -57128,7 +57128,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 21
+  m_fontStyle: 17
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -61432,7 +61432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 2
+  moveSpeed: 1
   orientation: {fileID: 1225337787}
 --- !u!1001 &1794510324
 PrefabInstance:
@@ -68918,7 +68918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 1
+  movespeed: 0.4
   hoverSpeed: 3
   maxHoverHeight: 10
   minFloatHeight: 0.5
@@ -81767,6 +81767,10 @@ PrefabInstance:
       objectReference: {fileID: 860066776}
     - target: {fileID: 4832204961643512891, guid: 4367768462dc89748ab5455e625ba88c, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5271015371233388558, guid: 4367768462dc89748ab5455e625ba88c, type: 3}
+      propertyPath: moveSpeed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6999083679207657332, guid: 4367768462dc89748ab5455e625ba88c, type: 3}
