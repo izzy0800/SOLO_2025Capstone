@@ -67882,9 +67882,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd8dcfea42e2074eaa86090c8d5a6c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceptableItems: 
+  acceptableItems: 02000000
   receiveRange: 2
-  acceptDialog: []
+  acceptDialog:
+  - You Have Done Well.
+  - '*starts whispering to themselves*'
   rejectDialog:
   - I don't concern myself with trivial items such as this.
   onItemReceived:

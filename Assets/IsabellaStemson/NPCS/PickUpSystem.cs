@@ -61,18 +61,29 @@ public class PickUpSystem : MonoBehaviour
             {
                 Pickup();
             }
-            else if (heldObject != null && nearbyReceiver == null) 
+            else if (heldObject != null)
             {
-                Drop();
+                if (nearbyReceiver != null)
+                {
+                    
+                    GiveItem();
+                }
+                else
+                {
+                    
+                    Drop();
+                }
             }
         }
 
-        if (heldObject != null && nearbyReceiver != null)
+        if (heldObject != null && nearbyReceiver != null && Input.GetKeyDown(giveKey))
         {
-            if (Input.GetKeyDown(giveKey) || Input.GetKeyDown(KeyCode.E))
-            {
-                GiveItem();
-            }
+            GiveItem();
+        }
+
+        if (heldObject != null && Input.GetKeyDown(KeyCode.Q))
+        {
+            Drop();
         }
     }
 
@@ -114,14 +125,22 @@ public class PickUpSystem : MonoBehaviour
             }
             showingGivePrompt = false;
         }
-        else if (!showingGivePrompt && nearbyReceiver != null && heldObject != null)
+        else if (nearbyReceiver != null && heldObject != null)
         {
             ItemData itemData = heldObject.GetComponent<ItemData>();
             if (itemData != null)
             {
-                string promptText = nearbyReceiver.CanReceiveItem(itemData.itemType)
-                    ? $"Press {giveKey} to Give {itemData.itemName}"
-                    : $"{nearbyReceiver.name} doesn't want this item";
+                string promptText;
+                if (nearbyReceiver.CanReceiveItem(itemData.itemType))
+                {
+                    promptText = $"Press E/G to Give {itemData.itemName}";
+                }
+                else
+                {
+                    NPCDialogHandler npcDialog = nearbyReceiver.GetComponent<NPCDialogHandler>();
+                    string npcName = npcDialog != null ? npcDialog.npcName : nearbyReceiver.name;
+                    promptText = $"{npcName} doesn't want this item (Q to drop or E to hear why)";
+                }
 
                 if (PossessionPromptUI.Instance != null)
                 {
@@ -136,20 +155,32 @@ public class PickUpSystem : MonoBehaviour
     {
         if (heldObject == null || nearbyReceiver == null) return;
 
-        if (showingGivePrompt)
+        if (nearbyReceiver.IsShowingRejection()) return;
+
+        ItemData itemData = heldObject.GetComponent<ItemData>();
+        if (itemData != null && nearbyReceiver.CanReceiveItem(itemData.itemType))
         {
-            if (PossessionPromptUI.Instance != null)
+            GameObject itemToGive = heldObject;
+            heldObject = null;
+
+            if (showingGivePrompt)
             {
-                PossessionPromptUI.Instance.HidePrompt();
+                if (PossessionPromptUI.Instance != null)
+                {
+                    PossessionPromptUI.Instance.HidePrompt();
+                }
+                showingGivePrompt = false;
             }
-            showingGivePrompt = false;
+
+            nearbyReceiver.ReceiveItem(itemToGive);
+            nearbyReceiver = null;
         }
-
-        GameObject itemToGive = heldObject;
-        heldObject = null; 
-
-        nearbyReceiver.ReceiveItem(itemToGive);
-        nearbyReceiver = null;
+        else
+        {
+            
+            nearbyReceiver.ReceiveItem(heldObject);
+            
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -301,6 +332,11 @@ public class PickUpSystem : MonoBehaviour
             }
             showingPickupPrompt = false;
         }
+    }
+
+    public bool IsHoldingItem()
+    {
+        return heldObject != null;
     }
 
 }

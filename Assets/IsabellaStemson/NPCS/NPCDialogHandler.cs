@@ -7,23 +7,25 @@ public class NPCDialogHandler : CryptidUtils
     [Header("Dialog Settings")]
     public string npcName = "NPC";
     [TextArea(3, 5)]
-    public string[] dialogLines; 
+    public string[] dialogLines;
     public bool canBeDialoguedWith = true;
 
     [Header("Dialog Detection")]
     [SerializeField] private float dialogRange = 2f;
     [SerializeField] private KeyCode dialogKey = KeyCode.T;
-    [SerializeField] private GameObject dialogPrompt; 
+    [SerializeField] private GameObject dialogPrompt;
 
     private CharacterSwitch characterSwitch;
     private NPCscript myNPCScript;
     private GameObject nearbyDialogableNPC;
     private bool showingTalkPrompt = false;
+    private PickUpSystem myPickupSystem;
 
     void Start()
     {
         characterSwitch = FindObjectOfType<CharacterSwitch>();
         myNPCScript = GetComponent<NPCscript>();
+        myPickupSystem = GetComponent<PickUpSystem>(); 
 
         if (dialogPrompt != null)
             dialogPrompt.SetActive(false);
@@ -31,37 +33,51 @@ public class NPCDialogHandler : CryptidUtils
 
     void Update()
     {
-        // Only check for dialog if this NPC is being possessed
         if (characterSwitch == null || !characterSwitch.IsPossessing) return;
         if (characterSwitch.npc != this.gameObject) return;
 
-        // Check for nearby NPCs to talk to
+        bool isHoldingItem = myPickupSystem != null && myPickupSystem.IsHoldingItem();
+
+        
+        if (isHoldingItem)
+        {
+            if (showingTalkPrompt)
+            {
+                if (PossessionPromptUI.Instance != null)
+                {
+                    PossessionPromptUI.Instance.HidePrompt();
+                }
+                showingTalkPrompt = false;
+                nearbyDialogableNPC = null;
+            }
+            return; 
+        }
+
         CheckForNearbyNPCs();
 
-        // Handle dialog input
         if (Input.GetKeyDown(dialogKey) && nearbyDialogableNPC != null)
         {
-            // Hide the talk prompt when starting dialog
             if (PossessionPromptUI.Instance != null)
             {
                 PossessionPromptUI.Instance.HidePrompt();
                 showingTalkPrompt = false;
             }
 
-            // Check if DialogManager exists and is not active
             if (DialogManager.Instance != null && !DialogManager.Instance.IsDialogActive)
             {
                 InitiateDialog();
-            }
-            else if (DialogManager.Instance == null)
-            {
-                Debug.LogError("DialogManager not found! Add it to your Canvas!");
             }
         }
     }
 
     private void CheckForNearbyNPCs()
     {
+        
+        if (DialogManager.Instance != null && DialogManager.Instance.IsDialogActive)
+        {
+            return;
+        }
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, dialogRange);
 
         GameObject closestNPC = null;
@@ -81,36 +97,21 @@ public class NPCDialogHandler : CryptidUtils
             }
         }
 
-        // Update the nearby NPC and show/hide prompt
         if (nearbyDialogableNPC != closestNPC)
         {
             nearbyDialogableNPC = closestNPC;
 
-            // Use the main UI prompt system
             if (PossessionPromptUI.Instance != null)
             {
                 if (nearbyDialogableNPC != null)
                 {
-                    // Show "Press T to Talk" prompt
                     PossessionPromptUI.Instance.ShowTalkPrompt();
                     showingTalkPrompt = true;
                 }
                 else if (showingTalkPrompt)
                 {
-                    // Hide prompt when no NPCs nearby
                     PossessionPromptUI.Instance.HidePrompt();
                     showingTalkPrompt = false;
-                }
-            }
-
-            if (dialogPrompt != null)
-            {
-                dialogPrompt.SetActive(nearbyDialogableNPC != null);
-
-                if (nearbyDialogableNPC != null)
-                {
-                    Vector3 promptPos = nearbyDialogableNPC.transform.position + Vector3.up * 2f;
-                    dialogPrompt.transform.position = promptPos;
                 }
             }
         }
@@ -127,7 +128,7 @@ public class NPCDialogHandler : CryptidUtils
 
         DialogManager.Instance.StartDialog(
             targetNPC.dialogLines,
-            targetNPC.npcName, 
+            targetNPC.npcName,
             () => {
                 Debug.Log($"Dialog between {possessedNPCName} and {targetNPC.npcName} completed!");
 

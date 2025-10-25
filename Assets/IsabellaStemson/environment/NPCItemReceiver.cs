@@ -9,8 +9,8 @@ public class NPCItemReceiver : MonoBehaviour
     [SerializeField] private float receiveRange = 2f;
 
     [Header("Responses")]
-    [SerializeField] private string[] acceptDialog; 
-    [SerializeField] private string[] rejectDialog; 
+    [SerializeField] private string[] acceptDialog;
+    [SerializeField] private string[] rejectDialog;
 
     [Header("Events")]
     public UnityEngine.Events.UnityEvent<ItemType> onItemReceived;
@@ -18,7 +18,8 @@ public class NPCItemReceiver : MonoBehaviour
 
     private CharacterSwitch characterSwitch;
     private NPCDialogHandler dialogHandler;
-    private bool hasReceivedItem = false; 
+    private bool hasReceivedItem = false;
+    private bool isShowingRejection = false; 
 
     void Start()
     {
@@ -40,32 +41,50 @@ public class NPCItemReceiver : MonoBehaviour
         {
             Debug.Log($"{gameObject.name} received {itemData.itemName}!");
             hasReceivedItem = true;
+            isShowingRejection = false;
 
             if (acceptDialog != null && acceptDialog.Length > 0 && DialogManager.Instance != null)
             {
-                DialogManager.Instance.StartDialog(acceptDialog, GetComponent<NPCDialogHandler>()?.npcName ?? "NPC", null);
+                DialogManager.Instance.StartDialog(acceptDialog, GetComponent<NPCDialogHandler>()?.npcName ?? "NPC",
+                    () => {
+                        
+                        if (PossessionPromptUI.Instance != null)
+                        {
+                            PossessionPromptUI.Instance.HidePrompt();
+                        }
+                    });
             }
 
             onItemReceived?.Invoke(itemData.itemType);
-
             Destroy(item);
         }
         else
         {
             Debug.Log($"{gameObject.name} rejected {itemData.itemName}!");
+            isShowingRejection = true;
 
             if (rejectDialog != null && rejectDialog.Length > 0 && DialogManager.Instance != null)
             {
-                DialogManager.Instance.StartDialog(rejectDialog, GetComponent<NPCDialogHandler>()?.npcName ?? "NPC", null);
+                DialogManager.Instance.StartDialog(rejectDialog, GetComponent<NPCDialogHandler>()?.npcName ?? "NPC",
+                    () => {
+                        
+                        isShowingRejection = false;
+                    });
             }
 
             onItemRejected?.Invoke(itemData.itemType);
+           
         }
     }
 
     public bool IsInRange(Transform giver)
     {
         return Vector3.Distance(transform.position, giver.position) <= receiveRange;
+    }
+
+    public bool IsShowingRejection()
+    {
+        return isShowingRejection;
     }
 
     void OnDrawGizmosSelected()
