@@ -7,7 +7,6 @@ using UnityEngine.Timeline;
 public class DialogueSignalReceiver : MonoBehaviour, INotificationReceiver
 {
     [SerializeField] private DialogueCutsceneManager dialogueManager;
-
     public void OnNotify(Playable origin, INotification notification, object context)
     {
         if (notification is DialogueSignal dialogueSignal)
@@ -27,10 +26,8 @@ public class DialogueSignalReceiver : MonoBehaviour, INotificationReceiver
     }
 }
 
-// Create this as a Signal Asset in your project
-// Right-click in Project > Create > Playables > Signal
 [System.Serializable]
 public class DialogueSignal : SignalAsset
 {
-    public int lineIndex = -1; // -1 means start from beginning
+    public int lineIndex = -1; 
 }

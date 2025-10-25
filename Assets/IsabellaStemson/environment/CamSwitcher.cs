@@ -86,6 +86,13 @@ public class CamSwitcher : MonoBehaviour
     {
         yield return null;
 
+        // Safety check for Camera.main
+        if (Camera.main == null)
+        {
+            Debug.LogWarning("CamSwitcher: No main camera found!");
+            yield break;
+        }
+
         var brain = Camera.main.GetComponent<CinemachineBrain>();
         if (brain != null)
         {
@@ -99,10 +106,14 @@ public class CamSwitcher : MonoBehaviour
                     //Debug.LogWarning($"Check if another camera has higher priority or if there's a Live Timeline overriding");
                 }
             }
+            else
+            {
+                Debug.LogWarning("CamSwitcher: Brain exists but no active virtual camera found!");
+            }
         }
         else
         {
-            //Debug.LogError("No CinemachineBrain found on Main Camera!");
+            Debug.LogWarning("CamSwitcher: No CinemachineBrain found on Main Camera!");
         }
     }
 
@@ -129,11 +140,11 @@ public class CamSwitcher : MonoBehaviour
         {
             if (currentActiveCamera == assignedCamera)
             {
-                Gizmos.color = new Color(0, 1, 0, 0.3f); 
+                Gizmos.color = new Color(0, 1, 0, 0.3f);
             }
             else
             {
-                Gizmos.color = new Color(1, 1, 0, 0.3f); 
+                Gizmos.color = new Color(1, 1, 0, 0.3f);
             }
 
             BoxCollider box = col as BoxCollider;

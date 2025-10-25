@@ -24,9 +24,25 @@ public class PlayerMovement : CryptidUtils
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
         rb = GetComponent<Rigidbody>();
-        followCamera = Camera.main.gameObject;
+
+        // Find camera safely
+        if (Camera.main != null)
+        {
+            followCamera = Camera.main.gameObject;
+        }
+        else
+        {
+            Debug.LogWarning("PlayerMovement: No main camera found! Make sure your camera has the 'MainCamera' tag.");
+            // Try to find any camera as fallback
+            Camera cam = FindObjectOfType<Camera>();
+            if (cam != null)
+            {
+                followCamera = cam.gameObject;
+            }
+        }
+
         rb.useGravity = false;
         rb.drag = 2f;
 
@@ -36,6 +52,16 @@ public class PlayerMovement : CryptidUtils
     // Update is called once per frame
     void Update()
     {
+        if (Camera.main != null)
+        {
+            followCamera = Camera.main.gameObject;
+        }
+
+        if (followCamera == null)
+        {
+            return;
+        }
+
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
@@ -96,7 +122,7 @@ public class PlayerMovement : CryptidUtils
         }
     }
 
-    
+
 
     private void FixedUpdate()
     {

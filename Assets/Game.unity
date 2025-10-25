@@ -1940,7 +1940,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2055,7 +2055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.2
   orientation: {fileID: 606303508}
 --- !u!1001 &64661367
 PrefabInstance:
@@ -9050,6 +9050,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 448384, guid: c6c1b37569120124cbe5cca800bcb9fe, type: 3}
   m_PrefabInstance: {fileID: 262486591}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &263159420 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 498253721416304272, guid: f6ab88624626d1249bd73bcb4a1c7d59, type: 3}
+  m_PrefabInstance: {fileID: 540955399}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &263615111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11022,7 +11027,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -11138,7 +11143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.2
   orientation: {fileID: 1437817271}
 --- !u!1 &326362400
 GameObject:
@@ -13730,7 +13735,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -13849,7 +13854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.2
   orientation: {fileID: 625092201}
 --- !u!4 &425227483 stripped
 Transform:
@@ -18282,6 +18287,10 @@ PrefabInstance:
       value: PlayerGhost
       objectReference: {fileID: 0}
     - target: {fileID: 498253721416304276, guid: f6ab88624626d1249bd73bcb4a1c7d59, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 498253721416304276, guid: f6ab88624626d1249bd73bcb4a1c7d59, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -18389,9 +18398,7 @@ PrefabInstance:
       propertyPath: m_ProvidesContacts
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 498253721416304278, guid: f6ab88624626d1249bd73bcb4a1c7d59, type: 3}
-    - {fileID: 8668498877643125294, guid: f6ab88624626d1249bd73bcb4a1c7d59, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -23216,16 +23223,16 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: -2412117883069496279, guid: 848f68c4cd341f84890111d14ff67043, type: 2}
-    value: {fileID: 540955400}
-  - key: {fileID: 8530978953893198084, guid: 848f68c4cd341f84890111d14ff67043, type: 2}
-    value: {fileID: 928448691}
   - key: {fileID: -7441474469091174834, guid: 848f68c4cd341f84890111d14ff67043, type: 2}
     value: {fileID: 1478497339}
   - key: {fileID: -3113314589117506915, guid: 848f68c4cd341f84890111d14ff67043, type: 2}
     value: {fileID: 1424200707}
   - key: {fileID: -9045480640956753945, guid: 848f68c4cd341f84890111d14ff67043, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 8017880689061273549, guid: 848f68c4cd341f84890111d14ff67043, type: 2}
+    value: {fileID: 540955400}
+  - key: {fileID: 3315662085464858567, guid: 848f68c4cd341f84890111d14ff67043, type: 2}
+    value: {fileID: 928448691}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &645130470 stripped
@@ -23707,7 +23714,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -23824,7 +23831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.2
   orientation: {fileID: 981583958}
 --- !u!1001 &665603589
 PrefabInstance:
@@ -34177,13 +34184,17 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
+    - target: {fileID: 8406845055882037668, guid: 36621476210b2c649b8aeea96b7c2587, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8406845055882037671, guid: 36621476210b2c649b8aeea96b7c2587, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.385
       objectReference: {fileID: 0}
     - target: {fileID: 8406845055882037671, guid: 36621476210b2c649b8aeea96b7c2587, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: 0.115
       objectReference: {fileID: 0}
     - target: {fileID: 8406845055882037671, guid: 36621476210b2c649b8aeea96b7c2587, type: 3}
       propertyPath: m_LocalPosition.z
@@ -41360,7 +41371,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -41478,7 +41489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.2
   orientation: {fileID: 1635140623}
 --- !u!4 &1098385195 stripped
 Transform:
@@ -42339,7 +42350,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -42454,7 +42465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.2
   orientation: {fileID: 952660020}
 --- !u!1001 &1124396608
 PrefabInstance:
@@ -44290,8 +44301,16 @@ MonoBehaviour:
   timelineDirector: {fileID: 643583355}
   playOnStart: 1
   delayBeforePlay: 0.5
-  player: {fileID: 1955883948}
+  cutsceneCamera: {fileID: 1478497338}
+  gameplayCamera: {fileID: 1891423218}
+  switchCameras: 1
+  player: {fileID: 263159420}
   disablePlayerDuringCutscene: 1
+  dialogueManager: {fileID: 1424200709}
+  waitForDialogueBeforeEnding: 1
+  delayAfterDialogue: 0.5
+  cutsceneOnlyObjects:
+  - {fileID: 1764352635}
 --- !u!4 &1177457918
 Transform:
   m_ObjectHideFlags: 0
@@ -54213,39 +54232,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83402204d41fead4e80ef4f01eeb76a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialoguePanel: {fileID: 1925194182}
-  characterNameText: {fileID: 624356665}
-  dialogueText: {fileID: 2021118541}
+  dialogPanel: {fileID: 1925194182}
+  speakerNameText: {fileID: 624356665}
+  dialogText: {fileID: 2021118541}
+  textSpeed: 0.05
   dialogueLines:
   - characterName: You
     dialogueText: W-What happened...
-    typingSpeed: 0.05
-    pauseAfterLine: 2
+    autoAdvanceDelay: 2
   - characterName: You
     dialogueText: Where am I?
-    typingSpeed: 0.05
-    pauseAfterLine: 2.5
+    autoAdvanceDelay: 1.5
   - characterName: Old Phantom
     dialogueText: You're dead!
-    typingSpeed: 0.05
-    pauseAfterLine: 2
+    autoAdvanceDelay: 1.5
   - characterName: Old Phantom
     dialogueText: But your soul doesn't seem to want to move on
-    typingSpeed: 0.05
-    pauseAfterLine: 2
+    autoAdvanceDelay: 2
   - characterName: Old Phantom
     dialogueText: Same thing happened to me you see
-    typingSpeed: 0.05
-    pauseAfterLine: 2
-  - characterName: Wise Phantom
+    autoAdvanceDelay: 1.5
+  - characterName: Old Phantom
     dialogueText: I've accepted my fate, and now I haunt this prison eternally
-    typingSpeed: 0.05
-    pauseAfterLine: 2
+    autoAdvanceDelay: 2
   - characterName: You
     dialogueText: I... I don't know if I want to stay here...
-    typingSpeed: 0.05
-    pauseAfterLine: 1
-  skipToEndOnClick: 1
+    autoAdvanceDelay: 2
 --- !u!4 &1424200710
 Transform:
   m_ObjectHideFlags: 0
@@ -57549,7 +57561,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -57665,7 +57677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.2
   orientation: {fileID: 1631909548}
 --- !u!1001 &1538877320
 PrefabInstance:
@@ -62603,7 +62615,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -62720,7 +62732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.2
   orientation: {fileID: 443962431}
 --- !u!1001 &1693973163
 PrefabInstance:
@@ -65847,6 +65859,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4757011332027952422, guid: 71931735376149040bfeff08569b1862, type: 3}
   m_PrefabInstance: {fileID: 1762774544}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1764352635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8406845055882037674, guid: 36621476210b2c649b8aeea96b7c2587, type: 3}
+  m_PrefabInstance: {fileID: 928448690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1764815677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68170,7 +68187,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -68285,7 +68302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
-  moveSpeed: 0.5
+  moveSpeed: 0.2
   orientation: {fileID: 1225337787}
 --- !u!1001 &1794510324
 PrefabInstance:
@@ -75374,7 +75391,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1891423219}
   - component: {fileID: 1891423218}
-  - component: {fileID: 1891423217}
   - component: {fileID: 1891423223}
   - component: {fileID: 1891423224}
   - component: {fileID: 1891423225}
@@ -75385,14 +75401,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1891423217
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891423216}
-  m_Enabled: 1
 --- !u!20 &1891423218
 Camera:
   m_ObjectHideFlags: 0
@@ -78020,6 +78028,7 @@ GameObject:
   - component: {fileID: 1955883957}
   - component: {fileID: 1955883959}
   - component: {fileID: 1955883958}
+  - component: {fileID: 1955883960}
   m_Layer: 0
   m_Name: PLAYER
   m_TagString: Player
@@ -78036,7 +78045,7 @@ Transform:
   m_GameObject: {fileID: 1955883948}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.23546182, z: -0, w: 0.97188365}
-  m_LocalPosition: {x: -23.184, y: 0.554, z: 25.81}
+  m_LocalPosition: {x: -23.184, y: 0.635, z: 25.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -78056,7 +78065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251ba813ebe765845b5cef16901be95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 0.2
+  movespeed: 0.1
   hoverSpeed: 3
   maxHoverHeight: 10
   minFloatHeight: 0.5
@@ -78076,7 +78085,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.02
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -78088,11 +78097,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 1
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!33 &1955883955
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -82963,6 +82972,23 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1955883960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955883948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b265ef5b08853f4dbd7850b49b784eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1955883953}
+  freezePositionDuringCutscene: 1
+  animator: {fileID: 540955400}
+  pauseAnimatorDuringCutscene: 0
+  characterController: {fileID: 0}
 --- !u!1001 &1957432096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91788,7 +91814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271015371233388558, guid: 4367768462dc89748ab5455e625ba88c, type: 3}
       propertyPath: moveSpeed
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5444128489278612632, guid: 4367768462dc89748ab5455e625ba88c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -91841,6 +91867,10 @@ PrefabInstance:
     - target: {fileID: 5446765346722039507, guid: 4367768462dc89748ab5455e625ba88c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.122703426
+      objectReference: {fileID: 0}
+    - target: {fileID: 5507770960982833016, guid: 4367768462dc89748ab5455e625ba88c, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 6101058318737162322, guid: 4367768462dc89748ab5455e625ba88c, type: 3}
       propertyPath: m_LocalPosition.y

@@ -2,59 +2,71 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Playables;
 
 [System.Serializable]
 public class DialogueLine
 {
     public string characterName;
+    [TextArea(3, 5)]
     public string dialogueText;
-    [Range(0.01f, 0.1f)]
-    public float typingSpeed = 0.05f;
-    public float pauseAfterLine = 1.5f;
+    [Tooltip("How long to wait after typing finishes before auto-advancing (0 = wait for click)")]
+    public float autoAdvanceDelay = 2f;
 }
 
 public class DialogueCutsceneManager : MonoBehaviour
 {
-    
-    [Header("UI References")]
-    [SerializeField] private GameObject dialoguePanel;
-    [SerializeField] private TextMeshProUGUI characterNameText;
-    [SerializeField] private TextMeshProUGUI dialogueText;
+    [Header("Dialog UI")]
+    [SerializeField] private GameObject dialogPanel;
+    [SerializeField] private TextMeshProUGUI speakerNameText;
+    [SerializeField] private TextMeshProUGUI dialogText;
+
+    [Header("Settings")]
+    [SerializeField] private float textSpeed = 0.05f;
 
     [Header("Dialogue Content")]
     [SerializeField] private DialogueLine[] dialogueLines;
 
-    [Header("Settings")]
-    [SerializeField] private bool skipToEndOnClick = true;
-
-    private int currentLineIndex = 0;
+    private int currentLineIndex;
     private bool isTyping = false;
-    private bool isDialogueActive = false;
     private Coroutine typingCoroutine;
+    private System.Action onDialogueComplete;
+
+    public bool IsDialogActive => dialogPanel != null && dialogPanel.activeSelf;
+
+    // Check if all dialogue has been shown
+    public bool IsDialogueComplete()
+    {
+        return !IsDialogActive || currentLineIndex >= dialogueLines.Length;
+    }
 
     private void Start()
     {
-        if (dialoguePanel != null)
-        {
-            dialoguePanel.SetActive(false);
-        }
+        if (dialogPanel != null)
+            dialogPanel.SetActive(false);
     }
 
     private void Update()
     {
-        if (isDialogueActive && skipToEndOnClick && Input.GetMouseButtonDown(0))
+        if (!IsDialogActive) return;
+
+        // Click or press Space to continue dialog
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             if (isTyping)
             {
-                SkipToEndOfLine();
+                // Complete current line immediately
+                CompleteTyping();
             }
-            else if (currentLineIndex < dialogueLines.Length)
+            else
             {
-                DisplayNextLine();
+                // Move to next line
+                NextLine();
             }
         }
     }
 
+    // Called by Timeline Signal
     public void StartDialogue()
     {
         if (dialogueLines.Length == 0)
@@ -63,89 +75,128 @@ public class DialogueCutsceneManager : MonoBehaviour
             return;
         }
 
+        if (dialogPanel.activeSelf) return;
+
         currentLineIndex = 0;
-        isDialogueActive = true;
+        dialogPanel.SetActive(true);
 
-        if (dialoguePanel != null)
-        {
-            dialoguePanel.SetActive(true);
-        }
-
-        DisplayNextLine();
+        DisplayLine();
     }
 
-    public void DisplayNextLine()
+    // Register a callback for when dialogue completes
+    public void SetDialogueCompleteCallback(System.Action callback)
+    {
+        onDialogueComplete = callback;
+    }
+
+    private void DisplayLine()
     {
         if (currentLineIndex >= dialogueLines.Length)
         {
-            EndDialogue();
+            EndDialog();
             return;
         }
 
-        DialogueLine line = dialogueLines[currentLineIndex];
+        DialogueLine currentLine = dialogueLines[currentLineIndex];
 
-        if (characterNameText != null)
-        {
-            characterNameText.text = line.characterName;
-        }
+        if (speakerNameText != null)
+            speakerNameText.text = currentLine.characterName;
 
         if (typingCoroutine != null)
-        {
             StopCoroutine(typingCoroutine);
-        }
 
-        typingCoroutine = StartCoroutine(TypeText(line));
-        currentLineIndex++;
+        typingCoroutine = StartCoroutine(TypeLine(currentLine));
     }
 
-    private IEnumerator TypeText(DialogueLine line)
+    private IEnumerator TypeLine(DialogueLine line)
     {
         isTyping = true;
-        dialogueText.text = "";
+        dialogText.text = "";
 
-        foreach (char letter in line.dialogueText)
+        foreach (char c in line.dialogueText.ToCharArray())
         {
-            dialogueText.text += letter;
-            yield return new WaitForSeconds(line.typingSpeed);
+            dialogText.text += c;
+            yield return new WaitForSeconds(textSpeed);
         }
 
         isTyping = false;
 
-        yield return new WaitForSeconds(line.pauseAfterLine);
-        DisplayNextLine();
+        // Auto-advance after delay if set
+        if (line.autoAdvanceDelay > 0)
+        {
+            yield return new WaitForSeconds(line.autoAdvanceDelay);
+            NextLine();
+        }
     }
 
-    private void SkipToEndOfLine()
+    private void CompleteTyping()
     {
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
+            dialogText.text = dialogueLines[currentLineIndex].dialogueText;
+            isTyping = false;
         }
-
-        if (currentLineIndex > 0 && currentLineIndex <= dialogueLines.Length)
-        {
-            dialogueText.text = dialogueLines[currentLineIndex - 1].dialogueText;
-        }
-
-        isTyping = false;
     }
 
-    private void EndDialogue()
+    private void NextLine()
     {
-        isDialogueActive = false;
-
-        if (dialoguePanel != null)
-        {
-            dialoguePanel.SetActive(false);
-        }
+        currentLineIndex++;
+        DisplayLine();
     }
 
+    private void EndDialog()
+    {
+        dialogPanel.SetActive(false);
+        Debug.Log("Cutscene dialogue ended");
+
+        // Notify that dialogue is complete
+        onDialogueComplete?.Invoke();
+    }
+
+    // Called by Timeline signals if needed
     public void ShowDialogueLine(int lineIndex)
     {
         if (lineIndex >= 0 && lineIndex < dialogueLines.Length)
         {
             currentLineIndex = lineIndex;
-            DisplayNextLine();
+
+            if (!IsDialogActive)
+            {
+                if (dialogPanel != null)
+                    dialogPanel.SetActive(true);
+            }
+
+            DisplayLine();
         }
+    }
+
+    // Called by CutsceneManager when cutscene ends
+    public void ForceEndDialogue()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
+        isTyping = false;
+
+        if (dialogPanel != null)
+        {
+            dialogPanel.SetActive(false);
+        }
+
+        if (dialogText != null)
+        {
+            dialogText.text = "";
+        }
+
+        if (speakerNameText != null)
+        {
+            speakerNameText.text = "";
+        }
+
+        Debug.Log("Cutscene dialogue forcefully ended");
     }
 }
