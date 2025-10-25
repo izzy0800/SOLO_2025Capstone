@@ -9,32 +9,43 @@ namespace Benjathemaker
         public bool rotateX = false;
         public bool rotateY = false;
         public bool rotateZ = false;
-        public float rotationSpeed = 90f; // Degrees per second
+        public float rotationSpeed = 90f;
 
         public bool isFloating = false;
-        public bool useEasingForFloating = false; // Separate toggle for floating ease
-        public float floatHeight = 1f; // Max height displacement
+        public bool useEasingForFloating = false;
+        public float floatHeight = 1f;
         public float floatSpeed = 1f;
         private Vector3 initialPosition;
         private float floatTimer;
+        private float currentFloatOffset; 
 
         private Vector3 initialScale;
         public Vector3 startScale;
         public Vector3 endScale;
-
         public bool isScaling = false;
-        public bool useEasingForScaling = false; // Separate toggle for scaling ease
-        public float scaleLerpSpeed = 1f; // Speed of scaling transition
+        public bool useEasingForScaling = false;
+        public float scaleLerpSpeed = 1f;
         private float scaleTimer;
 
         void Start()
         {
             initialScale = transform.localScale;
             initialPosition = transform.position;
-
-            // Adjust start and end scale based on initial scale
             startScale = initialScale;
             endScale = initialScale * (endScale.magnitude / startScale.magnitude);
+        }
+
+        void OnEnable()
+        {
+            
+            ResetPosition();
+        }
+
+        public void ResetPosition()
+        {
+            
+            initialPosition = transform.position;
+            floatTimer = 0f; 
         }
 
         void Update()
@@ -54,20 +65,18 @@ namespace Benjathemaker
                 floatTimer += Time.deltaTime * floatSpeed;
                 float t = Mathf.PingPong(floatTimer, 1f);
                 if (useEasingForFloating) t = EaseInOutQuad(t);
-
-                transform.position = initialPosition + new Vector3(0, t * floatHeight, 0);
+                currentFloatOffset = t * floatHeight;
+                transform.position = initialPosition + new Vector3(0, currentFloatOffset, 0);
             }
 
             if (isScaling)
             {
                 scaleTimer += Time.deltaTime * scaleLerpSpeed;
-                float t = Mathf.PingPong(scaleTimer, 1f); // Oscillates between 0 and 1
-
+                float t = Mathf.PingPong(scaleTimer, 1f);
                 if (useEasingForScaling)
                 {
                     t = EaseInOutQuad(t);
                 }
-
                 transform.localScale = Vector3.Lerp(startScale, endScale, t);
             }
         }

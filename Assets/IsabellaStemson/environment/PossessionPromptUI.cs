@@ -13,6 +13,8 @@ public class PossessionPromptUI : MonoBehaviour
     [SerializeField] private string possessText = "Press E to Possess";
     [SerializeField] private string puzzleText = "Press E to Solve Puzzle";
     [SerializeField] private string talkText = "Press T to Talk";
+    [SerializeField] private string pickupText = "Press E to Pick Up";
+    [SerializeField] private string giveText = "Press G to Give";
 
     private static PossessionPromptUI instance;
     public static PossessionPromptUI Instance => instance;
@@ -58,6 +60,26 @@ public class PossessionPromptUI : MonoBehaviour
         }
     }
 
+    public void ShowPickupPrompt(string itemName = null)
+    {
+        if (promptPanel != null)
+        {
+            promptPanel.SetActive(true);
+
+            if (promptText != null)
+            {
+                if (!string.IsNullOrEmpty(itemName))
+                {
+                    promptText.text = $"Press E to Pick Up {itemName}";
+                }
+                else
+                {
+                    promptText.text = pickupText;
+                }
+            }
+        }
+    }
+
     public void HidePrompt()
     {
         if (promptPanel != null)
@@ -65,4 +87,18 @@ public class PossessionPromptUI : MonoBehaviour
             promptPanel.SetActive(false);
         }
     }
+
+    public void ShowGivePrompt(string customText = null)
+    {
+        if (promptPanel != null)
+        {
+            promptPanel.SetActive(true);
+
+            if (promptText != null)
+            {
+                promptText.text = !string.IsNullOrEmpty(customText) ? customText : giveText;
+            }
+        }
+    }
+
 }
