@@ -22,7 +22,11 @@ public class DialogManager : MonoBehaviour
     private System.Action onDialogComplete;
 
     private CharacterSwitch characterSwitch;
-    private PlayerMovement currentPlayerMovement;
+
+    // Store references to disable during dialog
+    private Move currentNPCMove;
+    private CameraFollower cameraFollower;
+    private FirstPersonCamera firstPersonCamera;
 
     private static DialogManager instance;
     public static DialogManager Instance => instance;
@@ -40,28 +44,42 @@ public class DialogManager : MonoBehaviour
 
         if (dialogPanel != null)
             dialogPanel.SetActive(false);
+
+        // Clear any default text
+        if (dialogText != null)
+            dialogText.text = "";
+
+        if (speakerNameText != null)
+            speakerNameText.text = "";
     }
 
     private void Start()
     {
         characterSwitch = FindObjectOfType<CharacterSwitch>();
+        cameraFollower = FindObjectOfType<CameraFollower>();
+        firstPersonCamera = FindObjectOfType<FirstPersonCamera>();
     }
 
     private void Update()
     {
         if (!IsDialogActive) return;
 
+        // Block Tab key during dialog
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Debug.Log("Cannot switch to player during dialog!");
+            return; // Consume the Tab input
+        }
+
         // Click or press Space to continue dialog
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             if (isTyping)
             {
-                // Complete current line immediately
                 CompleteTyping();
             }
             else
             {
-                // Move to next line
                 NextLine();
             }
         }
@@ -78,10 +96,8 @@ public class DialogManager : MonoBehaviour
 
         if (dialogPanel.activeSelf) return;
 
-        // Disable player movement during dialog
-        currentPlayerMovement = characterSwitch.npc?.GetComponent<PlayerMovement>();
-        if (currentPlayerMovement != null)
-            currentPlayerMovement.enabled = false;
+        // Disable ALL movement and camera controls
+        DisableAllControls();
 
         // Show cursor for dialog interaction
         Cursor.lockState = CursorLockMode.None;
@@ -98,6 +114,58 @@ public class DialogManager : MonoBehaviour
             speakerNameText.text = speakerName;
 
         DisplayLine();
+    }
+
+    private void DisableAllControls()
+    {
+        // Disable NPC movement
+        if (characterSwitch != null && characterSwitch.npc != null)
+        {
+            currentNPCMove = characterSwitch.npc.GetComponent<Move>();
+            if (currentNPCMove != null)
+            {
+                currentNPCMove.canMove = false;
+            }
+
+            // Stop any existing velocity
+            Rigidbody rb = characterSwitch.npc.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+        }
+
+        // Disable camera looking
+        if (cameraFollower != null)
+        {
+            cameraFollower.canLook = false;
+        }
+
+        if (firstPersonCamera != null)
+        {
+            firstPersonCamera.enabled = false;
+        }
+    }
+
+    private void EnableAllControls()
+    {
+        // Re-enable NPC movement
+        if (currentNPCMove != null)
+        {
+            currentNPCMove.canMove = true;
+        }
+
+        // Re-enable camera looking
+        if (cameraFollower != null)
+        {
+            cameraFollower.canLook = true;
+        }
+
+        if (firstPersonCamera != null)
+        {
+            firstPersonCamera.enabled = true;
+        }
     }
 
     private void DisplayLine()
@@ -146,11 +214,17 @@ public class DialogManager : MonoBehaviour
 
     private void EndDialog()
     {
+        // Clear text before hiding
+        if (dialogText != null)
+            dialogText.text = "";
+
+        if (speakerNameText != null)
+            speakerNameText.text = "";
+
         dialogPanel.SetActive(false);
 
-        // Re-enable player movement
-        if (currentPlayerMovement != null)
-            currentPlayerMovement.enabled = true;
+        // Re-enable all controls
+        EnableAllControls();
 
         // Hide cursor again
         Cursor.lockState = CursorLockMode.Locked;
