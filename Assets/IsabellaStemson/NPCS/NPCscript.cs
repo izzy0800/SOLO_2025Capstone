@@ -111,6 +111,12 @@ public class NPCscript : CryptidUtils
         {
             if (Input.GetKeyDown(KeyCode.E) && !characterSwitch.IsPossessing)
             {
+                // Hide prompt when starting interaction
+                if (PossessionPromptUI.Instance != null)
+                {
+                    PossessionPromptUI.Instance.HidePrompt();
+                }
+
                 if (!hasCompletedMinigame)
                 {
                     if (!inGame)
@@ -123,7 +129,7 @@ public class NPCscript : CryptidUtils
                 }
                 else
                 {
-                    if (rb != null) 
+                    if (rb != null)
                         rb.isKinematic = false;
 
                     playerInRange = false;
@@ -131,9 +137,10 @@ public class NPCscript : CryptidUtils
                 }
             }
         }
+
         if (characterSwitch.IsPossessing && characterSwitch.npc == this.gameObject)
         {
-
+            
         }
     }
 
@@ -291,8 +298,15 @@ public class NPCscript : CryptidUtils
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("fOUND");
+            Debug.Log("Player near NPC");
             playerInRange = true;
+
+            // Show the possession prompt
+            if (!characterSwitch.IsPossessing && PossessionPromptUI.Instance != null)
+            {
+                // Show different prompt based on whether minigame is needed
+                PossessionPromptUI.Instance.ShowPrompt(!hasCompletedMinigame);
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -300,6 +314,12 @@ public class NPCscript : CryptidUtils
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+
+            // Hide the possession prompt
+            if (PossessionPromptUI.Instance != null)
+            {
+                PossessionPromptUI.Instance.HidePrompt();
+            }
         }
     }
 
