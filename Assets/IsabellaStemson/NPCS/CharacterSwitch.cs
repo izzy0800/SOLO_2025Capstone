@@ -4,11 +4,18 @@ using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using Cinemachine;
 using Controller;
+using TMPro;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 
 public class CharacterSwitch : CryptidUtils
 {
+    [Header("Item Drop Warning")]
+    [SerializeField] private GameObject warningPanel;
+    [SerializeField] private TextMeshProUGUI warningText; 
+    [SerializeField] private float warningDuration = 2f;
+    private Coroutine warningCoroutine;
+
     public GameObject player;
     public GameObject npc;
     ParticleSystem playerParticles;
@@ -169,13 +176,58 @@ public class CharacterSwitch : CryptidUtils
 
         if (IsPossessing && Input.GetKeyDown(KeyCode.Tab))
         {
+            if (npc != null)
+            {
+                PickUpSystem pickupSystem = npc.GetComponent<PickUpSystem>();
+                if (pickupSystem != null && pickupSystem.IsHoldingItem())
+                {
+                    ShowItemWarning();
+                    Debug.Log("Cannot unpossess while holding an item!");
+                    return; 
+                }
+            }
             Swap(true);
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.F1))
+    private void ShowItemWarning()
+    {
+        if (warningPanel != null && warningText != null)
         {
-            
+            warningText.text = "Must drop item before returning to phantom";
+            warningPanel.SetActive(true);
+
+            if (warningCoroutine != null)
+            {
+                StopCoroutine(warningCoroutine);
+            }
+
+            warningCoroutine = StartCoroutine(HideWarningAfterDelay());
         }
+    }
+
+    private IEnumerator HideWarningAfterDelay()
+    {
+        yield return new WaitForSeconds(warningDuration);
+
+        if (warningPanel != null)
+        {
+            warningPanel.SetActive(false);
+        }
+
+        warningCoroutine = null;
+    }
+
+    private IEnumerator HidePromptAfterDelay()
+    {
+        yield return new WaitForSeconds(warningDuration);
+
+        if (PossessionPromptUI.Instance != null)
+        {
+            PossessionPromptUI.Instance.HidePrompt();
+        }
+
+        warningCoroutine = null;
     }
 
     private void DisableAllZoneCameras()

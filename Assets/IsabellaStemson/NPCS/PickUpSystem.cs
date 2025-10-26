@@ -139,7 +139,7 @@ public class PickUpSystem : MonoBehaviour
                 {
                     NPCDialogHandler npcDialog = nearbyReceiver.GetComponent<NPCDialogHandler>();
                     string npcName = npcDialog != null ? npcDialog.npcName : nearbyReceiver.name;
-                    promptText = $"{npcName} doesn't want this item (Q to drop or E to hear why)";
+                    promptText = $"Press E/G to Give {itemData.itemName}";
                 }
 
                 if (PossessionPromptUI.Instance != null)
