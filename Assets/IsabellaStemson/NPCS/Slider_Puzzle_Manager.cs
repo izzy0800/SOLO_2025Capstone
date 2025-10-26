@@ -203,7 +203,7 @@ public class Slider_Puzzle_Manager : MonoBehaviour
 
         Canvas canvas = GetComponentInParent<Canvas>();
         Vector3 worldPos = canvas.transform.TransformPoint(snappedPos);
-        bool physicsValid = true; 
+        //bool physicsValid = true; 
 
         // physicsValid = IsPositionValidPhysics(blockComponent, worldPos);
 

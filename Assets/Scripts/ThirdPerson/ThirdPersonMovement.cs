@@ -17,7 +17,6 @@ public class ThirdPersonMovement : MonoBehaviour
     public float movementSpeed = 7;
     public float turnSpeed = 6;
 
-    float groundDrag = 3.5f;
     float airMultiplier = 2;
 
     [Header("Actions")]
@@ -35,18 +34,6 @@ public class ThirdPersonMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         rb.freezeRotation = true;
-    }
-
-    private void Update()
-    {
-        //Ground Check!
-        //isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f); //Can add a layermask.
-        //if (isGrounded)
-        //    rb.drag = groundDrag;
-        //else
-        //    rb.drag = 0;
-
-
     }
 
     private void FixedUpdate()

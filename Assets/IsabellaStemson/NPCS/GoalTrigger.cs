@@ -13,13 +13,11 @@ public class GoalTrigger : MonoBehaviour
     private void Start()
     {
         exitBlock = GameObject.Find("Exit");
-        //Debug.Log(exitBlock != null ? "Exit block found" : "Exit block NOT found");
     }
 
     private void Update()
     {
         updateCount++;
-
         if (exitBlock == null || hasWon) return;
 
         float distance = Vector2.Distance(transform.position, exitBlock.transform.position);
@@ -28,25 +26,25 @@ public class GoalTrigger : MonoBehaviour
         {
             Vector2 ghostPos = transform.position;
             Vector2 exitPos = exitBlock.transform.position;
-
-            //Debug.Log($"Ghost position: {ghostPos}, Exit position: {exitPos}");
-            //Debug.Log($"Distance: {distance} (threshold: {checkDistance})");
         }
 
         if (distance < checkDistance)
         {
-            //Debug.Log($"WIN TRIGGERED! Distance: {distance}");
             hasWon = true;
+
+            if (SoundEffectsManager.Instance != null)
+            {
+                SoundEffectsManager.Instance.PlayPuzzleComplete();
+            }
 
             MiniGameController controller = FindObjectOfType<MiniGameController>();
             if (controller != null)
             {
-                //Debug.Log("Calling controller.OnMiniGamerWin()");
                 controller.OnMiniGamerWin();
             }
             else
             {
-                //Debug.LogError("MiniGameController not found");
+               
             }
         }
     }

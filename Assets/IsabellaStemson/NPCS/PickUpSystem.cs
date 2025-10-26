@@ -65,12 +65,12 @@ public class PickUpSystem : MonoBehaviour
             {
                 if (nearbyReceiver != null)
                 {
-                    
+
                     GiveItem();
                 }
                 else
                 {
-                    
+
                     Drop();
                 }
             }
@@ -172,14 +172,19 @@ public class PickUpSystem : MonoBehaviour
                 showingGivePrompt = false;
             }
 
+            if (SoundEffectsManager.Instance != null)
+            {
+                SoundEffectsManager.Instance.PlayItemDelivery();
+            }
+
             nearbyReceiver.ReceiveItem(itemToGive);
             nearbyReceiver = null;
         }
         else
         {
-            
+
             nearbyReceiver.ReceiveItem(heldObject);
-            
+
         }
     }
 
@@ -286,6 +291,11 @@ public class PickUpSystem : MonoBehaviour
         objectToPickUp = null;
         canPickUp = false;
 
+        if (SoundEffectsManager.Instance != null)
+        {
+            SoundEffectsManager.Instance.PlayItemPickup();
+        }
+
         Debug.Log("Successfully picked up: " + heldObject.name);
 
     }
@@ -311,7 +321,7 @@ public class PickUpSystem : MonoBehaviour
         if (gemsAnim != null)
         {
             gemsAnim.ResetPosition();
-            gemsAnim.enabled = true;  
+            gemsAnim.enabled = true;
         }
 
         Debug.Log($"{gameObject.name} dropped {heldObject.name}");
@@ -338,5 +348,4 @@ public class PickUpSystem : MonoBehaviour
     {
         return heldObject != null;
     }
-
 }
